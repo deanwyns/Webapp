@@ -1,0 +1,137 @@
+// bower:scss
+// endbower
+
+html, body {
+  margin: 0;
+  height: 100%;
+
+  background-color: #f7f7f7;
+}
+
+.container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.left-side {
+  position: fixed;
+
+  top: 0;
+  right: 80%;
+  left: 0;
+  bottom: 0;
+}
+
+.right-side {
+  position: fixed;
+
+  top: 0;
+  right: 0;
+  left: 20%;
+  bottom: 0;
+}
+
+.fabs {
+  position: absolute;
+  right: 20px;
+  top: 160px;
+}
+
+.content-block {
+  position: absolute;
+
+  top: 100px;
+  right: 120px;
+  left: 20%;
+
+  margin-bottom: 50px;
+
+  overflow: auto;
+}
+
+.content-header {
+  margin-top: 0;
+  margin-bottom: 60px;
+}
+
+.content {
+  display: block;
+  overflow: hidden;
+
+  padding: 24px;
+
+  background-color: #fff;
+
+  min-height: 65%;
+
+  h1, h2, h3 {
+    color: #e51c23;
+  }
+}
+
+nav {
+  ul {
+    list-style: none;
+    padding-left: 0;
+
+    li {
+      /*display: inline-block;
+      *display: inline; /*IE7*/
+      /**zoom: 1; /*IE7*/
+
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+}
+
+.menu-item {
+  width: 90%;
+  height: 100px;
+
+  margin-bottom: 15px;
+
+  md-button {
+    width: 100%;
+    height: 100%;
+
+    img {
+      height: 90%;
+    }
+  }
+}
+
+.noselect {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+@media all and (max-width: 800px) {
+  .left-side {
+    display: none;
+  }
+
+  .right-side {
+    left: 0;
+  }
+
+  .md-tall {
+    height: auto !important;
+  }
+
+  .content-block {
+    position: static;
+    top: auto;
+    left: auto;
+    right: auto;
+
+    margin-bottom: 0;
+  }
+}
