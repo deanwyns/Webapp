@@ -8,6 +8,12 @@
  * Controller of the joetzApp
  */
 angular.module('joetzApp')
-  .controller('MainCtrl', function ($scope) {
-    console.log($scope);
+  .controller('MainCtrl', function ($scope, $mdDialog) {
+	  $scope.openDialog = function($event) {
+	    $mdDialog.show({
+	      targetEvent: $event,
+	      controller: 'LoginDialogCtrl',
+	      templateUrl: 'views/loginDialog.html'
+	    });
+	  };
   });

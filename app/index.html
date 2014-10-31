@@ -20,99 +20,43 @@
     <link rel="stylesheet" href="themes/red-theme.css">
 </head>
 
-<body ng-app="joetzApp">
-    <div class="container" md-theme="red">
-        <div class="left-side">
-            <md-toolbar class="md-tall">
-                <!--<h2 class="md-toolbar-tools" style="position: absolute; bottom: 0; left: 0;">
-                    <img src="images/joetz.png" style="width: 100%;" />
-                </h2>-->
-                <div class="md-toolbar-tools">
-                    <img src="images/profiel_m.png" style="width: 55px;" /> Jan Mertens
+<body ng-app="joetzApp" ng-controller="MainCtrl">
+    <div class="container noselect" md-theme="red">
+        <md-toolbar class="md-tall">
+            <!--<h2 class="md-toolbar-tools" style="position: absolute; bottom: 0; left: 0;">
+                <img src="images/joetz.png" style="width: 100%;" />
+            </h2>-->
+            <div class="md-toolbar-tools">
+                <img src="images/profiel_m.png" style="width: 55px;" /> Jan Mertens
+                <div style="position: absolute; right: 0; top: 5px;">
+                    <md-button ng-click="openDialog($event)" aria-label="Inloggen" style="width: 50px; height: 50px;">
+                        <md-icon icon="/images/key.svg" style="width: 24px; height: 24px;"></md-icon>
+                    </md-button>
                 </div>
-            </md-toolbar>
-
-            <nav>
-                <ul>
-                    <li class="menu-item">
-                        <md-button class="md-raised" aria-label="Vakanties">
-                           <img src="images/vakanties.svg" />
-                        </md-button>
-                    </li>
-
-                    <li class="menu-item">
-                        <md-button class="md-raised" aria-label="Foto's">
-                            <img src="images/fotos.svg" />
-                        </md-button>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-        <div class="right-side">
-            <md-toolbar class="md-tall" md-theme="red">
-                <!--<div class="md-toolbar-tools">
-                    <span>Test</span>
-                    <span style="position: absolute; height: 64px; right: 0;">Test</span>
-                </div>-->
-            </md-toolbar>
-
-            <div class="fabs">
-                <md-button class="md-fab" aria-label="Foto's" style="background-color: #fff;">
-                    <md-icon icon="/images/fotos.svg"></md-icon>
-                </md-button>
             </div>
+        </md-toolbar>
+        <nav>
+            <ul>
+                <li class="menu-item">
+                    <md-button class="md-raised" aria-label="Vakanties" style="background-color: #dacc8f;">
+                       <img src="images/vakanties.svg" />
+                    </md-button>
+                </li>
+
+                <li class="menu-item">
+                    <md-button class="md-raised" aria-label="Foto's" style="background-color: #96daa6;">
+                        <img src="images/fotos.svg" />
+                    </md-button>
+                </li>
+            </ul>
+        </nav>
+        <div class="fabs">
+            <md-button class="md-fab" aria-label="Foto's" style="background-color: #fff;">
+                <md-icon icon="/images/fotos.svg"></md-icon>
+            </md-button>
         </div>
-        <div class="content-block noselect md-whiteframe-z1">
-            <div class="content">
-                <h2 class="content-header">Nieuwsoverzicht</h2>
-                Test<br />
-                Test<br />
-                Test<br />
-                Test<br />
-                Test<br />
-                Test<br />
-                Test<br />
-                Test<br />
-                Test<br />
-                Test<br />
-                Test<br />
-                Test<br />
-                Test<br />
-                Test<br />
-                Test<br />
-                Test<br />
-                Test<br />
-                Test<br />
-                Test<br />
-                Test<br />
-                Test<br />
-                Test<br />
-                Test<br />
-                Test<br />
-                Test<br />
-                Test<br />
-                Test<br />
-                Test<br />
-                Test<br />
-                Test<br />
-                Test<br />
-                Test<br />
-                Test<br />
-                Test<br />
-                Test<br />
-                Test<br />
-                Test<br />
-                Test<br />
-                Test<br />
-                Test<br />
-                Test<br />
-                Test<br />
-                Test<br />
-                Test<br />
-                Test<br />
-                Test<br />
-                Test<br />
-            </div>
+        <div class="content-block md-whiteframe-z1">
+            <div ng-view></div>
         </div>
     </div>
 
@@ -159,6 +103,7 @@
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
     <script src="scripts/app.js"></script>
     <script src="scripts/controllers/main.js"></script>
+    <script src="scripts/controllers/loginDialog.js"></script>
     <!-- endbuild -->
 </body>
 
