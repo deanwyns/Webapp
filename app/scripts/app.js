@@ -16,9 +16,16 @@ angular
     'ngRoute',
     'ngSanitize',
     'ngTouch',
-    'ngMaterial'
+    'ngMaterial',
+    'restangular' 
   ])
-  .config(function ($routeProvider) {
+  .config(function ($routeProvider, RestangularProvider) {
+    RestangularProvider.setBaseUrl('http://lloyd.deanwyns.me/api');
+    RestangularProvider.setDefaultHeaders({
+      'Content-Type': 'application/json',
+      'Accept': 'application/vnd.joetz.v1+json'
+    });
+
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',

@@ -2,12 +2,33 @@
 // endbower
 
 @import 'mixins/transition';
+@import 'mixins/animation';
 
 html, body {
   margin: 0;
   height: 100%;
 
   background-color: #f7f7f7;
+}
+
+@include keyframes(contentSlideUp) {
+  from {
+    top: 100%;
+  }
+
+  to {
+    top: 100px;
+  }
+}
+
+@include keyframes(fadeIn) {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 .container {
@@ -19,6 +40,7 @@ html, body {
 
   md-toolbar {
     @include transition(height, 0.25s, ease-in-out);
+    @include animation(fadeIn 0.5s);
 
     position: fixed;
   }
@@ -34,6 +56,7 @@ html, body {
 
 .content-block {
   @include transition(all, 0.25s, ease-in-out);
+  @include animation(contentSlideUp 0.5s);
 
   position: absolute;
 
