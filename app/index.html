@@ -24,7 +24,7 @@
     <div class="container noselect" md-theme="red">
         <md-toolbar class="md-tall">
             <div class="md-toolbar-tools">
-                <img src="images/profiel_m.png" style="width: 55px;" /> Jan Mertens
+                <img src="images/profiel_m.png" style="width: 55px;" /> Jan Mertens {{ email }}
                 <div style="position: absolute; right: 0; top: 5px;">
                     <md-button ng-click="openDialog($event)" aria-label="Inloggen" style="width: 50px; height: 50px;">
                         <!--<md-icon icon="/images/key.svg" style="width: 24px; height: 24px;"></md-icon>-->
@@ -95,8 +95,7 @@
     <script src="bower_components/angular-aria/angular-aria.js"></script>
     <script src="bower_components/hammerjs/hammer.js"></script>
     <script src="bower_components/angular-material/angular-material.js"></script>
-    <script src="bower_components/lodash/dist/lodash.compat.js"></script>
-    <script src="bower_components/restangular/dist/restangular.js"></script>
+    <script src="bower_components/angular-local-storage/dist/angular-local-storage.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -104,8 +103,8 @@
     <script src="scripts/app.js"></script>
     <script src="scripts/controllers/main.js"></script>
     <script src="scripts/controllers/loginDialog.js"></script>
-    <script src="scripts/rest/user.js"></script>
-    <script src="scripts/services/user.js"></script>
+    <script src="scripts/services/auth.js"></script>
+    <script src="scripts/services/authInterceptor.js"></script>
     <!-- endbuild -->
 </body>
 

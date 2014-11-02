@@ -1,16 +1,25 @@
 'use strict';
 
 angular.module('joetzApp')
-  .controller('LoginDialogCtrl', ['$scope', '$mdDialog', 'userService', function ($scope, $mdDialog, userService) {
+  .controller('LoginDialogCtrl', ['$scope', '$mdDialog', 'authService', function ($scope, $mdDialog, authService) {
+	$scope.loginModel = {
+		email: '',
+		password: ''
+	};
+
+	$scope.message = '';
+
 	$scope.cancel = function() {
 		$mdDialog.cancel();
 	};
 
-	$scope.submit = function(loginModel) {
-		userService.login(loginModel).then(function(response) {
+	$scope.submit = function() {
+		$scope.message = '';
+
+		authService.login($scope.loginModel).then(function(response) {
 			$mdDialog.hide(response);
-		}, function() {
-			console.log('error!');
+		}, function(err) {
+			$scope.message = err.error_description;
 		});
 	};
 }]);

@@ -17,15 +17,11 @@ angular
     'ngSanitize',
     'ngTouch',
     'ngMaterial',
-    'restangular' 
+    'LocalStorageModule'
   ])
-  .config(function ($routeProvider, RestangularProvider) {
-    RestangularProvider.setBaseUrl('http://lloyd.deanwyns.me/api');
-    RestangularProvider.setDefaultHeaders({
-      'Content-Type': 'application/json',
-      'Accept': 'application/vnd.joetz.v1+json'
-    });
-
+  .config(function ($routeProvider, $httpProvider) {
+    $httpProvider.interceptors.push('authInterceptorService');
+    
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
@@ -34,4 +30,7 @@ angular
       .otherwise({
         redirectTo: '/'
       });
-  });
+  })
+  .run(['authService', function(authService) {
+    authService.init();
+  }]);

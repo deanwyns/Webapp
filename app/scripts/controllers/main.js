@@ -14,8 +14,8 @@ angular.module('joetzApp')
 			targetEvent: $event,
 			controller: 'LoginDialogCtrl',
 			templateUrl: 'views/loginDialog.html'
-		}).then(function() {
-			//Ingelogd
+		}).then(function(response) {
+			$scope.email = response.access_token;
 		}, function() {
 			//Cancelled
 		});

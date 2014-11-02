@@ -3,13 +3,14 @@
     <form style="padding: 20px;">
       <md-text-float label="E-mailadres" ng-model="loginModel.email"> </md-text-float>
       <md-text-float label="Wachtwoord" ng-model="loginModel.password" type="password"> </md-text-float>
+      {{ message }}
     </form>
   </md-content>
   <div class="md-actions" layout="horizontal" layout-align="end">
     <md-button ng-click="cancel()">
       Annuleren
     </md-button>
-    <md-button class="md-primary" ng-click="submit(loginModel)">
+    <md-button class="md-primary" ng-click="submit()">
       Inloggen
     </md-button>
   </div>

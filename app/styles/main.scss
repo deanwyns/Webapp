@@ -51,7 +51,7 @@ html, body {
   right: 20px;
   top: 160px;
 
-  z-index: 9;
+  z-index: 6;
 }
 
 .content-block {
@@ -68,7 +68,7 @@ html, body {
 
   overflow: auto;
 
-  z-index: 9; /* IE */
+  z-index: 6;
 }
 
 .content-header {
