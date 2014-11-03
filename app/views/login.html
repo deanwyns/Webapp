@@ -1,0 +1,12 @@
+<div class="content">
+  <h2 class="content-header">Inloggen</h2>
+
+  <form style="padding-left: 20px; padding-bottom: 20px;">
+    <md-text-float label="E-mailadres" ng-model="loginModel.email"> </md-text-float>
+    <md-text-float label="Wachtwoord" ng-model="loginModel.password" type="password"> </md-text-float>
+    {{ message }}
+  </form>
+  <md-button class="md-primary" ng-click="submit()">
+    Inloggen
+  </md-button>
+</div>

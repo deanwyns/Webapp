@@ -1,0 +1,19 @@
+<div class="content">
+	<h2 class="content-header">Registreren</h2>
+
+  <form style="padding-left: 20px; padding-bottom: 20px;">
+  	<div class="row">
+  		<md-text-float label="Voornaam" ng-model="registerModel.first_name"> </md-text-float>
+  		<md-text-float label="Naam" ng-model="registerModel.last_name"> </md-text-float>
+  	</div>
+    <md-text-float label="E-mailadres" ng-model="registerModel.email"> </md-text-float>
+
+    <div class="row">
+      <md-text-float label="Wachtwoord" ng-model="registerModel.password" type="password"> </md-text-float>
+      <md-text-float label="Wachtwoord bevestigen" ng-model="registerModel.password_confirmation" type="password"> </md-text-float>
+    </div>
+  </form>
+  <md-button class="md-primary" ng-click="submit()">
+    Registreren
+  </md-button>
+</div>

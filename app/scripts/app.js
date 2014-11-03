@@ -17,20 +17,29 @@ angular
     'ngSanitize',
     'ngTouch',
     'ngMaterial',
-    'LocalStorageModule'
+    'LocalStorageModule',
+    'ajoslin.promise-tracker'
   ])
-  .config(function ($routeProvider, $httpProvider) {
-    $httpProvider.interceptors.push('authInterceptorService');
+  .config(function ($routeProvider) {
+    //$httpProvider.interceptors.push('authInterceptorService');
     
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
         controller: 'MainCtrl'
       })
+      .when('/login', {
+        templateUrl: 'views/login.html',
+        controller: 'LoginCtrl'
+      })
+      .when('/register', {
+        templateUrl: 'views/register.html',
+        controller: 'RegisterCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });
   })
-  .run(['authService', function(authService) {
-    authService.init();
+  .run(['userService', function(userService) {
+    userService.init();
   }]);

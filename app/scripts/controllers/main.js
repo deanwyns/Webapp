@@ -8,14 +8,19 @@
  * Controller of the joetzApp
  */
 angular.module('joetzApp')
-  .controller('MainCtrl', ['$scope', '$mdDialog', function ($scope, $mdDialog) {
+  .controller('MainCtrl', ['$scope', '$mdDialog', 'userService', function ($scope, $mdDialog, userService) {
+  	var user = userService.getUser();
+  	if(user.isAuth) {
+  		$scope.user = user;
+  	}
+  	
 	$scope.openDialog = function($event) {
 		$mdDialog.show({
 			targetEvent: $event,
 			controller: 'LoginDialogCtrl',
 			templateUrl: 'views/loginDialog.html'
-		}).then(function(response) {
-			$scope.email = response.access_token;
+		}).then(function(user) {
+			$scope.user = user;
 		}, function() {
 			//Cancelled
 		});

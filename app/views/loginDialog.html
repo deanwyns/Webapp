@@ -1,5 +1,10 @@
 <md-dialog aria-label="Inloggen" md-theme="red">
   <md-content>
+    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 99;"
+      ng-show="loginTracker.active()">
+      <md-progress-circular mode="indeterminate" style="background-color: #eee; margin: auto; position: relative; top: 50%;"></md-progress-circular>
+    </div>
+
     <form style="padding: 20px;">
       <md-text-float label="E-mailadres" ng-model="loginModel.email"> </md-text-float>
       <md-text-float label="Wachtwoord" ng-model="loginModel.password" type="password"> </md-text-float>
@@ -10,7 +15,7 @@
     <md-button ng-click="cancel()">
       Annuleren
     </md-button>
-    <md-button class="md-primary" ng-click="submit()">
+    <md-button class="md-primary" ng-click="submit()" ng-diabled="loginTracker.active()">
       Inloggen
     </md-button>
   </div>

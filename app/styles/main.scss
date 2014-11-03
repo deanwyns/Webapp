@@ -141,6 +141,30 @@ nav {
   user-select: none;
 }
 
+form > .row {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  -moz-align-items: center;
+  align-items: center;
+  -webkit-box-direction: normal;
+  -webkit-box-orient: horizontal;
+  -webkit-flex-direction: row;
+  -moz-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+
+  > * {
+    margin-right: 10px;
+  }
+}
+
 md-dialog {
   md-content {
     padding: 24px;
@@ -150,6 +174,10 @@ md-dialog {
   .md-actions {
     background-color: #eee;
   }
+}
+
+md-progress-circular.md-red-theme .md-inset {
+  background-color: #f6f6f6 !important;
 }
 
 @media all and (max-width: 800px) {
