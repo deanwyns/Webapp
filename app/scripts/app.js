@@ -39,7 +39,4 @@ angular
       .otherwise({
         redirectTo: '/'
       });
-  })
-  .run(['userService', function(userService) {
-    userService.init();
-  }]);
+  });

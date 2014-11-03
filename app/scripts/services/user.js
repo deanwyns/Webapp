@@ -7,8 +7,7 @@ angular.module('joetzApp')
 				'Accept': 'application/vnd.joetz.v1+json'
 			};
 
-		var authData = localStorageService.get('authData'),
-			userService = {},
+		var	userService = {},
 			_user = {
 				firstName: '',
 				lastName: '',
@@ -38,9 +37,14 @@ angular.module('joetzApp')
 				});
 
 				_user.token = token;
-				_user.isAuth = true;
+				_getProfile().then(function() {
+					_user.isAuth = true;
 
-				defer.resolve(response);
+					defer.resolve(_user);
+				}, function(err) {
+					_logout();
+					defer.reject(err);
+				});
 			}).error(function(err) {
 				_logout();
 				defer.reject(err);
@@ -58,35 +62,43 @@ angular.module('joetzApp')
 
 		var _init = function() {
 			var authData = localStorageService.get('authData');
+			var defer = $q.defer();
+
 			if(authData) {
 				_user.token = authData.token;
-				_user.isAuth = true;
-
 				_getProfile().then(function() {
-					console.log(_user);
+					_user.isAuth = true;
+
+					defer.resolve(_user);
+				}, function() {
+					_logout();
+
+					defer.reject();
 				});
 			}
+
+			return defer.promise;
 		};
 
 		var _getProfile = function() {
 			var defer = $q.defer();
 
 			var headers = defaultHeaders;
-			headers.Authorization = authData.token;
+			headers.Authorization = _user.token;
 
 			$http({
 				method: 'GET',
 				url: baseUrl + 'user/me',
 				headers: headers
 			}).success(function(response) {
-				console.log(response);
-				_user.firstName = response.first_name;
-				_user.lastName = response.last_name;
-				_user.email = response.email;
+				var userResponse = response.user;
+				//_user.firstName = userResponse.first_name;
+				//_user.lastName = userResponse.last_name;
+				_user.email = userResponse.email;
 
-				defer.resolve(_user);
-			}).error(function(err) {
-				defer.reject(err);
+				defer.resolve();
+			}).error(function() {
+				defer.reject();
 			});
 
 			return defer.promise;

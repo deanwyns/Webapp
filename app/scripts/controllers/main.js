@@ -9,10 +9,11 @@
  */
 angular.module('joetzApp')
   .controller('MainCtrl', ['$scope', '$mdDialog', 'userService', function ($scope, $mdDialog, userService) {
-  	var user = userService.getUser();
-  	if(user.isAuth) {
-  		$scope.user = user;
-  	}
+  	userService.init().then(function(user) {
+  		if(user.isAuth) {
+  			$scope.user = user;
+  		}
+  	});
   	
 	$scope.openDialog = function($event) {
 		$mdDialog.show({
@@ -20,9 +21,14 @@ angular.module('joetzApp')
 			controller: 'LoginDialogCtrl',
 			templateUrl: 'views/loginDialog.html'
 		}).then(function(user) {
+			console.log(user);
 			$scope.user = user;
 		}, function() {
 			//Cancelled
 		});
+	};
+
+	$scope.logout = function() {
+		userService.logout();
 	};
 }]);
