@@ -8,27 +8,76 @@
  * Controller of the joetzApp
  */
 angular.module('joetzApp')
-  .controller('MainCtrl', ['$scope', '$mdDialog', 'userService', function ($scope, $mdDialog, userService) {
-  	userService.init().then(function(user) {
-  		if(user.isAuth) {
-  			$scope.user = user;
-  		}
-  	});
-  	
-	$scope.openDialog = function($event) {
-		$mdDialog.show({
-			targetEvent: $event,
-			controller: 'LoginDialogCtrl',
-			templateUrl: 'views/loginDialog.html'
-		}).then(function(user) {
-			console.log(user);
-			$scope.user = user;
-		}, function() {
-			//Cancelled
-		});
-	};
+    .controller('MainCtrl', ['$scope', '$rootScope', '$mdDialog', 'userService', '$window', '$timeout',
+        function($scope, $rootScope, $mdDialog, userService, $window, $timeout) {
+            var _isMobile = function() {
+                if (document.querySelector('md-toolbar').offsetHeight === 64) {
+                    $scope.previousMobile = true;
+                    return true;
+                } else {
+                    $scope.previousMobile = false;
+                    return false;
+                }
+            };
+            $scope.isMobile = _isMobile();
 
-	$scope.logout = function() {
-		userService.logout();
-	};
-}]);
+            angular.element($window).bind('resize', function() {
+                if ($scope.previousMobile !== _isMobile()) {
+                    $scope.$apply(function() {
+                        $scope.isMobile = _isMobile();
+                    });
+                }
+            });
+
+            userService.init().then(function(user) {
+                if (user.isAuth) {
+                    $timeout(function() {
+                        $scope.$broadcast('user:loggedIn', user);
+                    });
+                }
+
+                $timeout(function() {
+                    $rootScope.$broadcast('loading:done');
+                });
+            }, function() {
+                $timeout(function() {
+                    $rootScope.$broadcast('loading:done');
+                });
+            });
+
+            var _onUserLoggedIn = function(event, user) {
+                $scope.user = user;
+            };
+
+            var _onUserLoggedOut = function() {
+                $scope.user = {};
+            };
+
+            var _openDialog = function($event) {
+                $mdDialog.show({
+                    targetEvent: $event,
+                    controller: 'LoginDialogCtrl',
+                    templateUrl: 'views/loginDialog.html'
+                }).then(function(user) {
+                    $timeout(function() {
+                        $scope.$broadcast('user:loggedIn', user);
+                    });
+                }, function() {
+                    //Cancelled
+                });
+            };
+
+            var _logout = function() {
+                userService.logout();
+
+                $timeout(function() {
+                    $scope.$broadcast('user:loggedOut');
+                });
+            };
+
+            $scope.openDialog = _openDialog;
+            $scope.logout = _logout;
+
+            $scope.$on('user:loggedIn', _onUserLoggedIn);
+            $scope.$on('user:loggedOut', _onUserLoggedOut);
+    }]);

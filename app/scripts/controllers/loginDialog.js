@@ -18,8 +18,8 @@ angular.module('joetzApp')
 		$scope.submit = function() {
 			$scope.message = '';
 
-			var userPromise = userService.login($scope.loginModel).then(function(response) {
-				$mdDialog.hide(response);
+			var userPromise = userService.login($scope.loginModel).then(function(user) {
+				$mdDialog.hide(user);
 			}, function(err) {
 				$scope.message = err.error_description;
 			});

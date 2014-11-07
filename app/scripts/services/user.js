@@ -53,6 +53,42 @@ angular.module('joetzApp')
 			return defer.promise;
 		};
 
+		var _register = function(registerModel) {
+			var data = 'email=' + registerModel.email +
+						'&password=' + registerModel.password +
+						'&password_confirmed=' + registerModel.password_confirmation +
+						'&phone_number=' + registerModel.phone_number,
+				defer = $q.defer();
+
+			if(registerModel.first_name_mother) {
+				data += '&first_name_mother=' + registerModel.first_name_mother +
+						'&last_name_mother=' + registerModel.last_name_mother +
+						'&nrn_mother=' + registerModel.nrn_mother;
+			}
+
+			if(registerModel.first_name_father) {
+				data += '&first_name_father=' + registerModel.first_name_father +
+						'&last_name_father=' + registerModel.last_name_father +
+						'&nrn_father=' + registerModel.nrn_father;
+			}
+
+			var headers = defaultHeaders;
+			headers['Content-Type'] = 'application/x-www-form-urlencoded';
+
+			$http({
+				method: 'POST',
+				url: baseUrl + 'user',
+				data: data,
+				headers: headers
+			}).success(function(response) {
+				defer.resolve(response);
+			}).error(function(err) {
+				defer.reject(err);
+			});
+
+			return defer.promise;
+		};
+
 		var _logout = function() {
 			localStorageService.remove('authData');
 
@@ -61,8 +97,8 @@ angular.module('joetzApp')
 		};
 
 		var _init = function() {
-			var authData = localStorageService.get('authData');
-			var defer = $q.defer();
+			var authData = localStorageService.get('authData'),
+				defer = $q.defer();
 
 			if(authData) {
 				_user.token = authData.token;
@@ -75,6 +111,8 @@ angular.module('joetzApp')
 
 					defer.reject();
 				});
+			} else {
+				defer.reject();
 			}
 
 			return defer.promise;
@@ -108,9 +146,10 @@ angular.module('joetzApp')
 			return _user;
 		};
 
-		userService.login = _login;
-		userService.logout = _logout;
 		userService.init = _init;
+		userService.login = _login;
+		userService.register = _register;
+		userService.logout = _logout;
 		userService.getUser = _getUser;
 
 		userService.getProfile = _getProfile;

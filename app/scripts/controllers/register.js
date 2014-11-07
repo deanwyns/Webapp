@@ -1,24 +1,35 @@
 'use strict';
 
 angular.module('joetzApp')
-  .controller('RegisterCtrl', ['$scope', 'userService', function ($scope, userService) {
+  .controller('RegisterCtrl', ['$scope', 'userService', 'promiseTracker', function ($scope, userService, promiseTracker) {
+	$scope.errors = {};
 	$scope.registerModel = {
 		first_name: '',
 		last_name: '',
 		email: '',
 		password: '',
-		password_confirmation: ''
+		password_confirmation: '',
+		phone_number: ''
 	};
+
+	$scope.registerTracker = promiseTracker();
 
 	$scope.message = '';
 
+	/*var _validate = function() {
+
+	}*/
+
 	$scope.submit = function() {
+
 		$scope.message = '';
 
-		userService.login($scope.loginModel).then(function(response) {
-			$scope.message = response;
+		var userPromise = userService.register($scope.registerModel).then(function(response) {
+			console.log(response);
 		}, function(err) {
-			$scope.message = err.error_description;
+			$scope.message = err;
 		});
+
+		$scope.registerTracker.addPromise(userPromise);
 	};
 }]);

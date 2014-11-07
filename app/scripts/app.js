@@ -36,7 +36,18 @@ angular
         templateUrl: 'views/register.html',
         controller: 'RegisterCtrl'
       })
+      .when('/menu', {
+        templateUrl: 'views/menu.html',
+        controller: 'MenuCtrl'
+      })
+      .when('/vakanties', {
+        templateUrl: 'views/vacations.html',
+        controller: 'VacationCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });
+  })
+  .run(function() {
+    angular.element(document.querySelector('loading-screen')).attr('loading', '');
   });

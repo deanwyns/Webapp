@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <title></title>
     <meta name="description" content="">
-    <meta name="viewport" content="width=device-width">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
@@ -21,50 +21,59 @@
 </head>
 
 <body ng-app="joetzApp" ng-controller="MainCtrl">
-    <div class="splash" ng-cloak>
-        <div class="splash-text">
-            <img src="images/joetz.png" />
-            Aan het laden ...
-        </div>
-    </div>
+    <loading-screen loading-text="Aan het laden ..." loading-image="images/joetz.png"></loading-screen>
     <div class="container noselect" md-theme="red">
         <md-toolbar class="md-tall">
-            <div class="md-toolbar-tools">
-                <div ng-show="user">
-                    <img src="images/profiel_m.png" style="width: 55px;" /> {{ user.email }}
+            <div class="md-toolbar-tools md-toolbar-tools-top">
+                <div ng-show="user.isAuth">
+                    <img src="images/profiel_m.png" style="height: 58px;" />
+                    <span style="position: relative; top: 50%;">{{ user.email }}</span>
                 </div>
                 <div style="position: absolute; right: 0; top: 5px;">
-                    <md-button ng-hide="user" ng-click="openDialog($event)" aria-label="Inloggen" style="width: 50px; height: 50px;">
-                        <img src="/images/key.svg" style="width: 24px; height: 24px;" />
-                    </md-button>
-                    <md-button ng-show="user" ng-click="logout()" aria-label="Uitloggen" style="width: 50px; height: 50px;">
-                        <img src="/images/logout.svg" style="width: 24px; height: 24px;" />
-                    </md-button>
+                    <div ng-hide="user.isAuth">
+                        <md-button href="#/register" aria-label="Registreren" style="width: 40px; height: 40px;">
+                            <img src="images/register.svg" style="width: 100%;" />
+                        </md-button>
+                        <md-button ng-click="openDialog($event)" aria-label="Inloggen" style="width: 40px; height: 40px;">
+                            <img src="images/key.svg" style="width: 100%;" />
+                        </md-button>
+                    </div>
+                    <div ng-show="user.isAuth">
+                        <md-button ng-click="logout()" aria-label="Uitloggen" style="width: 40px; height: 40px;">
+                            <img src="images/logout.svg" style="width: 100%;" />
+                        </md-button>
+                    </div>
                 </div>
             </div>
         </md-toolbar>
-        <nav>
-            <ul>
-                <li class="menu-item">
-                    <md-button class="md-raised" aria-label="Vakanties" style="background-color: #dacc8f;">
-                       <img src="images/vakanties.svg" />
-                    </md-button>
-                </li>
-
-                <li class="menu-item">
-                    <md-button class="md-raised" aria-label="Foto's" style="background-color: #96daa6;">
-                        <img src="images/fotos.svg" />
-                    </md-button>
-                </li>
-            </ul>
-        </nav>
         <div class="fabs">
             <md-button class="md-fab" aria-label="Foto's" style="background-color: #fff;">
-                <md-icon icon="/images/fotos.svg"></md-icon>
+                <md-icon icon="images/fotos.svg"></md-icon>
             </md-button>
         </div>
-        <div class="content-block md-whiteframe-z1">
-            <div ng-view></div>
+        <div class="content-block">
+            <nav>
+                <ul>
+                    <li class="menu-item">
+                        <md-button href="#/nieuws" ng-class="{ 'md-raised': !isMobile }" aria-label="Nieuwsoverzicht" style="background-color: #62b9cd;">
+                            <img src="images/nieuws.svg" style="height: 100%;" />
+                        </md-button>
+                    </li>
+
+                    <li class="menu-item">
+                        <md-button href="#/vakanties" ng-class="{ 'md-raised': !isMobile }" aria-label="Vakanties" style="background-color: #dacc8f;">
+                           <img src="images/vakanties.svg" style="height: 100%;" />
+                        </md-button>
+                    </li>
+
+                    <li class="menu-item">
+                        <md-button ng-class="{ 'md-raised': !isMobile }" aria-label="Foto's" style="background-color: #96daa6;">
+                            <img src="images/fotos.svg" style="height: 100%;" />
+                        </md-button>
+                    </li>
+                </ul>
+            </nav>
+            <div ng-view ng-class="{ 'md-whiteframe-z1': !isMobile }"></div>
         </div>
     </div>
 
@@ -112,10 +121,12 @@
 
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
     <script src="scripts/app.js"></script>
+    <script src="scripts/directives/loadingScreen.js"></script>
     <script src="scripts/controllers/main.js"></script>
     <script src="scripts/controllers/login.js"></script>
     <script src="scripts/controllers/loginDialog.js"></script>
     <script src="scripts/controllers/register.js"></script>
+    <script src="scripts/controllers/vacation.js"></script>
     <script src="scripts/services/user.js"></script>
     <script src="scripts/services/authInterceptor.js"></script>
     <!-- endbuild -->
