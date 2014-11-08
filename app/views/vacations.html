@@ -1,4 +1,11 @@
 <div class="content">
     <h2 class="content-header">Vakantieoverzicht</h2>
-    Ja ja
+    <md-list>
+        <md-item ng-repeat="vacation in vacations">
+            <h3>{{ vacation.title }}</h3>
+            <p>{{ vacation.description }}</p>
+            <p>{{ vacation.ageFrom }} {{ vacation.ageTo }}</p>
+            <p>{{ vacation.transportation }}</p>
+        </md-item>
+    </md-list>
 </div>

@@ -1,16 +1,11 @@
 'use strict';
 
 angular.module('joetzApp')
-	.factory('userService', ['$http', 'localStorageService', '$q', function($http, localStorageService, $q) {
-		var baseUrl = 'http://lloyd.deanwyns.me/api/',
-			defaultHeaders = {
-				'Accept': 'application/vnd.joetz.v1+json'
-			};
+	.factory('userService', ['$http', 'localStorageService', '$q', 'queryBuilder', function($http, localStorageService, $q, queryBuilder) {
+		var baseUrl = 'http://lloyd.deanwyns.me/api/';
 
 		var	userService = {},
 			_user = {
-				firstName: '',
-				lastName: '',
 				email: '',
 				token: '',
 				isAuth: false
@@ -20,9 +15,9 @@ angular.module('joetzApp')
 			var data = 'grant_type=password&client_id=NZCYDfK2AWhrZF38mNg9uXQGN2hhzWj7hQHcLuBB' +
 				'&client_secret=Dw!\'Lr_:brzeX?Bm8Uc]>\\JrtKmjt{]->Ru.3>Q_' +
 				'&username=' + loginModel.email + '&password=' + loginModel.password,
-				defer = $q.defer();
+				defer = $q.defer(),
+				headers = {};
 
-			var headers = defaultHeaders;
 			headers['Content-Type'] = 'application/x-www-form-urlencoded';
 
 			$http({
@@ -54,11 +49,12 @@ angular.module('joetzApp')
 		};
 
 		var _register = function(registerModel) {
-			var data = 'email=' + registerModel.email +
+			/*var data = 'email=' + registerModel.email +
 						'&password=' + registerModel.password +
 						'&password_confirmed=' + registerModel.password_confirmation +
 						'&phone_number=' + registerModel.phone_number,
-				defer = $q.defer();
+				defer = $q.defer(),
+				headers = {};
 
 			if(registerModel.first_name_mother) {
 				data += '&first_name_mother=' + registerModel.first_name_mother +
@@ -70,14 +66,39 @@ angular.module('joetzApp')
 				data += '&first_name_father=' + registerModel.first_name_father +
 						'&last_name_father=' + registerModel.last_name_father +
 						'&nrn_father=' + registerModel.nrn_father;
-			}
+			}*/
+			var defer = $q.defer(),
+				headers = {},
+				data = queryBuilder.build(registerModel);
 
-			var headers = defaultHeaders;
+			console.log(data);
+
 			headers['Content-Type'] = 'application/x-www-form-urlencoded';
 
 			$http({
 				method: 'POST',
 				url: baseUrl + 'user',
+				data: data,
+				headers: headers
+			}).success(function(response) {
+				defer.resolve(response);
+			}).error(function(err) {
+				defer.reject(err);
+			});
+
+			return defer.promise;
+		};
+
+		var _update = function(updateModel, id) {
+			var defer = $q.defer(),
+				headers = {},
+				data = queryBuilder.build(updateModel);
+
+			headers['Content-Type'] = 'application/x-www-form-urlencoded';
+
+			$http({
+				method: 'PUT',
+				url: baseUrl + 'user/' + id,
 				data: data,
 				headers: headers
 			}).success(function(response) {
@@ -119,9 +140,9 @@ angular.module('joetzApp')
 		};
 
 		var _getProfile = function() {
-			var defer = $q.defer();
+			var defer = $q.defer(),
+				headers = {};
 
-			var headers = defaultHeaders;
 			headers.Authorization = _user.token;
 
 			$http({
@@ -146,11 +167,22 @@ angular.module('joetzApp')
 			return _user;
 		};
 
+		var _isAuthenticated = function() {
+			return _user.isAuth;
+		};
+
+		var _getToken = function() {
+			return _user.token;
+		};
+
 		userService.init = _init;
 		userService.login = _login;
 		userService.register = _register;
+		userService.update = _update;
 		userService.logout = _logout;
 		userService.getUser = _getUser;
+		userService.isAuthenticated = _isAuthenticated;
+		userService.getToken = _getToken;
 
 		userService.getProfile = _getProfile;
 
