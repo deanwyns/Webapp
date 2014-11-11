@@ -2,7 +2,7 @@
 
 angular.module('joetzApp')
 	.factory('vacationService', ['$http', '$q', 'queryBuilder', 'userService', function($http, $q, queryBuilder, userService) {
-		var baseUrl = 'http://lloyd.deanwyns.me/api/vacation',
+		var baseUrl = 'http://lloyd.deanwyns.me/api/vacation/',
 			vacationService = {};
 
 		var _getVacations = function() {
