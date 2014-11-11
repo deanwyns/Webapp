@@ -20,6 +20,21 @@ angular.module('joetzApp')
 			return defer.promise;
 		};
 
+		var _getVacation = function(id) {
+			var defer = $q.defer();
+
+			$http({
+				method: 'GET',
+				url: baseUrl + id
+			}).success(function(response) {
+				defer.resolve(response.vacation);
+			}).error(function(err) {
+				defer.reject(err);
+			});
+
+			return defer.promise;
+		};
+
 		var _addVacation = function(vacationModel) {
 			var defer = $q.defer(),
 				data = queryBuilder.build(vacationModel),
@@ -40,11 +55,12 @@ angular.module('joetzApp')
 						'&endDate=' + vacationModel.endDate;*/
 
 			if(!userService.isAuthenticated()) {
-				defer.reject();
-				return defer;
+				defer.reject('Niet toegestaan');
+				return defer.promise;
 			}
 
 			headers.Authorization = userService.getToken();
+			headers['Content-Type'] = 'application/x-www-form-urlencoded';
 
 			$http({
 				method: 'POST',
@@ -59,7 +75,7 @@ angular.module('joetzApp')
 				defer.reject(err);
 			});
 
-			return defer;
+			return defer.promise;
 		};
 
 		var _updateVacation = function(vacationModel, id) {
@@ -82,15 +98,16 @@ angular.module('joetzApp')
 						'&endDate=' + vacationModel.endDate;*/
 
 			if(!userService.isAuthenticated()) {
-				defer.reject();
-				return defer;
+				defer.reject('Niet toegestaan');
+				return defer.promise;
 			}
 
 			headers.Authorization = userService.getToken();
+			headers['Content-Type'] = 'application/x-www-form-urlencoded';
 
 			$http({
 				method: 'PUT',
-				url: baseUrl + '/' + id,
+				url: baseUrl + id,
 				data: data,
 				headers: headers
 			}).success(function(response) {
@@ -101,7 +118,7 @@ angular.module('joetzApp')
 				defer.reject(err);
 			});
 
-			return defer;
+			return defer.promise;
 		};
 
 		var _deleteVacation = function(id) {
@@ -109,15 +126,15 @@ angular.module('joetzApp')
 				headers = {};
 
 			if(!userService.isAuthenticated()) {
-				defer.reject();
-				return defer;
+				defer.reject('Niet toegestaan');
+				return defer.promise;
 			}
 
 			headers.Authorization = userService.getToken();
 
 			$http({
 				method: 'DELETE',
-				url: baseUrl + '/' + id,
+				url: baseUrl + id,
 				headers: headers
 			}).success(function() {
 				defer.resolve();
@@ -129,6 +146,7 @@ angular.module('joetzApp')
 		};
 
 		vacationService.getVacations = _getVacations;
+		vacationService.getVacation = _getVacation;
 		vacationService.updateVacation = _updateVacation;
 		vacationService.addVacation = _addVacation;
 		vacationService.deleteVacation = _deleteVacation;

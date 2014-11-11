@@ -14,7 +14,7 @@ angular.module('joetzApp')
 					rtn += '&';
 				}
 
-				rtn += property + '=' + model[property];
+				rtn += property + '=' + encodeURIComponent(model[property]);
 			}
 
 			return rtn;

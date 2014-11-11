@@ -49,11 +49,6 @@ fieldset {
   }
 }
 
-.ng-enter {
-  z-index: 9998;
-  @include animation(slideUp 0.5s ease-in-out);
-}
-
 loading-screen {
   display: none;
 
@@ -90,7 +85,7 @@ loading-screen {
     }
   }
 
-  &[loading] {
+  &[loading], &[ng-cloak] {
     display: block !important;
   }
 }
@@ -187,7 +182,7 @@ nav {
 
   margin-bottom: 15px;
 
-  md-button {
+  .md-button {
     width: 100%;
     height: 100%;
   }

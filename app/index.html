@@ -21,7 +21,7 @@
 </head>
 
 <body ng-app="joetzApp" ng-controller="MainCtrl">
-    <loading-screen loading-text="Aan het laden ..." loading-image="images/joetz.png"></loading-screen>
+    <loading-screen loading-text="Aan het laden ..." loading-image="images/joetz.png" ng-cloak loading></loading-screen>
     <div class="container noselect" md-theme="red">
         <md-toolbar class="md-tall">
             <div class="md-toolbar-tools md-toolbar-tools-top">
@@ -31,7 +31,7 @@
                 </div>
                 <div style="position: absolute; right: 0; top: 5px;">
                     <div ng-hide="user.isAuth">
-                        <md-button href="#/register" aria-label="Registreren" style="width: 40px; height: 40px;">
+                        <md-button ui-sref="register" aria-label="Registreren" style="width: 40px; height: 40px;">
                             <img src="images/register.svg" style="width: 100%;" />
                         </md-button>
                         <md-button ng-click="openDialog($event)" aria-label="Inloggen" style="width: 40px; height: 40px;">
@@ -55,13 +55,13 @@
             <nav>
                 <ul>
                     <li class="menu-item">
-                        <md-button href="#/nieuws" ng-class="{ 'md-raised': !isMobile }" aria-label="Nieuwsoverzicht" style="background-color: #62b9cd;">
+                        <md-button ui-sref="home" ng-class="{ 'md-raised': !isMobile }" aria-label="Nieuwsoverzicht" style="background-color: #62b9cd;">
                             <img src="images/nieuws.svg" style="height: 100%;" />
                         </md-button>
                     </li>
 
                     <li class="menu-item">
-                        <md-button href="#/vakanties" ng-class="{ 'md-raised': !isMobile }" aria-label="Vakanties" style="background-color: #dacc8f;">
+                        <md-button ui-sref="vacations" ng-class="{ 'md-raised': !isMobile }" aria-label="Vakanties" style="background-color: #dacc8f;">
                            <img src="images/vakanties.svg" style="height: 100%;" />
                         </md-button>
                     </li>
@@ -73,7 +73,7 @@
                     </li>
                 </ul>
             </nav>
-            <div ng-view ng-class="{ 'md-whiteframe-z1': !isMobile }"></div>
+            <div ui-view ng-class="{ 'md-whiteframe-z1': !isMobile }"></div>
         </div>
     </div>
 
@@ -116,17 +116,22 @@
     <script src="bower_components/angular-material/angular-material.js"></script>
     <script src="bower_components/angular-local-storage/dist/angular-local-storage.js"></script>
     <script src="bower_components/promise-tracker/promise-tracker.js"></script>
+    <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
     <script src="scripts/app.js"></script>
     <script src="scripts/directives/loadingScreen.js"></script>
+    <script src="scripts/directives/multiline.js"></script>
     <script src="scripts/controllers/main.js"></script>
     <script src="scripts/controllers/login.js"></script>
     <script src="scripts/controllers/loginDialog.js"></script>
     <script src="scripts/controllers/register.js"></script>
     <script src="scripts/controllers/vacation.js"></script>
+    <script src="scripts/controllers/admin/admin.js"></script>
+    <script src="scripts/controllers/admin/adminUser.js"></script>
+    <script src="scripts/controllers/admin/adminVacation.js"></script>
     <script src="scripts/services/user.js"></script>
     <script src="scripts/services/vacation.js"></script>
     <script src="scripts/services/authInterceptor.js"></script>

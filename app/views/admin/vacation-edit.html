@@ -1,0 +1,23 @@
+<form style="padding-left: 20px; padding-bottom: 20px;">
+  <fieldset ng-disabled="editTracker.active()">
+    <md-text-float label="Titel" ng-model="selectedVacation.title"> </md-text-float>
+    <md-text-float multiline label="Beschrijving" ng-model="selectedVacation.description" height="200"> </md-text-float>
+    <md-text-float multiline label="Promotekst" ng-model="selectedVacation.promoText" height="200"> </md-text-float>
+    <md-text-float label="Locatie" ng-model="selectedVacation.location"> </md-text-float>
+	<md-text-float label="Leeftijd van" ng-model="selectedVacation.ageFrom"> </md-text-float>
+	<md-text-float label="Leeftijd tot" ng-model="selectedVacation.ageTo"> </md-text-float>
+	<md-text-float label="Transport" ng-model="selectedVacation.transportation"> </md-text-float>
+	<md-text-float label="Maximaal aantal deelnemers" ng-model="selectedVacation.maxParticipants"> </md-text-float>
+	<md-text-float label="Basisprijs" ng-model="selectedVacation.baseCost"> </md-text-float>
+	<md-text-float label="Kostprijs één BM-lid" ng-model="selectedVacation.oneBmMemberCost"> </md-text-float>
+	<md-text-float label="Kostprijs twee BM-leden" ng-model="selectedVacation.twoBmMemberCost"> </md-text-float>
+	<md-switch ng-model="selectedVacation.taxDeductable" aria-label="BTW-aftrekbaar" ng-true-value="1" ng-false-value="0">
+    	BTW-aftrekbaar
+  	</md-switch>
+  </fieldset>
+
+  <md-button type="submit" class="md-primary" ng-click="submitEdit(selectedVacation)" ng-disabled="editTracker.active()">
+    Aanpassen
+  </md-button>
+  <md-progress-circular ng-show="editTracker.active()" mode="indeterminate" style="background-color: #eee;"></md-progress-circular>
+</form>
