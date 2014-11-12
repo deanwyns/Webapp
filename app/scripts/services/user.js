@@ -2,7 +2,7 @@
 
 angular.module('joetzApp')
 	.factory('userService', ['$http', 'localStorageService', '$q', 'queryBuilder', function($http, localStorageService, $q, queryBuilder) {
-		var baseUrl = 'http://lloyd.deanwyns.me/api/';
+		var baseUrl = 'http://lloyd.deanwyns.me/api';
 
 		var	userService = {},
 			_user = {
@@ -10,6 +10,52 @@ angular.module('joetzApp')
 				token: '',
 				isAuth: false
 			};
+
+		var _getUsers = function() {
+			var defer = $q.defer(),
+				headers = {};
+
+			if(!_isAuthenticated()) {
+				defer.reject('Niet toegestaan');
+				return defer.promise;
+			}
+
+			headers.Authorization = _getToken();
+
+			$http({
+				method: 'GET',
+				url: baseUrl + '/user'
+			}).success(function(response) {
+				defer.resolve(response.users);
+			}).error(function(err) {
+				defer.reject(err);
+			});
+
+			return defer.promise;
+		};
+
+		var _getUser = function(id) {
+			var defer = $q.defer(),
+				headers = {};
+
+			if(!_isAuthenticated()) {
+				defer.reject('Niet toegestaan');
+				return defer.promise;
+			}
+
+			headers.Authorization = _getToken();
+
+			$http({
+				method: 'GET',
+				url: baseUrl + '/user/' + id
+			}).success(function(response) {
+				defer.resolve(response.user);
+			}).error(function(err) {
+				defer.reject(err);
+			});
+
+			return defer.promise;
+		};
 
 		var _login = function(loginModel) {
 			var data = 'grant_type=password&client_id=NZCYDfK2AWhrZF38mNg9uXQGN2hhzWj7hQHcLuBB' +
@@ -22,7 +68,7 @@ angular.module('joetzApp')
 
 			$http({
 				method: 'POST',
-				url: baseUrl + 'access_token',
+				url: baseUrl + '/access_token',
 				data: data,
 				headers: headers
 			}).success(function(response) {
@@ -77,7 +123,7 @@ angular.module('joetzApp')
 
 			$http({
 				method: 'POST',
-				url: baseUrl + 'user',
+				url: baseUrl + '/user',
 				data: data,
 				headers: headers
 			}).success(function(response) {
@@ -98,7 +144,7 @@ angular.module('joetzApp')
 
 			$http({
 				method: 'PUT',
-				url: baseUrl + 'user/' + id,
+				url: baseUrl + '/user/' + id,
 				data: data,
 				headers: headers
 			}).success(function(response) {
@@ -147,7 +193,7 @@ angular.module('joetzApp')
 
 			$http({
 				method: 'GET',
-				url: baseUrl + 'user/me',
+				url: baseUrl + '/user/me',
 				headers: headers
 			}).success(function(response) {
 				var userResponse = response.user;
@@ -163,7 +209,7 @@ angular.module('joetzApp')
 			return defer.promise;
 		};
 
-		var _getUser = function() {
+		var _getLocalUser = function() {
 			return _user;
 		};
 
@@ -180,9 +226,12 @@ angular.module('joetzApp')
 		userService.register = _register;
 		userService.update = _update;
 		userService.logout = _logout;
-		userService.getUser = _getUser;
+		userService.getLocalUser = _getLocalUser;
 		userService.isAuthenticated = _isAuthenticated;
 		userService.getToken = _getToken;
+
+		userService.getUsers = _getUsers;
+		userService.getUser = _getUser;
 
 		userService.getProfile = _getProfile;
 

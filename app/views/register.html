@@ -6,10 +6,10 @@
   <form style="padding-left: 20px; padding-bottom: 20px;">
     <h3>Account gegevens</h3>
     <fieldset ng-disabled="registerTracker.active()">
-      <md-text-float label="E-mailadres" ng-model="registerModel.email" required> </md-text-float>
-      <div style="margin-top: -6px; height: 20px; width: 100%; position: relative; color: rgba(0, 0, 0, 0.4);">
+      <md-text-float label="E-mailadres" ng-model="registerModel.email"> </md-text-float>
+      <div ng-show="errors.email" style="margin-top: -6px; height: 20px; width: 100%; position: relative; color: rgba(0, 0, 0, 0.4);">
         <img src="images/fout.svg" style="opacity: 0.4; position: absolute; left: 2px; top: 2px;" />
-        <span style="font-size: 0.75em; margin-left: 20px;">E-mail is verplicht</span>
+        <span style="font-size: 0.75em; margin-left: 20px;">{{ errors.email }}</span>
       </div>
       <md-text-float label="Wachtwoord" ng-model="registerModel.password" type="password"> </md-text-float>
       <md-text-float label="Wachtwoord bevestigen" ng-model="registerModel.password_confirmation" type="password"> </md-text-float>

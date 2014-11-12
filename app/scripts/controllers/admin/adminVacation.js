@@ -1,8 +1,9 @@
 'use strict';
 
-angular.module('joetzApp').controller('AdminVacationCtrl', ['$state', '$scope', 'vacationService', 'promiseTracker', function ($state, $scope, vacationService, promiseTracker) {
+angular.module('joetzApp').controller('AdminVacationCtrl', ['$state', '$scope', 'vacationService', 'promiseTracker', '$mdDialog', function ($state, $scope, vacationService, promiseTracker, $mdDialog) {
     $scope.selectedIndex = 0;
     $scope.editTracker = promiseTracker();
+    $scope.errors = {};
 
     var _loadVacations = function(transition) {
         vacationService.getVacations().then(function(vacations) {
@@ -31,11 +32,29 @@ angular.module('joetzApp').controller('AdminVacationCtrl', ['$state', '$scope', 
             console.log(response);
             _loadVacations(true);
         }, function(err) {
-            console.log(err);
+            for(var key in err.errors) {
+                $scope.errors[key] = err.errors[key][0];
+            }
         });
 
         $scope.editTracker.addPromise(editPromise);
     };
 
+    var _submitNew = function(vacationModel) {
+        if(!vacationModel) {
+            return undefined;
+        }
+
+        var addPromise = vacationService.addVacation(vacationModel).then(function(response) {
+            console.log(response);
+            _loadVacations(true);
+        }, function(err) {
+            for(var key in err.errors) {
+                $scope.errors[key] = err.errors[key][0];
+            }
+        });
+    }
+
     $scope.submitEdit = _submitEdit;
+    $scope.submitNew = _submitNew;
   }]);

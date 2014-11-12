@@ -1,27 +1,17 @@
-<md-tabs ng-init="onTabSelected(0)" selected="selectedIndex">
-	<md-tab aria-controls="tab1-content">
-		Overzicht
-	</md-tab>
-	<md-tab aria-controls="tab2-content">
-		Nieuwe vakantie
-	</md-tab>
-</md-tabs>
+<div class="fabs">
+    <md-button ui-sref="admin.vacation.new" class="md-fab" aria-label="Toevoegen" style="background-color: #fff;">
+        <img src="images/add.svg" style="width: 100%;" />
+    </md-button>
+</div>
 
-<ng-switch on="selectedIndex">
-	<div role="tabpanel" id="tab1-content" aria-labelledby="tab1" ng-switch-when="0" md-swipe-left="next()" md-swipe-right="previous()">
-		<ul>
-			<li ng-repeat="vacation in vacations">
-				<div class="list-item">
-					{{ vacation.title }}
-					<ul class="list-item-actions">
-						<li><a ui-sref="admin.vacation.edit({vacationId: {{ vacation.id }} })">Bewerken</a></li>
-						<li>Verwijderen</li>
-					</ul>
-				</div>
-			</li>
-		</ul>
-	</div>
-	<div role="tabpanel" id="tab2-content" aria-labelledby="tab2" ng-switch-when="1" md-swipe-left="next()" md-swipe-right="previous()">
-		Test
-	</div>
-</ng-switch>
+<ul>
+	<li ng-repeat="vacation in vacations">
+		<div class="list-item">
+			{{ vacation.title }}
+			<ul class="list-item-actions">
+				<li><a ui-sref="admin.vacation.edit({vacationId: {{ vacation.id }} })">Bewerken</a></li>
+				<li><div ng-click="confirmDeletion(vacation.title)">Verwijderen</div></li>
+			</ul>
+		</div>
+	</li>
+</ul>

@@ -19,7 +19,8 @@ angular
     'ngMaterial',
     'LocalStorageModule',
     'ajoslin.promise-tracker',
-    'ui.router'
+    'ui.router',
+    'ngQuickDate'
   ])
   .config(function ($httpProvider, $stateProvider, $urlRouterProvider) {
     //$httpProvider.interceptors.push('authInterceptorService');
@@ -73,6 +74,10 @@ angular
         url: '/:vacationId',
         templateUrl: 'views/admin/vacation-detail.html'
       })
+      .state('admin.vacation.new', {
+        url: '/nieuw',
+        templateUrl: 'views/admin/vacation-edit.html'
+      })
       .state('admin.vacation.edit', {
         url: '/:vacationId/wijzig',
         templateUrl: 'views/admin/vacation-edit.html',
@@ -83,29 +88,4 @@ angular
           });
         }
       });
-    
-    /*$routeProvider
-      .when('/', {
-        templateUrl: 'views/main.html',
-        controller: 'MainCtrl'
-      })
-      .when('/login', {
-        templateUrl: 'views/login.html',
-        controller: 'LoginCtrl'
-      })
-      .when('/register', {
-        templateUrl: 'views/register.html',
-        controller: 'RegisterCtrl'
-      })
-      .when('/menu', {
-        templateUrl: 'views/menu.html',
-        controller: 'MenuCtrl'
-      })
-      .when('/vakanties', {
-        templateUrl: 'views/vacations.html',
-        controller: 'VacationCtrl'
-      })
-      .otherwise({
-        redirectTo: '/'
-      });*/
   });

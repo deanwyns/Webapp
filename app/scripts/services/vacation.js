@@ -2,7 +2,7 @@
 
 angular.module('joetzApp')
 	.factory('vacationService', ['$http', '$q', 'queryBuilder', 'userService', function($http, $q, queryBuilder, userService) {
-		var baseUrl = 'http://lloyd.deanwyns.me/api/vacation/',
+		var baseUrl = 'http://lloyd.deanwyns.me/api/vacation',
 			vacationService = {};
 
 		var _getVacations = function() {
@@ -25,7 +25,7 @@ angular.module('joetzApp')
 
 			$http({
 				method: 'GET',
-				url: baseUrl + id
+				url: baseUrl + '/' + id
 			}).success(function(response) {
 				defer.resolve(response.vacation);
 			}).error(function(err) {
@@ -107,7 +107,7 @@ angular.module('joetzApp')
 
 			$http({
 				method: 'PUT',
-				url: baseUrl + id,
+				url: baseUrl + '/' + id,
 				data: data,
 				headers: headers
 			}).success(function(response) {
@@ -134,7 +134,7 @@ angular.module('joetzApp')
 
 			$http({
 				method: 'DELETE',
-				url: baseUrl + id,
+				url: baseUrl + '/' + id,
 				headers: headers
 			}).success(function() {
 				defer.resolve();

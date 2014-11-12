@@ -27,7 +27,9 @@ angular.module('joetzApp')
 		var userPromise = userService.register($scope.registerModel).then(function(response) {
 			console.log(response);
 		}, function(err) {
-			$scope.message = err;
+            for(var key in err.errors) {
+                $scope.errors[key] = err.errors[key][0];
+            }
 		});
 
 		$scope.registerTracker.addPromise(userPromise);
