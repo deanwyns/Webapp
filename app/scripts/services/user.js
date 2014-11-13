@@ -24,7 +24,8 @@ angular.module('joetzApp')
 
 			$http({
 				method: 'GET',
-				url: baseUrl + '/user'
+				url: baseUrl + '/user',
+				headers: headers
 			}).success(function(response) {
 				defer.resolve(response.users);
 			}).error(function(err) {
@@ -47,7 +48,8 @@ angular.module('joetzApp')
 
 			$http({
 				method: 'GET',
-				url: baseUrl + '/user/' + id
+				url: baseUrl + '/user/' + id,
+				headers: headers
 			}).success(function(response) {
 				defer.resolve(response.user);
 			}).error(function(err) {
@@ -95,29 +97,14 @@ angular.module('joetzApp')
 		};
 
 		var _register = function(registerModel) {
-			/*var data = 'email=' + registerModel.email +
-						'&password=' + registerModel.password +
-						'&password_confirmed=' + registerModel.password_confirmation +
-						'&phone_number=' + registerModel.phone_number,
-				defer = $q.defer(),
-				headers = {};
-
-			if(registerModel.first_name_mother) {
-				data += '&first_name_mother=' + registerModel.first_name_mother +
-						'&last_name_mother=' + registerModel.last_name_mother +
-						'&nrn_mother=' + registerModel.nrn_mother;
-			}
-
-			if(registerModel.first_name_father) {
-				data += '&first_name_father=' + registerModel.first_name_father +
-						'&last_name_father=' + registerModel.last_name_father +
-						'&nrn_father=' + registerModel.nrn_father;
-			}*/
 			var defer = $q.defer(),
 				headers = {},
 				data = queryBuilder.build(registerModel);
 
-			console.log(data);
+			if(!_isAuthenticated()) {
+				defer.reject('Niet toegestaan');
+				return defer.promise;
+			}
 
 			headers['Content-Type'] = 'application/x-www-form-urlencoded';
 
@@ -141,6 +128,7 @@ angular.module('joetzApp')
 				data = queryBuilder.build(updateModel);
 
 			headers['Content-Type'] = 'application/x-www-form-urlencoded';
+			headers.Authorization = _getToken();
 
 			$http({
 				method: 'PUT',
@@ -196,6 +184,7 @@ angular.module('joetzApp')
 				url: baseUrl + '/user/me',
 				headers: headers
 			}).success(function(response) {
+				console.log(response);
 				var userResponse = response.user;
 				//_user.firstName = userResponse.first_name;
 				//_user.lastName = userResponse.last_name;

@@ -56,9 +56,31 @@ angular
         controller: 'AdminCtrl'
       })
       .state('admin.user', {
+        abstract: true,
         url: '/gebruikers',
-        templateUrl: 'views/admin/user.html',
+        template: '<ui-view />',
         controller: 'AdminUserCtrl'
+      })
+      .state('admin.user.list', {
+        url: '/',
+        templateUrl: 'views/admin/user.html'
+      })
+      .state('admin.user.new', {
+        url: '/nieuw',
+        templateUrl: 'views/admin/user-edit.html'
+      })
+      .state('admin.user.edit', {
+        url: '/:userId/wijzig',
+        templateUrl: 'views/admin/user-edit.html',
+        controller: function($scope, userService, $stateParams) {
+          var userId = $stateParams.userId;
+          userService.getUser(userId).then(function(user) {
+            console.log(user);
+            $scope.selectedUser = user;
+          }, function(err) {
+            console.log(err);
+          });
+        }
       })
       .state('admin.vacation', {
         abstract: true,

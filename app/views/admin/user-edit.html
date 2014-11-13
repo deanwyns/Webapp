@@ -1,0 +1,33 @@
+<form style="padding-left: 20px; padding-bottom: 20px;">
+  <fieldset ng-disabled="editTracker.active()">
+    <md-text-float label="Titel" ng-model="selectedUser.email"> </md-text-float>
+    <div ng-show="errors.email" style="margin-top: -6px; height: 20px; width: 100%; position: relative; opacity: 0.4;">
+      <img src="images/fout.svg" style="position: absolute; left: 2px; top: 2px;" />
+      <span style="font-size: 0.75em; margin-left: 20px;">{{ errors.email }}</span>
+    </div>
+
+    <md-text-float label="Wachtwoord" ng-model="selectedUser.password"> </md-text-float>
+    <md-text-float label="Wachtwoord bevestigen" ng-model="selectedUser.password_confirmed"> </md-text-float>
+
+    <h3>Gegevens moeder</h3>
+    <md-text-float label="Voornaam" ng-model="selectedUser.first_name_mother"> </md-text-float>
+    <md-text-float label="Naam" ng-model="selectedUser.last_name_mother"> </md-text-float>
+    <md-text-float label="Rijksregisternummer" ng-model="selectedUser.nrn_mother"> </md-text-float>
+
+    <h3>Gegevens vader</h3>
+    <md-text-float label="Voornaam" ng-model="selectedUser.first_name_father"> </md-text-float>
+    <md-text-float label="Naam" ng-model="selectedUser.last_name_father"> </md-text-float>
+    <md-text-float label="Rijksregisternummer" ng-model="selectedUser.nrn_father"> </md-text-float>
+
+  <div ng-if="selectedUser.id">
+    <md-button type="submit" class="md-primary" ng-click="submitEdit(selectedUser)" ng-disabled="editTracker.active()">
+     Aanpassen
+    </md-button>
+  </div>
+  <div ng-if="selectedUser.id === undefined">
+    <md-button type="submit" class="md-primary" ng-click="submitNew(selectedUser)" ng-disabled="editTracker.active()">
+     Toevoegen
+    </md-button>
+  </div>
+  <md-progress-circular ng-show="editTracker.active()" mode="indeterminate" style="background-color: #eee;"></md-progress-circular>
+</form>

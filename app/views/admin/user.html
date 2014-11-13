@@ -1,9 +1,16 @@
+<div class="fabs">
+    <md-button ui-sref="admin.user.new" class="md-fab" aria-label="Toevoegen" style="background-color: #fff;">
+        <img src="images/add.svg" style="width: 100%;" />
+    </md-button>
+</div>
+
 <ul>
 	<li ng-repeat="user in users">
 		<div class="list-item">
+			{{ user.email }}
 			<ul class="list-item-actions">
 				<li><a ui-sref="admin.user.edit({userId: {{ user.id }} })">Bewerken</a></li>
-				<li>Verwijderen</li>
+				<li><div ng-click="confirmDeletion(user.email)">Verwijderen</div></li>
 			</ul>
 		</div>
 	</li>

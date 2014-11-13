@@ -1,7 +1,6 @@
 'use strict';
 
 angular.module('joetzApp').controller('AdminVacationCtrl', ['$state', '$scope', 'vacationService', 'promiseTracker', '$mdDialog', function ($state, $scope, vacationService, promiseTracker, $mdDialog) {
-    $scope.selectedIndex = 0;
     $scope.editTracker = promiseTracker();
     $scope.errors = {};
 
@@ -24,11 +23,7 @@ angular.module('joetzApp').controller('AdminVacationCtrl', ['$state', '$scope', 
             return undefined;
         }
 
-        var vacationId = vacationModel.id;
-        var tmpModel = vacationModel;
-        delete tmpModel.id;
-
-        var editPromise = vacationService.updateVacation(tmpModel, vacationId).then(function(response) {
+        var editPromise = vacationService.updateVacation(vacationModel, vacationModel.id).then(function(response) {
             console.log(response);
             _loadVacations(true);
         }, function(err) {
@@ -53,6 +48,8 @@ angular.module('joetzApp').controller('AdminVacationCtrl', ['$state', '$scope', 
                 $scope.errors[key] = err.errors[key][0];
             }
         });
+
+        $scope.editTracker.addPromise(addPromise);
     }
 
     $scope.submitEdit = _submitEdit;
