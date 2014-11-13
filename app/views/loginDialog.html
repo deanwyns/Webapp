@@ -11,7 +11,7 @@
         <md-text-float label="Wachtwoord" ng-model="loginModel.password" type="password"> </md-text-float>
       </fieldset>
       
-      {{ message }}
+      <error-message error="errors.login"> </error-message>
     </form>
   </md-content>
   <div class="md-actions" layout="horizontal" layout-align="end">

@@ -8,7 +8,7 @@ angular.module('joetzApp')
 			password: ''
 		};
 
-		$scope.message = '';
+		$scope.errors = {};
 		$scope.loginTracker = promiseTracker();
 
 		$scope.cancel = function() {
@@ -16,12 +16,12 @@ angular.module('joetzApp')
 		};
 
 		$scope.submit = function() {
-			$scope.message = '';
+			$scope.errors = {};
 
 			var userPromise = userService.login($scope.loginModel).then(function(user) {
 				$mdDialog.hide(user);
 			}, function(err) {
-				$scope.message = err.error_description;
+				$scope.errors.login = err.error_description;
 			});
 
 			$scope.loginTracker.addPromise(userPromise);

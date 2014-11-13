@@ -6,8 +6,7 @@
     	<md-text-float label="E-mailadres" ng-model="loginModel.email"> </md-text-float>
    	 	<md-text-float label="Wachtwoord" ng-model="loginModel.password" type="password"> </md-text-float>
 	</fieldset>
-
-    {{ message }}
+  <error-message error="errors.login"> </error-message>
   </form>
   <md-button class="md-primary" ng-click="submit()" ng-disabled="loginTracker.active()">
     Inloggen

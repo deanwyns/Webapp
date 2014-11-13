@@ -12,21 +12,19 @@ angular.module('joetzApp')
         function($scope, $rootScope, $mdDialog, userService, $window, $timeout) {
             var _isMobile = function() {
                 if (document.querySelector('md-toolbar').offsetHeight === 64) {
-                    $scope.previousMobile = true;
                     return true;
                 } else {
-                    $scope.previousMobile = false;
                     return false;
                 }
             };
-            $scope.isMobile = _isMobile();
+            $scope.$apply(function() {
+                $scope.isMobile = _isMobile();
+            });
 
             angular.element($window).bind('resize', function() {
-                if ($scope.previousMobile !== _isMobile()) {
-                    $scope.$apply(function() {
-                        $scope.isMobile = _isMobile();
-                    });
-                }
+                $scope.$apply(function() {
+                    $scope.isMobile = _isMobile();
+                });
             });
 
             userService.init().then(function(user) {

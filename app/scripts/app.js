@@ -46,7 +46,7 @@ angular
         controller: 'VacationCtrl'
       })
       .state('register', {
-        url: '/register',
+        url: '/registreer',
         templateUrl: 'views/register.html',
         controller: 'RegisterCtrl'
       })

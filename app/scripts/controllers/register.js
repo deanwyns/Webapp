@@ -14,22 +14,18 @@ angular.module('joetzApp')
 
 	$scope.registerTracker = promiseTracker();
 
-	$scope.message = '';
-
-	/*var _validate = function() {
-
-	}*/
-
 	$scope.submit = function() {
-
-		$scope.message = '';
+		$scope.errors = {};
 
 		var userPromise = userService.register($scope.registerModel).then(function(response) {
 			console.log(response);
 		}, function(err) {
+			var errors = {};
             for(var key in err.errors) {
-                $scope.errors[key] = err.errors[key][0];
+            	errors[key] = err.errors[key][0];
             }
+
+            $scope.errors = errors;
 		});
 
 		$scope.registerTracker.addPromise(userPromise);

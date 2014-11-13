@@ -1,28 +1,38 @@
 <form style="padding-left: 20px; padding-bottom: 20px;">
   <fieldset ng-disabled="editTracker.active()">
     <md-text-float label="Titel" ng-model="selectedVacation.title"> </md-text-float>
-    <div ng-show="errors.title" style="margin-top: -6px; height: 20px; width: 100%; position: relative; color: rgba(0, 0, 0, 0.4);">
-      <img src="images/fout.svg" style="opacity: 0.4; position: absolute; left: 2px; top: 2px;" />
-      <span style="font-size: 0.75em; margin-left: 20px;">{{ errors.title }}</span>
-    </div>
+    <error-message error="errors.title" errorMessage="{{ errors.title }}"> </error-message>
 
     <md-text-float multiline label="Beschrijving" ng-model="selectedVacation.description" height="200"> </md-text-float>
+    <error-message error="errors.description"> </error-message>
     <md-text-float multiline label="Promotekst" ng-model="selectedVacation.promoText" height="200"> </md-text-float>
+    <error-message error="errors.promoText"> </error-message>
     <md-text-float label="Locatie" ng-model="selectedVacation.location"> </md-text-float>
+    <error-message error="errors.location"> </error-message>
 
-    <quick-datepicker init-value="selectedVacation.beginDate" ng-model="selectedVacation.beginDate" date-format="dd-MM-yyyy" required="true" placeholder="Begindatum"></quick-datepicker>
-    <quick-datepicker init-value="selectedVacation.endDate" ng-model="selectedVacation.endDate" date-format="dd-MM-yyyy" required="true" placeholder="Einddatum"></quick-datepicker>
+    <quick-datepicker init-value="selectedVacation.beginDate" ng-model="selectedVacation.beginDate" date-format="yyyy-MM-dd H:i:M" required="true" placeholder="Begindatum"></quick-datepicker>
+    <error-message error="errors.beginDate"> </error-message>
+    <quick-datepicker init-value="selectedVacation.endDate" ng-model="selectedVacation.endDate" date-format="yyyy-MM-dd H:i:M" required="true" placeholder="Einddatum"></quick-datepicker>
+    <error-message error="errors.endDate"> </error-message>
 
   	<md-text-float label="Leeftijd van" ng-model="selectedVacation.ageFrom"> </md-text-float>
+    <error-message error="errors.ageFrom"> </error-message>
   	<md-text-float label="Leeftijd tot" ng-model="selectedVacation.ageTo"> </md-text-float>
+    <error-message error="errors.ageTo"> </error-message>
   	<md-text-float label="Transport" ng-model="selectedVacation.transportation"> </md-text-float>
+    <error-message error="errors.transportation"> </error-message>
   	<md-text-float label="Maximaal aantal deelnemers" ng-model="selectedVacation.maxParticipants"> </md-text-float>
+    <error-message error="errors.maxParticipants"> </error-message>
   	<md-text-float label="Basisprijs" ng-model="selectedVacation.baseCost"> </md-text-float>
+    <error-message error="errors.baseCost"> </error-message>
   	<md-text-float label="Kostprijs één BM-lid" ng-model="selectedVacation.oneBmMemberCost"> </md-text-float>
+    <error-message error="errors.oneBmMemberCost"> </error-message>
   	<md-text-float label="Kostprijs twee BM-leden" ng-model="selectedVacation.twoBmMemberCost"> </md-text-float>
+    <error-message error="errors.twoBmMemberCost"> </error-message>
   	<md-switch ng-model="selectedVacation.taxDeductable" aria-label="BTW-aftrekbaar" ng-init="selectedVacation.taxDeductable = 0" ng-true-value="1" ng-false-value="0">
       BTW-aftrekbaar
     </md-switch>
+    <error-message error="errors.taxDeductable"> </error-message>
   </fieldset>
 
   <div ng-if="selectedVacation.id">

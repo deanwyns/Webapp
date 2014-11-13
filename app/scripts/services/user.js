@@ -101,11 +101,6 @@ angular.module('joetzApp')
 				headers = {},
 				data = queryBuilder.build(registerModel);
 
-			if(!_isAuthenticated()) {
-				defer.reject('Niet toegestaan');
-				return defer.promise;
-			}
-
 			headers['Content-Type'] = 'application/x-www-form-urlencoded';
 
 			$http({
