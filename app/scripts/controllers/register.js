@@ -8,7 +8,7 @@ angular.module('joetzApp')
 		last_name: '',
 		email: '',
 		password: '',
-		password_confirmation: '',
+		password_confirmed: '',
 		phone_number: ''
 	};
 
