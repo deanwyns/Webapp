@@ -110,9 +110,9 @@ angular
           });
         }
       })
-      .state('vacation.detail', {
-        url: '/:vacationId', 
-        templateUrl: 'views/vacationDetail.html',
+      .state('vacationDetail', {
+        url: '/:vacationId/details', 
+        templateUrl: 'views/vacationDetail.html', 
         controller: function($scope, vacationService, $stateParams){
           var vacationId = $stateParams.vacationId;
           vacationService.getVacation(vacationId).then(function(vacation){

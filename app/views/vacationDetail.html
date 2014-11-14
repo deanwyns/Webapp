@@ -1,16 +1,22 @@
 <div class="content">
-    <h2 class="content-header">Vakantieoverzicht</h2>
-    <md-list>
-        <md-item ng-repeat="vacation in vacations">
-            <h3>{{ vacation.title }}</h3>
-            <p>{{ vacation.description }}</p>
-            <p>Leeftijd : {{ vacation.ageFrom }} -  {{ vacation.ageTo }}</p>
-            <p>Vervoer : {{ vacation.transportation }}</p>
+    <h2 class="content-header">{{ selectedVacation.title }}</h2>
 
-            <md-button class="btn" ng-click="getVacationDetail(vacation.id)">
-          		Meer info
-        	</md-button>
-        </md-item>
-
-    </md-list>
+            <p> {{selectedVacation.promoText}} </p>
+            
+            <h3>Waar ?</h3>
+            <p> {{selectedVacation.location}} </p>
+            <h3> Doelgroep</h3>
+            <p>Tussen de leeftijden van  {{ selectedVacation.ageFrom }} en {{ selectedVacation.ageTo }}</p>
+            <h3> Vervoer</h3>
+            <p> {{ selectedVacation.transportation }}</p>
+            <h3> Maximum aantal deelnemers </h3>
+            <p> {{selectedVacation.maxParticipants}} personen </p>
+            <h3> Prijs </h3>
+            <p> Basisprijs : {{selectedVacation.baseCost | currency:"&euro;"}}</p>
+            <p> JOETZ-sterprijs : <ul> <li> 1 ouder lid van Bond Moyson West-Vlaanderen: {{selectedVacation.oneBmMemberCost| currency:"&euro;"}} (JOETZ-korting {{selectedVacation.baseCost-selectedVacation.oneBmMemberCost | currency:"&euro;"}})</li>
+                <li> 2 ouders lid van Bond Moyson West-Vlaanderen: {{selectedVacation.twoBmMemberCost| currency:"&euro;"}}(JOETZ-korting {{selectedVacation.baseCost-selectedVacation.twoBmMemberCost | currency:"&euro;"}})</li>
+            </ul>    
+ 
+            <p> {{selectedVacation.description}}></p>
+    
 </div>

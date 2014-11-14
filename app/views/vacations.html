@@ -3,11 +3,13 @@
     <md-list>
         <md-item ng-repeat="vacation in vacations">
             <h3>{{ vacation.title }}</h3>
-            <p>{{ vacation.description }}</p>
+            <p> {{vacation.promoText}}</p>
             <p>Leeftijd : {{ vacation.ageFrom }} -  {{ vacation.ageTo }}</p>
             <p>Vervoer : {{ vacation.transportation }}</p>
+            <p> Vertrek: {{vacation.beginDate}}</p>
+            <p> Terug : {{vacation.endDate }}</p>
 
-            <a ui-sref="vacation.detail({vacationId: {{ vacation.id }} })">Meer info</a>
+                <md-button><a ui-sref="vacationDetail({vacationId: {{ vacation.id }} })">Meer info</a></md-button>
             
         </md-item>
 
