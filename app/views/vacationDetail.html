@@ -7,8 +7,9 @@
             <p>Leeftijd : {{ vacation.ageFrom }} -  {{ vacation.ageTo }}</p>
             <p>Vervoer : {{ vacation.transportation }}</p>
 
-            <a ui-sref="vacation.detail({vacationId: {{ vacation.id }} })">Meer info</a>
-            
+            <md-button class="btn" ng-click="getVacationDetail(vacation.id)">
+          		Meer info
+        	</md-button>
         </md-item>
 
     </md-list>
