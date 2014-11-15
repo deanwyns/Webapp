@@ -8,4 +8,6 @@ angular.module('joetzApp')
 			$scope.vacations = err;
 		});
 
+
+
 	}]);

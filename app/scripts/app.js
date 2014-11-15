@@ -28,6 +28,7 @@ angular
     $httpProvider.defaults.headers.post.Accept = 'application/vnd.joetz.v1+json';
     $httpProvider.defaults.headers.post['Content-Type'] = 'application/json; charset=utf-8';
 
+
     $urlRouterProvider.otherwise('/');
     $stateProvider
       .state('home', {
@@ -117,6 +118,7 @@ angular
           var vacationId = $stateParams.vacationId;
           vacationService.getVacation(vacationId).then(function(vacation){
             $scope.selectedVacation = vacation;
+            
           });
         }
       });

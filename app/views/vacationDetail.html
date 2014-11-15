@@ -12,11 +12,20 @@
             <h3> Maximum aantal deelnemers </h3>
             <p> {{selectedVacation.maxParticipants}} personen </p>
             <h3> Prijs </h3>
-            <p> Basisprijs : {{selectedVacation.baseCost | currency:"&euro;"}}</p>
-            <p> JOETZ-sterprijs : <ul> <li> 1 ouder lid van Bond Moyson West-Vlaanderen: {{selectedVacation.oneBmMemberCost| currency:"&euro;"}} (JOETZ-korting {{selectedVacation.baseCost-selectedVacation.oneBmMemberCost | currency:"&euro;"}})</li>
-                <li> 2 ouders lid van Bond Moyson West-Vlaanderen: {{selectedVacation.twoBmMemberCost| currency:"&euro;"}}(JOETZ-korting {{selectedVacation.baseCost-selectedVacation.twoBmMemberCost | currency:"&euro;"}})</li>
-            </ul>    
+            <p> Basisprijs : {{selectedVacation.baseCost | currency}}</p>
+            <p> JOETZ-sterprijs : <ul> <li> 1 ouder lid van Bond Moyson West-Vlaanderen: {{selectedVacation.oneBmMemberCost| currency}} (JOETZ-korting {{selectedVacation.baseCost-selectedVacation.oneBmMemberCost | currency}})</li>
+                <li> 2 ouders lid van Bond Moyson West-Vlaanderen: {{selectedVacation.twoBmMemberCost| currency}}(JOETZ-korting {{selectedVacation.baseCost-selectedVacation.twoBmMemberCost | currency}})</li>
+            </ul> 
+            </p>   
+            <h3> Tijdstip </h3>
+            <p>  Vertrek: {{selectedVacation.beginDate | asDate |date: 'fullDate'}}</p>
+            <p> Terug : {{selectedVacation.endDate | asDate |date: 'fullDate'}}</p>
+
+            <h3>BTW-aftrekbaar</h3>
+            <img src="images/checkmark{{selectedVacation.taxDeductable}}.png"/>
  
-            <p> {{selectedVacation.description}}></p>
+            <p> {{selectedVacation.description}}</p>
+
+             <md-button disabled class="md-raised md-primary">Inschrijven</md-button>
     
 </div>
