@@ -8,8 +8,8 @@
  * Controller of the joetzApp
  */
 angular.module('joetzApp')
-    .controller('MainCtrl', ['$scope', '$rootScope', '$mdDialog', 'userService', '$window', '$timeout',
-        function($scope, $rootScope, $mdDialog, userService, $window, $timeout) {
+    .controller('MainCtrl', ['$state', '$scope', '$rootScope', '$mdDialog', 'userService', '$window', '$timeout',
+        function($state, $scope, $rootScope, $mdDialog, userService, $window, $timeout) {
             var _isMobile = function() {
                 if (document.querySelector('md-toolbar').offsetHeight === 64) {
                     return true;
@@ -45,10 +45,14 @@ angular.module('joetzApp')
 
             var _onUserLoggedIn = function(event, user) {
                 $scope.user = user;
+                if($state.is('register')) {
+                    $state.go('home');
+                }
             };
 
             var _onUserLoggedOut = function() {
                 $scope.user = {};
+                $state.go('home');
             };
 
             var _openDialog = function($event) {

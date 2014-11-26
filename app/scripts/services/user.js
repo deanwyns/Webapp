@@ -8,7 +8,8 @@ angular.module('joetzApp')
 			_user = {
 				email: '',
 				token: '',
-				isAuth: false
+				isAuth: false,
+				type: ''
 			};
 
 		var _getUsers = function() {
@@ -27,7 +28,7 @@ angular.module('joetzApp')
 				url: baseUrl + '/user',
 				headers: headers
 			}).success(function(response) {
-				defer.resolve(response.users);
+				defer.resolve(response.data);
 			}).error(function(err) {
 				defer.reject(err);
 			});
@@ -51,7 +52,7 @@ angular.module('joetzApp')
 				url: baseUrl + '/user/' + id,
 				headers: headers
 			}).success(function(response) {
-				defer.resolve(response.user);
+				defer.resolve(response.data);
 			}).error(function(err) {
 				defer.reject(err);
 			});
@@ -180,10 +181,17 @@ angular.module('joetzApp')
 				headers: headers
 			}).success(function(response) {
 				console.log(response);
-				var userResponse = response.user;
+				var userResponse = response.data;
 				//_user.firstName = userResponse.first_name;
 				//_user.lastName = userResponse.last_name;
-				_user.email = userResponse.email;
+				//_user.email = userResponse.email;
+				//_user.type = userResponse.type;
+
+				for(var attribute in userResponse) {
+					_user[attribute] = userResponse[attribute];
+				}
+
+				console.log(_user);
 
 				defer.resolve();
 			}).error(function() {
@@ -195,6 +203,10 @@ angular.module('joetzApp')
 
 		var _getLocalUser = function() {
 			return _user;
+		};
+
+		var _getType = function() {
+			return _user.type;
 		};
 
 		var _isAuthenticated = function() {
@@ -211,6 +223,7 @@ angular.module('joetzApp')
 		userService.update = _update;
 		userService.logout = _logout;
 		userService.getLocalUser = _getLocalUser;
+		userService.getType = _getType;
 		userService.isAuthenticated = _isAuthenticated;
 		userService.getToken = _getToken;
 

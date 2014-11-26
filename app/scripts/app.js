@@ -20,7 +20,9 @@ angular
     'LocalStorageModule',
     'ajoslin.promise-tracker',
     'ui.router',
-    'ngQuickDate'
+    'ngQuickDate',
+    'ngLocale',
+    'permission'
   ])
   .config(function ($httpProvider, $stateProvider, $urlRouterProvider) {
     //$httpProvider.interceptors.push('authInterceptorService');
@@ -49,12 +51,22 @@ angular
       .state('register', {
         url: '/registreer',
         templateUrl: 'views/register.html',
-        controller: 'RegisterCtrl'
+        controller: 'RegisterCtrl',
+        data: {
+          permissions: {
+            only: ['anonymous']
+          }
+        }
       })
       .state('admin', {
         url: '/admin',
         templateUrl: 'views/admin/main.html',
-        controller: 'AdminCtrl'
+        controller: 'AdminCtrl',
+        data: {
+          permissions: {
+            only: ['admin']
+          }
+        }
       })
       .state('admin.user', {
         abstract: true,
@@ -121,5 +133,20 @@ angular
             
           });
         }
+      });
+  })
+  .run(function (Permission, userService) {
+    Permission
+      .defineRole('anonymous', function() {
+        return !userService.isAuthenticated();
+      })
+      .defineRole('parents', function() {
+        return userService.getType() === 'parents';
+      })
+      .defineRole('monitor', function() {
+        return userService.getType() === 'monitor';
+      })
+      .defineRole('admin', function() {
+        return userService.getType() === 'admin';
       });
   });
