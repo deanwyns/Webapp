@@ -39,20 +39,6 @@ angular.module('joetzApp')
 			var defer = $q.defer(),
 				data = queryBuilder.build(vacationModel),
 				headers = {};
-				/*data = 	'title=' + vacationModel.title +
-						'&description=' + vacationModel.description +
-						'&promoText=' + vacationModel.promoText +
-						'&location=' + vacationModel.location +
-						'&ageFrom=' + vacationModel.ageFrom +
-						'&ageTo=' + vacationModel.ageTo +
-						'&transportation=' + vacationModel.transportation +
-						'&maxParticipants=' + vacationModel.maxParticipants +
-						'&baseCost=' + vacationModel.baseCost +
-						'&oneBmMemberCost=' + vacationModel.oneBmMemberCost +
-						'&twoBmMemberCost=' + vacationModel.twoBmMemberCost +
-						'&taxDeductable=' + vacationModel.taxDeductable +
-						'&beginDate=' + vacationModel.beginDate +
-						'&endDate=' + vacationModel.endDate;*/
 
 			if(!userService.isAuthenticated()) {
 				defer.reject('Niet toegestaan');

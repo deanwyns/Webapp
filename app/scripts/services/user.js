@@ -97,6 +97,30 @@ angular.module('joetzApp')
 			return defer.promise;
 		};
 
+		var _deleteUser = function(id) {
+			var defer = $q.defer(),
+				headers = {};
+
+			if(!_isAuthenticated()) {
+				defer.reject('Niet toegestaan');
+				return defer.promise;
+			}
+
+			headers.Authorization = userService.getToken();
+
+			$http({
+				method: 'DELETE',
+				url: baseUrl + '/' + id,
+				headers: headers
+			}).success(function() {
+				defer.resolve();
+			}).error(function() {
+				defer.reject();
+			});
+
+			return defer.promise;
+		};
+
 		var _register = function(registerModel) {
 			var defer = $q.defer(),
 				headers = {},
@@ -107,6 +131,58 @@ angular.module('joetzApp')
 			$http({
 				method: 'POST',
 				url: baseUrl + '/user',
+				data: data,
+				headers: headers
+			}).success(function(response) {
+				defer.resolve(response);
+			}).error(function(err) {
+				defer.reject(err);
+			});
+
+			return defer.promise;
+		};
+
+		var _registerMonitor = function(registerModel) {
+			var defer = $q.defer(),
+				headers = {},
+				data = queryBuilder.build(registerModel);
+
+			if(_getType() !== 'admin') {
+				defer.reject('Niet toegelaten');
+				return defer.promise;
+			}
+
+			headers['Content-Type'] = 'application/x-www-form-urlencoded';
+
+			$http({
+				method: 'POST',
+				url: baseUrl + '/user/monitor',
+				data: data,
+				headers: headers
+			}).success(function(response) {
+				defer.resolve(response);
+			}).error(function(err) {
+				defer.reject(err);
+			});
+
+			return defer.promise;
+		};
+
+		var _registerAdmin = function(registerModel) {
+			var defer = $q.defer(),
+				headers = {},
+				data = queryBuilder.build(registerModel);
+
+			if(_getType() !== 'admin') {
+				defer.reject('Niet toegelaten');
+				return defer.promise;
+			}
+
+			headers['Content-Type'] = 'application/x-www-form-urlencoded';
+
+			$http({
+				method: 'POST',
+				url: baseUrl + '/user/admin',
 				data: data,
 				headers: headers
 			}).success(function(response) {
@@ -219,7 +295,10 @@ angular.module('joetzApp')
 
 		userService.init = _init;
 		userService.login = _login;
+		userService.deleteUser = _deleteUser;
 		userService.register = _register;
+		userService.registerMonitor = _registerMonitor;
+		userService.registerAdmin = _registerAdmin;
 		userService.update = _update;
 		userService.logout = _logout;
 		userService.getLocalUser = _getLocalUser;

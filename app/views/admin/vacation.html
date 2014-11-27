@@ -10,7 +10,7 @@
 			{{ vacation.title }}
 			<ul class="list-item-actions">
 				<li><a ui-sref="admin.vacation.edit({vacationId: {{ vacation.id }} })">Bewerken</a></li>
-				<li><div ng-click="confirmDeletion(vacation.title)">Verwijderen</div></li>
+				<li><div ng-click="deleteVacation(vacation)">Verwijderen</div></li>
 			</ul>
 		</div>
 	</li>

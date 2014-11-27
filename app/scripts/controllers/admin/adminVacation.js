@@ -52,6 +52,22 @@ angular.module('joetzApp').controller('AdminVacationCtrl', ['$state', '$scope', 
         $scope.editTracker.addPromise(addPromise);
     }
 
+    var _deleteVacation = function(vacationModel) {
+        var confirm = $mdDialog.confirm()
+                    .title(vacationModel.title + ' verwijderen?')
+                    .content('Weet je zeker dat je ' + vacationModel.title + ' wilt verwijderen?')
+                    .ok('Ja, ik weet het zeker.')
+                    .cancel('Nee, annuleer.');
+        $mdDialog.show(confirm).then(function() {
+            vacationService.deleteVacation(vacationModel.id).then(function() {
+                _loadVacations();
+            }, function(err) {
+                console.log(err);
+            });
+        });
+    };
+
     $scope.submitEdit = _submitEdit;
     $scope.submitNew = _submitNew;
+    $scope.deleteVacation = _deleteVacation;
   }]);

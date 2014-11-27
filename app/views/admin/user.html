@@ -10,7 +10,7 @@
 			{{ user.email }}
 			<ul class="list-item-actions">
 				<li><a ui-sref="admin.user.edit({userId: {{ user.id }} })">Bewerken</a></li>
-				<li><div ng-click="confirmDeletion(user.email)">Verwijderen</div></li>
+				<li><div ng-click="deleteUser(user)">Verwijderen</div></li>
 			</ul>
 		</div>
 	</li>

@@ -5,7 +5,7 @@ angular.module('joetzApp')
 		vacationService.getVacations().then(function(vacations) {
 			$scope.vacations = vacations;
 		}, function(err) {
-			$scope.vacations = err;
+			console.log(err);
 		});
 
 

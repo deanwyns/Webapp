@@ -17,13 +17,19 @@ angular.module('joetzApp')
                     return false;
                 }
             };
-            $scope.$apply(function() {
-                $scope.isMobile = _isMobile();
-            });
 
-            angular.element($window).bind('resize', function() {
+            $timeout(function() {
                 $scope.$apply(function() {
                     $scope.isMobile = _isMobile();
+                });
+            });
+            
+
+            angular.element($window).bind('resize', function() {
+                $timeout(function() {
+                    $scope.$apply(function() {
+                        $scope.isMobile = _isMobile();
+                    });
                 });
             });
 

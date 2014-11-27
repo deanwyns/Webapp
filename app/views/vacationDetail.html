@@ -1,5 +1,6 @@
 <div class="content">
     <h2 class="content-header">{{ selectedVacation.title }}</h2>
+        <div class="vacation-header-image"></div>
 
             <p> {{selectedVacation.promoText}} </p>
             
@@ -26,6 +27,6 @@
  
             <p> {{selectedVacation.description}}</p>
 
-             <md-button disabled class="md-raised md-primary">Inschrijven</md-button>
+             <md-button ng-disabled="true" class="md-raised md-primary">Inschrijven</md-button>
     
 </div>
