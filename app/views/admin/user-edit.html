@@ -1,9 +1,9 @@
 <form style="padding-left: 20px; padding-bottom: 20px;">
   <fieldset ng-disabled="editTracker.active()">
-    <md-radio-group ng-model="userType" ng-init="userType = 'parents'">
+    <md-radio-group ng-model="selectedUser.type" ng-init="selectedUser.type = 'parents'">
       <md-radio-button value="parents">Ouders</md-radio-button>
       <md-radio-button value="monitor">Monitor</md-radio-button>
-      <md-radio-button value="Admin">Admin</md-radio-button>
+      <md-radio-button value="admin">Admin</md-radio-button>
     </md-radio-group>
 
     <md-text-float label="E-mailadres" ng-model="selectedUser.email"> </md-text-float>
@@ -14,7 +14,7 @@
     <md-text-float label="Wachtwoord bevestigen" ng-model="selectedUser.password_confirmed"> </md-text-float>
     <error-message error="errors.password_confirmed"> </error-message>
 
-    <div ng-show="selectedUser.type === 'parents' || userType === 'parents'">
+    <div ng-show="selectedUser.type === 'parents'">
 
       <h3>Gegevens moeder</h3>
       <md-text-float label="Voornaam" ng-model="selectedUser.first_name_mother"> </md-text-float>
