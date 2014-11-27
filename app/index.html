@@ -23,13 +23,17 @@
 </head>
 
 <body ng-app="joetzApp" ng-controller="MainCtrl">
-    <loading-screen loading-text="Aan het laden ..." loading-image="images/joetz.png" ng-cloak loading></loading-screen>
+    <loading-screen loading-text="Aan het laden ..." loading-image="images/joetz.png" ng-cloak></loading-screen>
     <div class="container noselect" md-theme="red">
-        <md-toolbar class="md-tall">
+        <md-toolbar>
             <div class="md-toolbar-tools md-toolbar-tools-top">
-                <div ng-show="user.isAuth">
-                    <img src="images/profiel_m.png" style="height: 58px;" />
-                    <span style="position: relative; top: 50%;">{{ user.email }}</span>
+                <div class="page-title-mobile">{{ pageTitle }}</div>
+                <div ng-show="user.isAuth && !isMobile" class="profile" ui-sref="profile">
+                    <img src="images/profiel_m.png" />
+                    <div>{{ user.email }}</div>
+                </div>
+                <div ui-sref="menu" ng-show="isMobile && back" style="position: absolute; left: 0; top: 10px; height: 40px; line-height: 40px;" >
+                    <img src="images/back.svg" style="height: 100%; float: left;" /> {{ back.button }}
                 </div>
                 <div style="position: absolute; right: 0; top: 5px;">
                     <div ng-hide="user.isAuth">
@@ -48,32 +52,12 @@
                 </div>
             </div>
         </md-toolbar>
+        <div class="desktop-navigation" ng-include="'views/menu.html'"></div>
         <div class="content-block">
-            <nav>
-                <ul>
-                    <li class="menu-item">
-                        <md-button ui-sref="home" ng-class="{ 'md-raised': !isMobile }" aria-label="Nieuwsoverzicht" style="background-color: #62b9cd;">
-                            <img src="images/nieuws.svg" style="height: 100%;" />
-                            <span>Nieuwsoverzicht</span>
-                        </md-button>
-                    </li>
-
-                    <li class="menu-item">
-                        <md-button ui-sref="vacations" ng-class="{ 'md-raised': !isMobile }" aria-label="Vakanties" style="background-color: #dacc8f;">
-                           <img src="images/vakanties.svg" style="height: 100%;" />
-                           <span>Vakanties</span>
-                        </md-button>
-                    </li>
-
-                    <li class="menu-item">
-                        <md-button ng-class="{ 'md-raised': !isMobile }" aria-label="Foto's" style="background-color: #96daa6;">
-                            <img src="images/fotos.svg" style="height: 100%;" />
-                            <span>Foto's</span>
-                        </md-button>
-                    </li>
-                </ul>
-            </nav>
-            <div ui-view ng-class="{ 'md-whiteframe-z1': !isMobile }"></div>
+            <div class="content" ng-class="{ 'md-whiteframe-z1': !isMobile }">
+                <h2 class="content-header">{{ pageTitle }}</h2>
+                <div ui-view></div>
+            </div>
         </div>
     </div>
 

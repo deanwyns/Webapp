@@ -1,18 +1,14 @@
-<div class="content">
-    <h2 class="content-header">Vakantieoverzicht</h2>
-    <md-list>
-        <md-item ng-repeat="vacation in vacations" ui-sref="vacationDetail({vacationId: {{ vacation.id }} })">
-            <div class="vacation-list-item md-whiteframe-z1">
-                <div class="vacation-image"></div>
+<md-list>
+    <md-item ng-repeat="vacation in vacations" ui-sref="vacationDetail({vacationId: {{ vacation.id }} })">
+        <div class="vacation-list-item md-whiteframe-z1">
+            <div class="vacation-image"></div>
 
-                <h3>{{ vacation.title }}</h3>
-                <p> {{vacation.promoText}}</p>
-                <p>Leeftijd : {{ vacation.ageFrom }} -  {{ vacation.ageTo }}</p>
-                <p>Vervoer : {{ vacation.transportation }}</p>
-                <p> Vertrek: {{vacation.beginDate | asDate | date : 'fullDate' }}</p>
-                <p> Terug : {{vacation.endDate | asDate | date: 'fullDate'}}</p>
-                </div>
-        </md-item>
-
-    </md-list>
-</div>
+            <h3>{{ vacation.title }}</h3>
+            <p> {{vacation.promoText}}</p>
+            <p>Leeftijd : {{ vacation.ageFrom }} -  {{ vacation.ageTo }}</p>
+            <p>Vervoer : {{ vacation.transportation }}</p>
+            <p> Vertrek: {{vacation.beginDate | asDate | date : 'fullDate' }}</p>
+            <p> Terug : {{vacation.endDate | asDate | date: 'fullDate'}}</p>
+            </div>
+    </md-item>
+</md-list>

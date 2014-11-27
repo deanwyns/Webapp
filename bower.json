@@ -14,7 +14,7 @@
     "angular-material": "master",
     "angular-local-storage": "~0.1.4",
     "promise-tracker": "https://github.com/Igosuki/angular-promise-tracker.git#ec2bdf76471436a9028eb804a998299b9952dab3",
-    "angular-ui-router": "~0.2.11",
+    "angular-ui-router": "~0.2.13",
     "ngQuickDate": "~1.3.3",
     "angular-i18n": "~1.3.3",
     "angular-permission": "~0.1.4"

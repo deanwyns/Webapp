@@ -33,20 +33,48 @@ angular
 
     $urlRouterProvider.otherwise('/');
     $stateProvider
-      .state('home', {
+      .state('menu', {
         url: '/',
+        templateUrl: 'views/menu.html',
+        //controller: 'MenuCtrl',
+        data: {
+          pageTitle: 'Joetz'
+        }
+      })
+      .state('news', {
+        url: '/nieuws',
         templateUrl: 'views/main.html',
-        controller: 'MainCtrl'
+        data: {
+          pageTitle: 'Nieuwsoverzicht',
+          back: {
+            button: 'Menu',
+            state: 'login'
+          }
+        }
       })
       .state('login', {
         url: '/login',
         templateUrl: 'views/login.html',
-        controller: 'LoginCtrl'
+        controller: 'LoginCtrl',
+        data: {
+          pageTitle: 'Inloggen',
+          back: {
+            button: 'Menu',
+            state: 'menu'
+          }
+        }
       })
       .state('vacations', {
         url: '/vakanties',
         templateUrl: 'views/vacations.html',
-        controller: 'VacationCtrl'
+        controller: 'VacationCtrl',
+        data: {
+          pageTitle: 'Vakantieoverzicht',
+          back: {
+            button: 'Menu',
+            state: 'menu'
+          }
+        }
       })
       .state('register', {
         url: '/registreer',
@@ -55,8 +83,21 @@ angular
         data: {
           permissions: {
             only: ['anonymous']
+          },
+          pageTitle: 'Registreren',
+          back: {
+            button: 'Menu',
+            state: 'menu'
           }
         }
+      })
+      .state('profile', {
+        url: '/profiel',
+        templateUrl: 'views/user/profile.html',
+        back: {
+            button: 'Menu',
+            state: 'menu'
+          }
       })
       .state('admin', {
         url: '/admin',
@@ -65,6 +106,11 @@ angular
         data: {
           permissions: {
             only: ['admin']
+          },
+          pageTitle: 'Admin',
+          back: {
+            button: 'Menu',
+            state: 'menu'
           }
         }
       })
@@ -76,11 +122,25 @@ angular
       })
       .state('admin.user.list', {
         url: '/',
-        templateUrl: 'views/admin/user.html'
+        templateUrl: 'views/admin/user.html',
+        data: {
+          pageTitle: 'Gebruikers beheren',
+          back: {
+            button: 'Menu',
+            state: 'menu'
+          }
+        }
       })
       .state('admin.user.new', {
         url: '/nieuw',
-        templateUrl: 'views/admin/user-edit.html'
+        templateUrl: 'views/admin/user-edit.html',
+        data: {
+          pageTitle: 'Gebruiker aanmaken',
+          back: {
+            button: 'Lijst',
+            state: 'admin.user.list'
+          }
+        }
       })
       .state('admin.user.edit', {
         url: '/:userId/wijzig',
@@ -92,6 +152,13 @@ angular
           }, function(err) {
             console.log(err);
           });
+        },
+        data: {
+          pageTitle: 'Gebruiker wijzigen',
+          back: {
+            button: 'Lijst',
+            state: 'admin.user.list'
+          }
         }
       })
       .state('admin.vacation', {
@@ -102,7 +169,14 @@ angular
       })
       .state('admin.vacation.list', {
         url: '/',
-        templateUrl: 'views/admin/vacation.html'
+        templateUrl: 'views/admin/vacation.html',
+        data: {
+          pageTitle: 'Vakanties beheren',
+          back: {
+            button: 'Lijst',
+            state: 'admin.vacation.list'
+          }
+        }
       })
       .state('admin.vacation.detail', {
         url: '/:vacationId',
@@ -110,7 +184,14 @@ angular
       })
       .state('admin.vacation.new', {
         url: '/nieuw',
-        templateUrl: 'views/admin/vacation-edit.html'
+        templateUrl: 'views/admin/vacation-edit.html',
+        data: {
+          pageTitle: 'Vakantie aanmaken',
+          back: {
+            button: 'Lijst',
+            state: 'admin.vacation.list'
+          }
+        }
       })
       .state('admin.vacation.edit', {
         url: '/:vacationId/wijzig',
@@ -120,6 +201,13 @@ angular
           vacationService.getVacation(vacationId).then(function(vacation) {
             $scope.selectedVacation = vacation;
           });
+        },
+        data: {
+          pageTitle: 'Vakantie wijzigen',
+          back: {
+            button: 'Lijst',
+            state: 'admin.vacation.list'
+          }
         }
       })
       .state('vacationDetail', {
@@ -134,7 +222,7 @@ angular
         }
       });
   })
-  .run(function (Permission, userService) {
+  .run(function (Permission, userService, $rootScope, $location, $timeout, $window) {
     Permission
       .defineRole('anonymous', function() {
         return !userService.isAuthenticated();
@@ -148,4 +236,30 @@ angular
       .defineRole('admin', function() {
         return userService.getType() === 'admin';
       });
+
+      var _isMobile = function() {
+          if (document.querySelector('md-toolbar').offsetHeight === 64) {
+              return true;
+          } else {
+              return false;
+          }
+      };
+
+      $timeout(function() {
+          $rootScope.$apply(function() {
+              $rootScope.isMobile = _isMobile();
+          });
+      });
+
+      angular.element($window).bind('resize', function() {
+          $timeout(function() {
+              $rootScope.$apply(function() {
+                  $rootScope.isMobile = _isMobile();
+              });
+          });
+      });
+
+      if(!_isMobile()) {
+        $location.path('nieuws');
+      }
   });

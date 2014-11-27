@@ -18,7 +18,7 @@ angular.module('joetzApp')
 		$scope.errors = {};
 
 		var userPromise = userService.register($scope.registerModel).then(function() {
-			$state.go('home');
+			$state.go('login');
 			$mdToast.show($mdToast.simple().content('Je account is succesvol aangemaakt.'));
 		}, function(err) {
 			var errors = {};

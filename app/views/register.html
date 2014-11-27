@@ -1,45 +1,39 @@
-<div class="content">
-	<h2 class="content-header">Registreren</h2>
+<form style="padding-left: 20px; padding-bottom: 20px;">
+  <h3>Account gegevens</h3>
+  <fieldset ng-disabled="registerTracker.active()">
+    <md-text-float label="E-mailadres" ng-model="registerModel.email"> </md-text-float>
+    <error-message error="errors.email"> </error-message>
+    <md-text-float label="Wachtwoord" ng-model="registerModel.password" type="password"> </md-text-float>
+    <error-message error="errors.password"> </error-message>
+    <md-text-float label="Wachtwoord bevestigen" ng-model="registerModel.password_confirmed" type="password"> </md-text-float>
+    <error-message error="errors.password_confirmed"> </error-message>
 
-  {{ message }}
+    <md-text-float label="Telefoonnummer" ng-model="registerModel.phone_number"> </md-text-float>
+    <error-message error="errors.phone_number"> </error-message>
+  </fieldset>
 
-  <form style="padding-left: 20px; padding-bottom: 20px;">
-    <h3>Account gegevens</h3>
-    <fieldset ng-disabled="registerTracker.active()">
-      <md-text-float label="E-mailadres" ng-model="registerModel.email"> </md-text-float>
-      <error-message error="errors.email"> </error-message>
-      <md-text-float label="Wachtwoord" ng-model="registerModel.password" type="password"> </md-text-float>
-      <error-message error="errors.password"> </error-message>
-      <md-text-float label="Wachtwoord bevestigen" ng-model="registerModel.password_confirmed" type="password"> </md-text-float>
-      <error-message error="errors.password_confirmed"> </error-message>
+  <h3>Gegevens moeder</h3>
+  <fieldset ng-disabled="registerTracker.active()">
+    <md-text-float label="Voornaam" ng-model="registerModel.first_name_mother"> </md-text-float>
+    <error-message error="errors.first_name_mother"> </error-message>
+    <md-text-float label="Naam" ng-model="registerModel.last_name_mother"> </md-text-float>
+    <error-message error="errors.last_name_mother"> </error-message>
+    <md-text-float label="Rijksregisternummer" ng-model="registerModel.nrn_mother"> </md-text-float>
+    <error-message error="errors.nrn_mother"> </error-message>
+  </fieldset>
 
-      <md-text-float label="Telefoonnummer" ng-model="registerModel.phone_number"> </md-text-float>
-      <error-message error="errors.phone_number"> </error-message>
-    </fieldset>
+  <h3>Gegevens vader</h3>
+  <fieldset ng-disabled="registerTracker.active()">
+    <md-text-float label="Voornaam" ng-model="registerModel.first_name_father"> </md-text-float>
+    <error-message error="errors.first_name_father"> </error-message>
+    <md-text-float label="Naam" ng-model="registerModel.last_name_father"> </md-text-float>
+    <error-message error="errors.last_name_father"> </error-message>
+    <md-text-float label="Rijksregisternummer" ng-model="registerModel.nrn_father"> </md-text-float>
+    <error-message error="errors.nrn_father"> </error-message>
+  </fieldset>
 
-    <h3>Gegevens moeder</h3>
-    <fieldset ng-disabled="registerTracker.active()">
-      <md-text-float label="Voornaam" ng-model="registerModel.first_name_mother"> </md-text-float>
-      <error-message error="errors.first_name_mother"> </error-message>
-      <md-text-float label="Naam" ng-model="registerModel.last_name_mother"> </md-text-float>
-      <error-message error="errors.last_name_mother"> </error-message>
-      <md-text-float label="Rijksregisternummer" ng-model="registerModel.nrn_mother"> </md-text-float>
-      <error-message error="errors.nrn_mother"> </error-message>
-    </fieldset>
-
-    <h3>Gegevens vader</h3>
-    <fieldset ng-disabled="registerTracker.active()">
-      <md-text-float label="Voornaam" ng-model="registerModel.first_name_father"> </md-text-float>
-      <error-message error="errors.first_name_father"> </error-message>
-      <md-text-float label="Naam" ng-model="registerModel.last_name_father"> </md-text-float>
-      <error-message error="errors.last_name_father"> </error-message>
-      <md-text-float label="Rijksregisternummer" ng-model="registerModel.nrn_father"> </md-text-float>
-      <error-message error="errors.nrn_father"> </error-message>
-    </fieldset>
-
-    <md-button type="submit" class="md-primary" ng-click="submit()" ng-disabled="registerTracker.active()">
-      Registreren
-    </md-button>
-  </form>
-  <md-progress-circular ng-show="registerTracker.active()" mode="indeterminate" style="background-color: #eee;"></md-progress-circular>
-</div>
+  <md-button type="submit" class="md-primary" ng-click="submit()" ng-disabled="registerTracker.active()">
+    Registreren
+  </md-button>
+</form>
+<md-progress-circular ng-show="registerTracker.active()" mode="indeterminate" style="background-color: #eee;"></md-progress-circular>

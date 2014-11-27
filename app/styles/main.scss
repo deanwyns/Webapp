@@ -90,6 +90,12 @@ loading-screen {
   }
 }
 
+md-toolbar {
+  height: 192px;
+  min-height: 192px;
+  max-height: 192px;
+}
+
 .container {
   position: absolute;
   top: 0;
@@ -103,6 +109,25 @@ loading-screen {
 
     position: fixed;
   }
+}
+
+.profile {
+  height: 100%;
+
+  img {
+    height: 100%;
+    float: left;
+  }
+
+  div {
+    margin-left: 80px;
+    height: 100%;
+    line-height: 64px;
+  }
+}
+
+.page-title-mobile {
+  display: none;
 }
 
 .fabs {
@@ -149,11 +174,11 @@ loading-screen {
   }
 }
 
-.user-list-item {
+.list-item {
   position: relative;
 
   margin-bottom: 20px;
-  padding-left: 31%;
+  padding-left: 10px;
   padding-top: 4px;
   padding-bottom: 10px;
 
@@ -166,17 +191,23 @@ loading-screen {
   background: linear-gradient(to bottom,  #f4f4f4 0%,#f2f2f2 100%); /* W3C */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f4f4f4', endColorstr='#f2f2f2',GradientType=0 ); /* IE6-9 */
 
-  .vacation-image {
+  .actions {
     position: absolute;
-    left: 0;
+    right: 15px;
     top: 0;
-    bottom: 0;
+    height: 32px;
+    list-style: none;
+    padding-left: 0;
 
-    overflow: hidden;
-    display: block;
-    width: 30%;
-    background-image: url('http://www.natuurenbos.be/~/media/Images/Photo%20of%20the%20week/121119_Bos-ter-Rijst---foto-Marc-De-Vos.jpg');
-    background-size: cover;
+    li {
+      float: left;
+      margin-left: 10px;
+      height: 100%;
+
+      img {
+        height: 100%;
+      }
+    }
   }
 }
 
@@ -218,7 +249,7 @@ loading-screen {
     width: 100%;
 }
 
-nav {
+.desktop-navigation nav {
   position: fixed;
 
   top: 192px;
@@ -298,7 +329,21 @@ md-progress-circular.md-red-theme .md-inset {
 }
 
 @media all and (max-width: 800px) {
-  nav {
+  .content-header {
+    display: none;
+  }
+
+  .page-title-mobile {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .desktop-navigation {
+    display: none;
+  }
+
+  /*nav {
     position: static;
     top: auto;
     left: auto;
@@ -314,7 +359,7 @@ md-progress-circular.md-red-theme .md-inset {
     li {
       float: left;
     }
-  }
+  }*/
 
   .menu-item {
     padding: 4px;
@@ -325,8 +370,10 @@ md-progress-circular.md-red-theme .md-inset {
     }
   }
 
-  .md-tall {
-    height: 64px !important;
+  md-toolbar {
+    height: 64px;
+    min-height: 64px;
+    max-height: 64px;
   }
 
   .content {

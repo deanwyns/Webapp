@@ -4,14 +4,14 @@
     </md-button>
 </div>
 
-<ul>
-	<li ng-repeat="vacation in vacations">
-		<div class="list-item">
-			{{ vacation.title }}
-			<ul class="list-item-actions">
-				<li><a ui-sref="admin.vacation.edit({vacationId: {{ vacation.id }} })">Bewerken</a></li>
-				<li><div ng-click="deleteVacation(vacation)">Verwijderen</div></li>
+<md-list>
+	<md-item ng-repeat="vacation in vacations">
+		<div class="list-item md-whiteframe-z1">
+			<h3>{{ vacation.title }}</h3>
+			<ul class="actions">
+				<li><img ui-sref="admin.vacation.edit({vacationId: {{ vacation.id }} })" src="images/edit.svg" /></li>
+				<li><img ng-click="deleteVacation(vacation))" src="images/delete.svg"></li>
 			</ul>
 		</div>
-	</li>
-</ul>
+	</md-item>
+</md-list>

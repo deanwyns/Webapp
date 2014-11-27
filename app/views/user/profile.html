@@ -1,0 +1,16 @@
+<p>E-mail: {{ user.email }}</p>
+<div ng-show="user.type === 'parents'">
+	<div ng-show="user.first_name_mother">
+		<h3>Gegevens moeder</h3>
+		<p>Naam: {{ user.last_name_mother }}<br />
+			Voornaam: {{ user.first_name_mother }}<br />
+			Rijksregisternummer: {{ user.nrn_mother }}<br />
+	</div>
+	
+	<div ng-show="user.first_name_father">
+		<h3>Gegevens vader</h3>
+		<p>Naam: {{ user.last_name_father }}<br />
+			Voornaam: {{ user.first_name_father }}<br />
+			Rijksregisternummer: {{ user.nrn_father }}<br />
+	</div>
+</div>

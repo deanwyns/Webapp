@@ -8,57 +8,15 @@
  * Controller of the joetzApp
  */
 angular.module('joetzApp')
-    .controller('MainCtrl', ['$state', '$scope', '$rootScope', '$mdDialog', 'userService', '$window', '$timeout',
-        function($state, $scope, $rootScope, $mdDialog, userService, $window, $timeout) {
-            var _isMobile = function() {
-                if (document.querySelector('md-toolbar').offsetHeight === 64) {
-                    return true;
-                } else {
-                    return false;
-                }
-            };
-
-            $timeout(function() {
-                $scope.$apply(function() {
-                    $scope.isMobile = _isMobile();
-                });
-            });
-            
-
-            angular.element($window).bind('resize', function() {
-                $timeout(function() {
-                    $scope.$apply(function() {
-                        $scope.isMobile = _isMobile();
-                    });
-                });
-            });
-
-            userService.init().then(function(user) {
-                if (user.isAuth) {
-                    $timeout(function() {
-                        $scope.$broadcast('user:loggedIn', user);
-                    });
-                }
-
-                $timeout(function() {
-                    $rootScope.$broadcast('loading:done');
-                });
-            }, function() {
-                $timeout(function() {
-                    $rootScope.$broadcast('loading:done');
-                });
-            });
-
+    .controller('MainCtrl', ['$state', '$scope', '$rootScope', '$mdDialog', 'userService', '$timeout',
+        function($state, $scope, $rootScope, $mdDialog, userService, $timeout) {
             var _onUserLoggedIn = function(event, user) {
                 $scope.user = user;
-                if($state.is('register')) {
-                    $state.go('home');
-                }
             };
 
             var _onUserLoggedOut = function() {
                 $scope.user = {};
-                $state.go('home');
+                $state.go('menu');
             };
 
             var _openDialog = function($event) {
@@ -83,9 +41,34 @@ angular.module('joetzApp')
                 });
             };
 
+            var _onRouteChangeSuccess = function(event, toState) {
+                if(angular.isDefined(toState.data.pageTitle)) {
+                    $scope.pageTitle = toState.data.pageTitle;
+                }
+                
+                $scope.back = toState.data.back;
+            };
+
             $scope.openDialog = _openDialog;
             $scope.logout = _logout;
 
             $scope.$on('user:loggedIn', _onUserLoggedIn);
             $scope.$on('user:loggedOut', _onUserLoggedOut);
+            $scope.$on('$stateChangeSuccess', _onRouteChangeSuccess);
+
+            userService.init().then(function(user) {
+                if (user.isAuth) {
+                    $timeout(function() {
+                        $scope.$broadcast('user:loggedIn', user);
+                    });
+                }
+
+                $timeout(function() {
+                    $rootScope.$broadcast('loading:done');
+                });
+            }, function() {
+                $timeout(function() {
+                    $rootScope.$broadcast('loading:done');
+                });
+            });
     }]);

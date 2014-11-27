@@ -4,14 +4,14 @@
     </md-button>
 </div>
 
-<ul>
-	<li ng-repeat="user in users">
-		<div class="list-item">
-			{{ user.email }}
-			<ul class="list-item-actions">
-				<li><a ui-sref="admin.user.edit({userId: {{ user.id }} })">Bewerken</a></li>
-				<li><div ng-click="deleteUser(user)">Verwijderen</div></li>
+<md-list>
+	<md-item ng-repeat="user in users">
+		<div class="list-item md-whiteframe-z1">
+			<h3>{{ user.email }}</h3>
+			<ul class="actions">
+				<li><img ui-sref="admin.user.edit({userId: {{ user.id }} })" src="images/edit.svg" /></li>
+				<li><img ng-click="deleteUser(user)" src="images/delete.svg"></li>
 			</ul>
 		</div>
-	</li>
-</ul>
+	</md-item>
+</md-list>
