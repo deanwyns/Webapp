@@ -37,12 +37,12 @@
     <error-message error="errors.taxDeductable"> </error-message>
   </fieldset>
 
-  <div ng-if="selectedVacation.id">
+  <div ng-show="selectedVacation.id">
     <md-button type="submit" class="md-primary" ng-click="submitEdit(selectedVacation)" ng-disabled="editTracker.active()">
      Aanpassen
     </md-button>
   </div>
-  <div ng-if="selectedVacation.id === undefined">
+  <div ng-show="selectedVacation.id === undefined">
     <md-button type="submit" class="md-primary" ng-click="submitNew(selectedVacation)" ng-disabled="editTracker.active()">
      Toevoegen
     </md-button>

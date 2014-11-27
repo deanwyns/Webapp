@@ -94,10 +94,14 @@ angular
       .state('profile', {
         url: '/profiel',
         templateUrl: 'views/user/profile.html',
-        back: {
+        data: {
+          pageTitle: 'Profiel',
+          back: {
             button: 'Menu',
             state: 'menu'
           }
+        }
+        
       })
       .state('admin', {
         url: '/admin',

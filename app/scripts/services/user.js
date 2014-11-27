@@ -110,7 +110,7 @@ angular.module('joetzApp')
 
 			$http({
 				method: 'DELETE',
-				url: baseUrl + '/' + id,
+				url: baseUrl + '/user/' + id,
 				headers: headers
 			}).success(function() {
 				defer.resolve();
@@ -153,6 +153,7 @@ angular.module('joetzApp')
 			}
 
 			headers['Content-Type'] = 'application/x-www-form-urlencoded';
+			headers.Authorization = userService.getToken();
 
 			$http({
 				method: 'POST',
@@ -179,6 +180,7 @@ angular.module('joetzApp')
 			}
 
 			headers['Content-Type'] = 'application/x-www-form-urlencoded';
+			headers.Authorization = userService.getToken();
 
 			$http({
 				method: 'POST',

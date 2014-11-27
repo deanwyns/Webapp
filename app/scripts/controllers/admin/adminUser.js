@@ -26,52 +26,55 @@ angular.module('joetzApp').controller('AdminUserCtrl', ['$state', '$scope', 'use
             console.log(response);
             _loadUsers(true);
         }, function(err) {
-            for(var key in err.errors) {
-                $scope.errors[key] = err.errors[key][0];
+            for(var key in err.errors.messages) {
+                $scope.errors[key] = err.errors.messages[key][0];
             }
         });
 
         $scope.editTracker.addPromise(editPromise);
     };
 
-    var _submitNew = function(userModel, userType) {
-        if(!userModel) {
+    var _submitNew = function(userModel) {
+        console.log(userModel);
+        if(!userModel || !userModel.type) {
             return undefined;
         }
 
-        switch(userType) {
+        switch(userModel.type) {
             case 'parents':
                 var addPromise = userService.register(userModel).then(function(response) {
                     _loadUsers(true);
                 }, function(err) {
-                    for(var key in err.errors) {
-                        $scope.errors[key] = err.errors[key][0];
+                    for(var key in err.errors.messages) {
+                        $scope.errors[key] = err.errors.messages[key][0];
                     }
                 });
+
+                $scope.editTracker.addPromise(addPromise);
                 break;
             case 'monitor':
                 var addPromise = userService.registerMonitor(userModel).then(function(response) {
                     _loadUsers(true);
                 }, function(err) {
-                    for(var key in err.errors) {
-                        $scope.errors[key] = err.errors[key][0];
+                    for(var key in err.errors.messages) {
+                        $scope.errors[key] = err.errors.messages[key][0];
                     }
                 });
+
+                $scope.editTracker.addPromise(addPromise);
                 break;
             case 'admin':
                 var addPromise = userService.registerAdmin(userModel).then(function(response) {
                     _loadUsers(true);
                 }, function(err) {
-                    for(var key in err.errors) {
-                        $scope.errors[key] = err.errors[key][0];
+                    for(var key in err.errors.messages) {
+                        $scope.errors[key] = err.errors.messages[key][0];
                     }
                 });
+
+                $scope.editTracker.addPromise(addPromise);
                 break;
         }
-
-        
-
-        $scope.editTracker.addPromise(addPromise);
     }
 
     var _deleteUser = function(userModel) {
@@ -82,7 +85,7 @@ angular.module('joetzApp').controller('AdminUserCtrl', ['$state', '$scope', 'use
                     .cancel('Nee, annuleer.');
         $mdDialog.show(confirm).then(function() {
             userService.deleteUser(userModel.id).then(function() {
-                console.log('Gelukt');
+                _loadUsers();
             }, function() {
                 console.log('Mislukt');
             });

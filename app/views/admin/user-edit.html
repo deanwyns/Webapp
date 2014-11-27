@@ -2,7 +2,7 @@
 
 <form style="padding-left: 20px; padding-bottom: 20px;">
   <fieldset ng-disabled="editTracker.active()">
-    <md-radio-group ng-model="selectedUser.type" ng-init="selectedUser.type = 'parents'">
+    <md-radio-group ng-model="selectedUser.type">
       <md-radio-button value="parents">Ouders</md-radio-button>
       <md-radio-button value="monitor">Monitor</md-radio-button>
       <md-radio-button value="admin">Admin</md-radio-button>
@@ -11,9 +11,9 @@
     <md-text-float label="E-mailadres" ng-model="selectedUser.email"> </md-text-float>
     <error-message error="errors.email"> </error-message>
 
-    <md-text-float label="Wachtwoord" ng-model="selectedUser.password"> </md-text-float>
+    <md-text-float label="Wachtwoord" ng-model="selectedUser.password" type="password"> </md-text-float>
     <error-message error="errors.password"> </error-message>
-    <md-text-float label="Wachtwoord bevestigen" ng-model="selectedUser.password_confirmed"> </md-text-float>
+    <md-text-float label="Wachtwoord bevestigen" ng-model="selectedUser.password_confirmed" type="password"> </md-text-float>
     <error-message error="errors.password_confirmed"> </error-message>
 
     <div ng-show="selectedUser.type === 'parents'">
@@ -36,13 +36,13 @@
 
     </div>
 
-  <div ng-if="selectedUser.id">
+  <div ng-show="selectedUser.id">
     <md-button type="submit" class="md-primary" ng-click="submitEdit(selectedUser)" ng-disabled="editTracker.active()">
      Aanpassen
     </md-button>
   </div>
-  <div ng-if="selectedUser.id === undefined">
-    <md-button type="submit" class="md-primary" ng-click="submitNew(selectedUser, userType)" ng-disabled="editTracker.active()">
+  <div ng-show="selectedUser.id === undefined">
+    <md-button type="submit" class="md-primary" ng-click="submitNew(selectedUser)" ng-disabled="editTracker.active()">
      Toevoegen
     </md-button>
   </div>
