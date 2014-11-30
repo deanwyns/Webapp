@@ -9,7 +9,8 @@ angular.module('joetzApp')
 				email: '',
 				token: '',
 				isAuth: false,
-				type: ''
+				type: '',
+				children: {}
 			};
 
 		var _getUsers = function() {
@@ -279,6 +280,28 @@ angular.module('joetzApp')
 			return defer.promise;
 		};
 
+		var _addChild = function(childModel) {
+			var defer = $q.defer(),
+				headers = {},
+				data = queryBuilder.build(childModel);
+
+			headers['Content-Type'] = 'application/x-www-form-urlencoded';
+			headers.Authorization = _user.token;
+
+			$http({
+				method: 'POST',
+				url: baseUrl + '/me/children',
+				data: data,
+				headers: headers
+			}).success(function(response) {
+				defer.resolve(response);
+			}).error(function(err) {
+				defer.reject(err);
+			});
+
+			return defer.promise;
+		};
+
 		var _getLocalUser = function() {
 			return _user;
 		};
@@ -307,6 +330,8 @@ angular.module('joetzApp')
 		userService.getType = _getType;
 		userService.isAuthenticated = _isAuthenticated;
 		userService.getToken = _getToken;
+
+		userService.addChild = _addChild;
 
 		userService.getUsers = _getUsers;
 		userService.getUser = _getUser;

@@ -4,14 +4,20 @@
     </md-button>
 </div>
 
-<md-list>
-	<md-item ng-repeat="user in users">
-		<div class="list-item md-whiteframe-z1">
-			<h3>{{ user.email }}</h3>
-			<ul class="actions">
+<md-text-float ng-model="searchText"> </md-text-float>
+
+<table class="list md-whiteframe-z1">
+	<tr>
+		<th ng-click="predicate = 'email'; reverse = !reverse">Email</th>
+		<th>Acties</th>
+	</tr>
+	<tr ng-repeat="user in users | orderBy:predicate:reverse | filter:searchText" class="list-item">
+		<td ng-bind-html="user.email | highlight:searchText"></td>
+		<td class="actions">
+			<ul>
 				<li><img ui-sref="admin.user.edit({userId: {{ user.id }} })" src="images/edit.svg" /></li>
 				<li><img ng-click="deleteUser(user)" src="images/delete.svg"></li>
 			</ul>
-		</div>
-	</md-item>
-</md-list>
+		</td>
+	</tr>
+</table>

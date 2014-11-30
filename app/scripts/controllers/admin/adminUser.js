@@ -23,7 +23,8 @@ angular.module('joetzApp').controller('AdminUserCtrl', ['$state', '$scope', 'use
         }
 
         var editPromise = userService.update(userModel, userModel.id).then(function(response) {
-            console.log(response);
+            $scope.errors = {};
+
             _loadUsers(true);
         }, function(err) {
             for(var key in err.errors.messages) {
@@ -35,7 +36,6 @@ angular.module('joetzApp').controller('AdminUserCtrl', ['$state', '$scope', 'use
     };
 
     var _submitNew = function(userModel) {
-        console.log(userModel);
         if(!userModel || !userModel.type) {
             return undefined;
         }
@@ -43,6 +43,7 @@ angular.module('joetzApp').controller('AdminUserCtrl', ['$state', '$scope', 'use
         switch(userModel.type) {
             case 'parents':
                 var addPromise = userService.register(userModel).then(function(response) {
+                    $scope.errors = {};
                     _loadUsers(true);
                 }, function(err) {
                     for(var key in err.errors.messages) {
@@ -54,6 +55,7 @@ angular.module('joetzApp').controller('AdminUserCtrl', ['$state', '$scope', 'use
                 break;
             case 'monitor':
                 var addPromise = userService.registerMonitor(userModel).then(function(response) {
+                    $scope.errors = {};
                     _loadUsers(true);
                 }, function(err) {
                     for(var key in err.errors.messages) {
@@ -65,6 +67,7 @@ angular.module('joetzApp').controller('AdminUserCtrl', ['$state', '$scope', 'use
                 break;
             case 'admin':
                 var addPromise = userService.registerAdmin(userModel).then(function(response) {
+                    $scope.errors = {};
                     _loadUsers(true);
                 }, function(err) {
                     for(var key in err.errors.messages) {

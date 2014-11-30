@@ -1,5 +1,16 @@
 <p>E-mail: {{ user.email }}</p>
 <div ng-show="user.type === 'parents'">
+	<div ng-show="user.children">
+		<h3>Jouw kinderen</h3>
+		<md-button ui-sref="user.child(user.id)">Kind toevoegen</md-button>
+
+		<md-list>
+			<md-item ng-repeat="child in children">
+				{{ child }}
+			</md-item>
+		</md-list>
+	</div>
+
 	<div ng-show="user.first_name_mother">
 		<h3>Gegevens moeder</h3>
 		<p>Naam: {{ user.last_name_mother }}<br />

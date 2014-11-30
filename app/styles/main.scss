@@ -174,13 +174,9 @@ md-toolbar {
   }
 }
 
-.list-item {
-  position: relative;
-
-  margin-bottom: 20px;
-  padding-left: 10px;
-  padding-top: 4px;
-  padding-bottom: 10px;
+.list {
+  table-layout: fixed;
+  width: 100%;
 
   background: #f4f4f4; /* Old browsers */
   background: -moz-linear-gradient(top,  #f4f4f4 0%, #f2f2f2 100%); /* FF3.6+ */
@@ -190,23 +186,26 @@ md-toolbar {
   background: -ms-linear-gradient(top,  #f4f4f4 0%,#f2f2f2 100%); /* IE10+ */
   background: linear-gradient(to bottom,  #f4f4f4 0%,#f2f2f2 100%); /* W3C */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f4f4f4', endColorstr='#f2f2f2',GradientType=0 ); /* IE6-9 */
+}
 
+.list-item {
   .actions {
-    position: absolute;
-    right: 15px;
-    top: 0;
-    height: 32px;
-    list-style: none;
-    padding-left: 0;
+    margin-right: 15px;
 
-    li {
-      float: left;
-      margin-left: 10px;
-      height: 100%;
+    ul {
+      list-style: none;
+      padding-left: 0;
+      height: 32px;
 
-      img {
+      li {
+        float: left;
+        margin-left: 10px;
         height: 100%;
-      }
+
+        img {
+          height: 100%;
+        }
+    }
     }
   }
 }
@@ -290,14 +289,14 @@ md-toolbar {
     padding-right: 0;
 
     span {
-      padding-top: 2px;
-      padding-bottom: 2px;
+      padding-top: 3px;
+      padding-bottom: 3px;
       color: #fff;
       float: left;
       display: inline-block;
       width: 100%;
-      height: 20px;
-      line-height: 16px;
+      height: 26px;
+      line-height: 20px;
       text-transform: none;
       background-color: rgba(0, 0, 0, 0.2);
     }

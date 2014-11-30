@@ -24,7 +24,33 @@ angular
     'ngLocale',
     'permission'
   ])
-  .config(function ($httpProvider, $stateProvider, $urlRouterProvider) {
+  .config(function ($httpProvider, $stateProvider, $urlRouterProvider, ngQuickDateDefaultsProvider) {
+    ngQuickDateDefaultsProvider.set('parseDateFunction', function(str) {
+      var seconds = Date.parse(str);
+      var date = new Date(seconds);
+
+      var year, month, day, hours, minutes;
+      year = String(date.getFullYear());
+      month = String(date.getMonth() + 1);
+      if (month.length === 1) {
+        month = '0' + month;
+      }
+      day = String(date.getDate());
+      if (day.length === 1) {
+        day = '0' + day;
+      }
+      hours = String(date.getHours());
+      if (hours.length === 1) {
+        hours = '0' + hours;
+      }
+      minutes = String(date.getMinutes());
+      if (minutes.length === 1) {
+        minutes = '0' + minutes;
+      }
+
+      return year + '-' + month + '-' + day + ' ' + hours + ':' + minutes;
+    });
+
     //$httpProvider.interceptors.push('authInterceptorService');
     delete $httpProvider.defaults.headers.common['X-Requested-With'];
     $httpProvider.defaults.headers.post.Accept = 'application/vnd.joetz.v1+json';
@@ -66,13 +92,64 @@ angular
       })
       .state('vacations', {
         url: '/vakanties',
-        templateUrl: 'views/vacations.html',
+        template: '<ui-view />',
         controller: 'VacationCtrl',
+      })
+      .state('vacations.list', {
+        url: '/',
+        templateUrl: 'views/vacations.html',
         data: {
           pageTitle: 'Vakantieoverzicht',
           back: {
             button: 'Menu',
             state: 'menu'
+          }
+        }
+      })
+      .state('vacations.detail', {
+        url: '/:vacationId/details', 
+        templateUrl: 'views/vacation-detail.html', 
+        controller: function($scope, vacationService, $stateParams){
+          var vacationId = $stateParams.vacationId;
+          vacationService.getVacation(vacationId).then(function(vacation){
+            $scope.selectedVacation = vacation;
+          });
+        }
+      })
+      .state('vacations.register', {
+        url: '/:vacationId/inschrijven',
+        templateUrl: 'views/vacation/register.html'
+      })
+      .state('vacations.register.child-selection', {
+        url: '/kinderen', 
+        templateUrl: 'views/vacation/children.html',
+        data: {
+          pageTitle: 'Kinderen',
+          back: {
+            button: 'Vakantie',
+            state: 'vacations'
+          }
+        }
+      })
+      .state('vacations.register.register-information', {
+        url: '/informatie', 
+        templateUrl: 'views/vacation/information.html',
+        data: {
+          pageTitle: 'Inschrijving',
+          back: {
+            button: 'Kinderen',
+            state: 'vacations.register.child-selection'
+          }
+        }
+      })
+      .state('vacations.register.summary', {
+        url: '/overzicht', 
+        templateUrl: 'views/vacation/summary.html',
+        data: {
+          pageTitle: 'Bevestiging',
+          back: {
+            button: 'Inschrijving',
+            state: 'vacations.register.register-information'
           }
         }
       })
@@ -92,7 +169,13 @@ angular
         }
       })
       .state('profile', {
-        url: '/profiel',
+        abstract: true,
+        url: '/profile',
+        template: '<ui-view />',
+        controller: 'UserCtrl'
+      })
+      .state('profile.overview', {
+        url: '/',
         templateUrl: 'views/user/profile.html',
         data: {
           pageTitle: 'Profiel',
@@ -101,7 +184,17 @@ angular
             state: 'menu'
           }
         }
-        
+      })
+      .state('profile.add-child', {
+        url: '/kind/toevoegen',
+        templateUrl: 'views/user/child-edit.html',
+        data: {
+          pageTitle: 'Kind toevoegen',
+          back: {
+            button: 'Profiel',
+            state: 'profile'
+          }
+        }
       })
       .state('admin', {
         url: '/admin',
@@ -212,17 +305,6 @@ angular
             button: 'Lijst',
             state: 'admin.vacation.list'
           }
-        }
-      })
-      .state('vacationDetail', {
-        url: '/:vacationId/details', 
-        templateUrl: 'views/vacationDetail.html', 
-        controller: function($scope, vacationService, $stateParams){
-          var vacationId = $stateParams.vacationId;
-          vacationService.getVacation(vacationId).then(function(vacation){
-            $scope.selectedVacation = vacation;
-            
-          });
         }
       });
   })

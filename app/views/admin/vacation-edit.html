@@ -12,9 +12,10 @@
     <md-text-float label="Locatie" ng-model="selectedVacation.location"> </md-text-float>
     <error-message error="errors.location"> </error-message>
 
-    <quick-datepicker init-value="selectedVacation.beginDate" ng-model="selectedVacation.beginDate" date-format="yyyy-MM-dd H:i:M" required="true" placeholder="Begindatum"></quick-datepicker>
+    <quick-datepicker ng-model="selectedVacation.beginDate" placeholder="Begindatum"></quick-datepicker>
+    <!-- <md-text-float label="Begindatum" ng-model="selectedVacation.beginDate" type="date" -->
     <error-message error="errors.beginDate"> </error-message>
-    <quick-datepicker init-value="selectedVacation.endDate" ng-model="selectedVacation.endDate" date-format="yyyy-MM-dd H:i:M" required="true" placeholder="Einddatum"></quick-datepicker>
+    <quick-datepicker  ng-model="selectedVacation.endDate" placeholder="Einddatum"></quick-datepicker>
     <error-message error="errors.endDate"> </error-message>
 
   	<md-text-float label="Leeftijd van" ng-model="selectedVacation.ageFrom"> </md-text-float>

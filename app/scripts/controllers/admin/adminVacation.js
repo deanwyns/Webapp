@@ -24,7 +24,7 @@ angular.module('joetzApp').controller('AdminVacationCtrl', ['$state', '$scope', 
         }
 
         var editPromise = vacationService.updateVacation(vacationModel, vacationModel.id).then(function(response) {
-            console.log(response);
+            $scope.errors = {};
             _loadVacations(true);
         }, function(err) {
             for(var key in err.errors) {
@@ -41,7 +41,7 @@ angular.module('joetzApp').controller('AdminVacationCtrl', ['$state', '$scope', 
         }
 
         var addPromise = vacationService.addVacation(vacationModel).then(function(response) {
-            console.log(response);
+            $scope.errors = {};
             _loadVacations(true);
         }, function(err) {
             for(var key in err.errors) {
