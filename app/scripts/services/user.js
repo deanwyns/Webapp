@@ -9,8 +9,7 @@ angular.module('joetzApp')
 				email: '',
 				token: '',
 				isAuth: false,
-				type: '',
-				children: {}
+				type: ''
 			};
 
 		var _getUsers = function() {
@@ -270,14 +269,16 @@ angular.module('joetzApp')
 					_user[attribute] = userResponse[attribute];
 				}
 
-				console.log(_user);
-
 				defer.resolve();
 			}).error(function() {
 				defer.reject();
 			});
 
 			return defer.promise;
+		};
+
+		var _getChildren = function() {
+
 		};
 
 		var _addChild = function(childModel) {
@@ -290,7 +291,7 @@ angular.module('joetzApp')
 
 			$http({
 				method: 'POST',
-				url: baseUrl + '/me/children',
+				url: baseUrl + '/user/me/children',
 				data: data,
 				headers: headers
 			}).success(function(response) {
@@ -337,6 +338,7 @@ angular.module('joetzApp')
 		userService.getUser = _getUser;
 
 		userService.getProfile = _getProfile;
+		userService.getChildren = _getChildren;
 
 		return userService;
 	}]);

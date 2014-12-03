@@ -5,7 +5,7 @@
       <md-progress-circular md-mode="indeterminate" style="background-color: #eee; margin: auto; position: relative; top: 50%;"></md-progress-circular>
     </div>
 
-    <form style="padding: 20px;">
+    <form style="padding: 20px;" ng-submit="submit()">
       <fieldset ng-disabled="loginTracker.active()">
         <md-text-float label="E-mailadres" ng-model="loginModel.email"> </md-text-float>
         <md-text-float label="Wachtwoord" ng-model="loginModel.password" type="password"> </md-text-float>

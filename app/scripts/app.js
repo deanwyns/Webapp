@@ -118,7 +118,8 @@ angular
       })
       .state('vacations.register', {
         url: '/:vacationId/inschrijven',
-        templateUrl: 'views/vacation/register.html'
+        templateUrl: 'views/vacation/register.html',
+        controller: 'RegistrationCtrl'
       })
       .state('vacations.register.child-selection', {
         url: '/kinderen', 
@@ -308,7 +309,19 @@ angular
         }
       });
   })
-  .run(function (Permission, userService, $rootScope, $location, $timeout, $window) {
+  .run(function (Permission, userService, $rootScope, $location, $timeout, $window, $state) {
+    //$rootScope.$state = $state;
+    //$rootScope.$stateParams = $stateParams;
+    $rootScope.previousState = {};
+    $rootScope.$on('$stateChangeSuccess',  function(event, toState, toParams, fromState, fromParams) {
+        $rootScope.previousState.name = fromState.name;
+        $rootScope.previousState.params = fromParams;
+    });
+
+    $rootScope.back = function() {
+        $state.go($rootScope.previousState.name, $rootScope.previousState.params);
+    };
+
     Permission
       .defineRole('anonymous', function() {
         return !userService.isAuthenticated();

@@ -10,7 +10,7 @@
 
             <h3 ng-bind-html="vacation.title | highlight:searchText"></h3>
             <p ng-bind-html="vacation.promoText | highlight:searchText"></p>
-            <p>Leeftijd : <span ng-bind-html="vacation.ageFrom | highlight:searchText"></span> -  <span ng-bind-html="vacation.ageTo | highlight:searchText"></span></p>
+            <p>Leeftijd : {{ vacation.ageFrom }} - {{ vacation.ageTo }}</p>
             <p>Vervoer : <span ng-bind-html="vacation.transportation | highlight:searchText"></span></p>
             <p> Vertrek: {{vacation.beginDate | asDate | date : 'fullDate' }}</p>
             <p> Terug : {{vacation.endDate | asDate | date: 'fullDate'}}</p>

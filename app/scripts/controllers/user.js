@@ -9,13 +9,14 @@ angular.module('joetzApp').controller('UserCtrl', ['$state', '$scope', 'userServ
             $scope.user = userService.getLocalUser();
 
             if(transition) {
-                $state.go('profile');
+                //$state.go('profile.overview');
+                $state.back();
             }
         }, function(err) {
             console.log(err);
         });
     };
-    //_loadProfile();
+    _loadProfile();
 
     var _submitEdit = function(childModel) {
         if(!childModel) {

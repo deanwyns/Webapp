@@ -1,4 +1,4 @@
-<div ng-if="user.children">
+<div ng-if="user.children.length > 0">
 	<md-radio-group ng-model="registration.selectedChild">
 		<md-radio-button ng-repeat="child in user.children" value="{{ child.id }}" aria-label="{{ child.firstName }} {{ child.lastName }}">{{ child.firstName }} {{ child.lastName }}</md-radio-button>
 	</md-radio-group>
@@ -8,8 +8,8 @@
 	</md-button>
 </div>
 
-<div ng-if="!user.children">
+<div ng-if="user.children.length < 1">
 	Je hebt nog geen kinderen toegevoegd.<br />
-
-	<md-button ui-sref="profile.add-child">Kind toevoegen</md-button>
 </div>
+
+<md-button ui-sref="profile.add-child">Kind toevoegen</md-button>
