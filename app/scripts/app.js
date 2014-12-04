@@ -327,13 +327,13 @@ angular
         return !userService.isAuthenticated();
       })
       .defineRole('parents', function() {
-        return userService.getType() === 'parents';
+        return userService.getType() === 'parents' && userService.isAuthenticated();
       })
       .defineRole('monitor', function() {
-        return userService.getType() === 'monitor';
+        return userService.getType() === 'monitor' && userService.isAuthenticated();
       })
       .defineRole('admin', function() {
-        return userService.getType() === 'admin';
+        return userService.getType() === 'admin' && userService.isAuthenticated();
       });
 
       var _isMobile = function() {
