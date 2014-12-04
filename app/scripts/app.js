@@ -24,7 +24,9 @@ angular
     'ngLocale',
     'permission'
   ])
-  .config(function ($httpProvider, $stateProvider, $urlRouterProvider, ngQuickDateDefaultsProvider) {
+  .config(function ($httpProvider, $locationProvider, $stateProvider, $urlRouterProvider, ngQuickDateDefaultsProvider) {
+    $locationProvider.html5Mode(true);
+    
     ngQuickDateDefaultsProvider.set('parseDateFunction', function(str) {
       var seconds = Date.parse(str);
       var date = new Date(seconds);
