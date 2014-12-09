@@ -258,7 +258,6 @@ angular.module('joetzApp')
 				url: baseUrl + '/user/me',
 				headers: headers
 			}).success(function(response) {
-				console.log(response);
 				var userResponse = response.data;
 				//_user.firstName = userResponse.first_name;
 				//_user.lastName = userResponse.last_name;
@@ -268,6 +267,8 @@ angular.module('joetzApp')
 				for(var attribute in userResponse) {
 					_user[attribute] = userResponse[attribute];
 				}
+
+				console.log(_user);
 
 				defer.resolve();
 			}).error(function() {
@@ -292,6 +293,28 @@ angular.module('joetzApp')
 			$http({
 				method: 'POST',
 				url: baseUrl + '/user/me/children',
+				data: data,
+				headers: headers
+			}).success(function(response) {
+				defer.resolve(response);
+			}).error(function(err) {
+				defer.reject(err);
+			});
+
+			return defer.promise;
+		};
+
+		var _saveRegistration = function(registrationModel) {
+			var defer = $q.defer(),
+				headers = {},
+				data = queryBuilder.build(registrationModel);
+
+			headers['Content-Type'] = 'application/x-www-form-urlencoded';
+			headers.Authorization = _user.token;
+
+			$http({
+				method: 'POST',
+				url: baseUrl + '/user/me/' + registrationModel.selectedChild.id + '/register',
 				data: data,
 				headers: headers
 			}).success(function(response) {
@@ -333,6 +356,7 @@ angular.module('joetzApp')
 		userService.getToken = _getToken;
 
 		userService.addChild = _addChild;
+		userService.saveRegistration = _saveRegistration;
 
 		userService.getUsers = _getUsers;
 		userService.getUser = _getUser;

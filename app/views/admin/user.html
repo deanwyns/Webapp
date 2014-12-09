@@ -8,16 +8,34 @@
 
 <table class="list md-whiteframe-z1">
 	<tr>
-		<th ng-click="predicate = 'email'; reverse = !reverse">Email</th>
+		<th ng-click="predicate = 'last_name_mother'; reverse = !reverse">Naam moeder</th>
+		<th ng-click="predicate = 'last_name_father'; reverse = !reverse">Naam vader</th>
+		<th ng-click="predicate = 'email'; reverse = !reverse">E-mail</th>
+		<th ng-click="predicate = 'type'; reverse = !reverse">Type</th>
 		<th>Acties</th>
 	</tr>
-	<tr ng-repeat="user in users | orderBy:predicate:reverse | filter:searchText" class="list-item">
+	<tr ng-repeat-start="user in users | orderBy:predicate:reverse | filter:searchText" class="list-item list-animate">
+		<td><span ng-bind-html="user.first_name_mother | highlight:searchText"></span> <span ng-bind-html="user.last_name_mother | highlight:searchText"></span></td>
+		<td><span ng-bind-html="user.first_name_father | highlight:searchText"></span> <span ng-bind-html="user.last_name_father | highlight:searchText"></span></td>
 		<td ng-bind-html="user.email | highlight:searchText"></td>
+		<td>
+			<span ng-if="user.type === 'parents'">Ouders</span>
+			<span ng-if="user.type === 'monitor'">Monitor</span>
+			<span ng-if="user.type === 'admin'">Admin</span>
+		</td>
 		<td class="actions">
 			<ul>
 				<li><img ui-sref="admin.user.edit({userId: {{ user.id }} })" src="images/edit.svg" /></li>
 				<li><img ng-click="deleteUser(user)" src="images/delete.svg"></li>
 			</ul>
+		</td>
+	</tr>
+	<tr ng-repeat-end class="list-item-info list-animate">
+		<td colspan="5">
+			<p ng-if="user.type === 'parents'">
+				Rijkregisternummer moeder: <span ng-bind-html="user.nrn_mother | highlight:searchText"></span><br />
+				Rijkregisternummer vader: <span ng-bind-html="user.nrn_father | highlight:searchText"></span><br />
+			</p>
 		</td>
 	</tr>
 </table>

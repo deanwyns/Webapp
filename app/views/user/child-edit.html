@@ -1,34 +1,37 @@
-<form style="padding-left: 20px; padding-bottom: 20px;">
-  <fieldset ng-disabled="editTracker.active()">
-    <md-text-float label="Voornaam" ng-model="selectedChild.firstName"> </md-text-float>
-    <error-message error="errors.firstName"> </error-message>
-    <md-text-float label="Naam" ng-model="selectedChild.lastName"> </md-text-float>
-    <error-message error="errors.lastName"> </error-message>
-    <md-text-float label="Rijksregisternummer" ng-model="selectedChild.nrn"> </md-text-float>
-    <error-message error="errors.nrn"> </error-message>
+<div class="content" ng-class="{ 'md-whiteframe-z1': !isMobile }">
+    <h2 class="content-header">{{ pageTitle }}</h2>
+  <form style="padding-left: 20px; padding-bottom: 20px;">
+    <fieldset ng-disabled="editTracker.active()">
+      <md-text-float label="Voornaam" ng-model="selectedChild.firstName"> </md-text-float>
+      <error-message error="errors.firstName"> </error-message>
+      <md-text-float label="Naam" ng-model="selectedChild.lastName"> </md-text-float>
+      <error-message error="errors.lastName"> </error-message>
+      <md-text-float label="Rijksregisternummer" ng-model="selectedChild.nrn"> </md-text-float>
+      <error-message error="errors.nrn"> </error-message>
 
-    <md-text-float label="Straat" ng-model="selectedChild.streetName"> </md-text-float>
-    <error-message error="errors.streetName"> </error-message>
+      <md-text-float label="Straat" ng-model="selectedChild.streetName"> </md-text-float>
+      <error-message error="errors.streetName"> </error-message>
 
-    <md-text-float label="Huisnummer" ng-model="selectedChild.houseNumber"> </md-text-float>
-    <error-message error="errors.houseNumber"> </error-message>
+      <md-text-float label="Huisnummer" ng-model="selectedChild.houseNumber"> </md-text-float>
+      <error-message error="errors.houseNumber"> </error-message>
 
-    <md-text-float label="Postcode" ng-model="selectedChild.postalCode"> </md-text-float>
-    <error-message error="errors.postalCode"> </error-message>
+      <md-text-float label="Postcode" ng-model="selectedChild.postalCode"> </md-text-float>
+      <error-message error="errors.postalCode"> </error-message>
 
-    <md-text-float label="Gemeente" ng-model="selectedChild.city"> </md-text-float>
-    <error-message error="errors.city"> </error-message>
-  </fieldset>
+      <md-text-float label="Gemeente" ng-model="selectedChild.city"> </md-text-float>
+      <error-message error="errors.city"> </error-message>
+    </fieldset>
 
-  <div ng-show="selectedChild.id">
-    <md-button type="submit" class="md-primary" ng-click="submitEdit(selectedChild)" ng-disabled="editTracker.active()">
-     Aanpassen
-    </md-button>
-  </div>
-  <div ng-show="selectedChild.id === undefined">
-    <md-button type="submit" class="md-primary" ng-click="submitNew(selectedChild)" ng-disabled="editTracker.active()">
-     Toevoegen
-    </md-button>
-  </div>
-  <md-progress-circular ng-show="editTracker.active()" md-mode="indeterminate" style="background-color: #eee;"></md-progress-circular>
-</form>
+    <div ng-show="selectedChild.id">
+      <md-button type="submit" class="md-primary" ng-click="submitEdit(selectedChild)" ng-disabled="editTracker.active()">
+       Aanpassen
+      </md-button>
+    </div>
+    <div ng-show="selectedChild.id === undefined">
+      <md-button type="submit" class="md-primary" ng-click="submitNew(selectedChild)" ng-disabled="editTracker.active()">
+       Toevoegen
+      </md-button>
+    </div>
+    <md-progress-circular ng-show="editTracker.active()" md-mode="indeterminate" style="background-color: #eee;"></md-progress-circular>
+  </form>
+</div>

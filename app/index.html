@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <base href="/">
+    <!-- <base href="/"> -->
     <title></title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
@@ -54,12 +54,7 @@
             </div>
         </md-toolbar>
         <div class="desktop-navigation" ng-include="'views/menu.html'"></div>
-        <div class="content-block">
-            <div class="content" ng-class="{ 'md-whiteframe-z1': !isMobile }">
-                <h2 class="content-header">{{ pageTitle }}</h2>
-                <div ui-view></div>
-            </div>
-        </div>
+        <ui-view class="content-block content-animate" />
     </div>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->

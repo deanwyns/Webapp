@@ -69,7 +69,18 @@ angular.module('joetzApp').controller('UserCtrl', ['$state', '$scope', 'userServ
         });
     };
 
+    var _changePassword = function(newPassword, newPasswordConfirmed) {
+        userService.update({ password: newPassword, password_confirmed: newPasswordConfirmed }, userService.getLocalUser().id).then(function() {
+            $scope.message = 'Uw wachtwoord is gewijzigd.';
+        }, function(err) {
+            for(var key in err.errors) {
+                $scope.errors[key] = err.errors[key][0];
+            }
+        });
+    };
+
     $scope.submitEdit = _submitEdit;
     $scope.submitNew = _submitNew;
     $scope.deleteChild = _deleteChild;
+    $scope.changePassword = _changePassword;
   }]);

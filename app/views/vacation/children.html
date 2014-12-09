@@ -1,14 +1,16 @@
-<div ng-if="user.children.length > 0">
-	<md-radio-group ng-model="registration.selectedChild">
-		<md-radio-button ng-repeat="child in user.children" value="{{ child.id }}" aria-label="{{ child.firstName }} {{ child.lastName }}">{{ child.firstName }} {{ child.lastName }}</md-radio-button>
+<span ng-show="errorMessage">{{ errorMessage }}</span>
+
+<div ng-if="user.children && user.children.length > 0">
+	<md-radio-group ng-model="registration.selectedChildIndex">
+		<md-radio-button ng-repeat="child in user.children" value="{{ $index }}" aria-label="{{ child.firstName }} {{ child.lastName }}">{{ child.firstName }} {{ child.lastName }}</md-radio-button>
 	</md-radio-group>
 
-	<md-button ui-sref="vacations.register.register-information">
+	<md-button ng-show="registration.selectedChildIndex" ng-click="selectChild()">
 		Kind selecteren
 	</md-button>
 </div>
 
-<div ng-if="user.children.length < 1">
+<div ng-if="!user.children || user.children.length < 1">
 	Je hebt nog geen kinderen toegevoegd.<br />
 </div>
 

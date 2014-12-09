@@ -1,19 +1,22 @@
-<md-text-float label="Zoeken" ng-model="searchText"> </md-text-float>
-<ul>
-    <li ng-click="predicate = 'title'; reverse = !reverse">Titel</li>
-</ul>
+<div class="content" ng-class="{ 'md-whiteframe-z1': !isMobile }">
+    <h2 class="content-header">{{ pageTitle }}</h2>
+    <md-text-float label="Zoeken" ng-model="searchText"> </md-text-float>
+    <ul>
+        <li ng-click="predicate = 'title'; reverse = !reverse">Titel</li>
+    </ul>
 
-<md-list>
-    <md-item ng-repeat="vacation in vacations | filter:searchText | orderBy:predicate:reverse" ui-sref="vacations.detail({vacationId: {{ vacation.id }} })">
-        <div class="vacation-list-item md-whiteframe-z1">
-            <div class="vacation-image"></div>
+    <md-list>
+        <md-item ng-repeat="vacation in vacations | filter:searchText | orderBy:predicate:reverse" ui-sref="vacations.detail({vacationId: {{ vacation.id }} })">
+            <div class="vacation-list-item md-whiteframe-z1">
+                <div class="vacation-image"></div>
 
-            <h3 ng-bind-html="vacation.title | highlight:searchText"></h3>
-            <p ng-bind-html="vacation.promoText | highlight:searchText"></p>
-            <p>Leeftijd : {{ vacation.ageFrom }} - {{ vacation.ageTo }}</p>
-            <p>Vervoer : <span ng-bind-html="vacation.transportation | highlight:searchText"></span></p>
-            <p> Vertrek: {{vacation.beginDate | asDate | date : 'fullDate' }}</p>
-            <p> Terug : {{vacation.endDate | asDate | date: 'fullDate'}}</p>
-            </div>
-    </md-item>
-</md-list>
+                <h3 ng-bind-html="vacation.title | highlight:searchText"></h3>
+                <p ng-bind-html="vacation.promoText | highlight:searchText"></p>
+                <p>Leeftijd : {{ vacation.ageFrom }} - {{ vacation.ageTo }}</p>
+                <p>Vervoer : <span ng-bind-html="vacation.transportation | highlight:searchText"></span></p>
+                <p>Vertrek: {{vacation.beginDate | asDate | date : 'fullDate' }}</p>
+                <p>Terug : {{vacation.endDate | asDate | date: 'fullDate'}}</p>
+                </div>
+        </md-item>
+    </md-list>
+</div>

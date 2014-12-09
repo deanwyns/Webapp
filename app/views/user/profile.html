@@ -1,25 +1,40 @@
-<p>E-mail: {{ user.email }}</p>
-<div ng-show="user.type === 'parents'">
-	<h3>Jouw kinderen</h3>
-	<md-button ui-sref="profile.add-child">Kind toevoegen</md-button>
+<div class="content" ng-class="{ 'md-whiteframe-z1': !isMobile }">
+    <h2 class="content-header">{{ pageTitle }}</h2>
+	<p>E-mail: {{ user.email }}</p>
 
-	<md-list ng-show="user.children.length > 0">
-		<md-item ng-repeat="child in user.children">
-			{{ child }}
-		</md-item>
-	</md-list>
+	<h3>Wachtwoord wijzigen</h3>
+	<md-text-float label="Nieuw wachtwoord" ng-model="password"> </md-text-float>
+	<error-message error="errors.password"> </error-message>
+	<md-text-float label="Wachtwoord bevestigen" ng-model="password_confirmed"> </md-text-float>
+	<error-message error="errors.password_confirmed"> </error-message>
+	<md-button ng-click="changePassword(password, password_confirmed)">Wijzig</md-button>
 
-	<div ng-show="user.first_name_mother">
-		<h3>Gegevens moeder</h3>
-		<p>Naam: {{ user.last_name_mother }}<br />
-			Voornaam: {{ user.first_name_mother }}<br />
-			Rijksregisternummer: {{ user.nrn_mother }}<br />
-	</div>
-	
-	<div ng-show="user.first_name_father">
-		<h3>Gegevens vader</h3>
-		<p>Naam: {{ user.last_name_father }}<br />
-			Voornaam: {{ user.first_name_father }}<br />
-			Rijksregisternummer: {{ user.nrn_father }}<br />
+	<div ng-show="user.type === 'parents'">
+		<div ng-show="user.first_name_mother">
+			<h3>Gegevens moeder</h3>
+			<p>Naam: {{ user.last_name_mother }}<br />
+				Voornaam: {{ user.first_name_mother }}<br />
+				Rijksregisternummer: {{ user.nrn_mother }}<br />
+		</div>
+		
+		<div ng-show="user.first_name_father">
+			<h3>Gegevens vader</h3>
+			<p>Naam: {{ user.last_name_father }}<br />
+				Voornaam: {{ user.first_name_father }}<br />
+				Rijksregisternummer: {{ user.nrn_father }}<br />
+		</div>
+
+		<h3>Jouw kinderen</h3>
+		<md-button ui-sref="profile.add-child">Kind toevoegen</md-button>
+
+		<md-list ng-show="user.children.length > 0">
+			<md-item ng-repeat="child in user.children">
+				<h2>{{ child.firstName }} {{ child.lastName }}</h2>
+				<p>Rijksregisternummer: {{ child.nrn }}<br :>
+					Adres:<br />
+					{{ child.streetName }} {{ child.houseNumber }}<br />
+					{{ child.postalCode }} {{ child.city }}
+			</md-item>
+		</md-list>
 	</div>
 </div>

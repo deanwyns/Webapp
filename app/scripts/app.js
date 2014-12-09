@@ -25,7 +25,7 @@ angular
     'permission'
   ])
   .config(function ($httpProvider, $locationProvider, $stateProvider, $urlRouterProvider, ngQuickDateDefaultsProvider) {
-    $locationProvider.html5Mode(true);
+    //$locationProvider.html5Mode(true);
     
     ngQuickDateDefaultsProvider.set('parseDateFunction', function(str) {
       var seconds = Date.parse(str);
@@ -312,12 +312,29 @@ angular
       });
   })
   .run(function (Permission, userService, $rootScope, $location, $timeout, $window, $state) {
+    
+
     //$rootScope.$state = $state;
     //$rootScope.$stateParams = $stateParams;
     $rootScope.previousState = {};
     $rootScope.$on('$stateChangeSuccess',  function(event, toState, toParams, fromState, fromParams) {
         $rootScope.previousState.name = fromState.name;
         $rootScope.previousState.params = fromParams;
+    });
+
+    $rootScope.$on('$stateChangeStart', function(event, toState/*, toParams, fromState, fromParams*/) {
+      var _isMobile = function() {
+          if (document.querySelector('md-toolbar').offsetHeight === 64) {
+              return true;
+          } else {
+              return false;
+          }
+      };
+
+      if(!_isMobile() && toState.name === 'menu') {
+        event.preventDefault();
+        $state.go('news');
+      }
     });
 
     $rootScope.back = function() {
@@ -360,7 +377,7 @@ angular
           });
       });
 
-      if(!_isMobile()) {
+      if(!_isMobile() && $location.path() === '/') {
         $location.path('nieuws');
       }
   });

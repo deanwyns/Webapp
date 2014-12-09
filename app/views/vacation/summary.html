@@ -1,4 +1,5 @@
 <p>Inschrijving voor {{ registration.selectedChild.firstName }} {{ registration.selectedChild.lastName }}:<br />
-	{{ registration }}
+	Adres: {{ registration.streetName }} {{ registration.houseNumber }}<br />
+	{{ registration.postalCode }} {{ registration.city }}
 </p>
 <md-button type="submit">Bevestigen</md-button>

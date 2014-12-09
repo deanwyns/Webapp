@@ -1,10 +1,13 @@
-<form style="padding-left: 20px; padding-bottom: 20px;">
-	<fieldset ng-disabled="loginTracker.active()">
-  	<md-text-float label="E-mailadres" ng-model="loginModel.email"> </md-text-float>
- 	 	<md-text-float label="Wachtwoord" ng-model="loginModel.password" type="password"> </md-text-float>
-</fieldset>
-<error-message error="errors.login"> </error-message>
-</form>
-<md-button class="md-primary" ng-click="submit()" ng-disabled="loginTracker.active()">
-  Inloggen
-</md-button>
+<div class="content" ng-class="{ 'md-whiteframe-z1': !isMobile }">
+    <h2 class="content-header">{{ pageTitle }}</h2>
+	<form style="padding-left: 20px; padding-bottom: 20px;">
+		<fieldset ng-disabled="loginTracker.active()">
+	  	<md-text-float label="E-mailadres" ng-model="loginModel.email"> </md-text-float>
+	 	 	<md-text-float label="Wachtwoord" ng-model="loginModel.password" type="password"> </md-text-float>
+	</fieldset>
+	<error-message error="errors.login"> </error-message>
+	</form>
+	<md-button class="md-primary" ng-click="submit()" ng-disabled="loginTracker.active()">
+	  Inloggen
+	</md-button>
+</div>

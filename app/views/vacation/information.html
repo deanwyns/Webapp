@@ -1,5 +1,12 @@
-Meer informatie hier vragen...
+<md-text-float label="Straat" name="streetName" ng-model="registration.streetName" required> </md-text-float>
+<error-message error="errors.streetName"> </error-message>
+<md-text-float label="Huisnummer" name="houseNumber" ng-model="registration.houseNumber" required> </md-text-float>
+<error-message error="errors.houseNumber"> </error-message>
+<md-text-float label="Gemeente" name="city" ng-model="registration.city" required> </md-text-float>
+<error-message error="errors.city"> </error-message>
+<md-text-float name="postalCode" label="Postcode" ng-model="registration.postalCode" required pattern="^[1-9]{1}[0-9]{3}$"> </md-text-float>
+<error-message error="errors.postalCode"> </error-message>
 
-<md-button ui-sref="vacations.register.summary">
+<md-button ng-click="registerInformation()">
 	Inschrijven
 </md-button>

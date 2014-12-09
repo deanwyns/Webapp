@@ -2,11 +2,20 @@
 
 <form style="padding-left: 20px; padding-bottom: 20px;">
   <fieldset ng-disabled="editTracker.active()">
-    <md-radio-group ng-model="selectedUser.type">
-      <md-radio-button value="parents">Ouders</md-radio-button>
-      <md-radio-button value="monitor">Monitor</md-radio-button>
-      <md-radio-button value="admin">Admin</md-radio-button>
-    </md-radio-group>
+    <div ng-if="selectedUser.id">
+      <p>Type:
+        <span ng-if="selectedUser.type === 'parents'">Ouders</span>
+        <span ng-if="selectedUser.type === 'monitor'">monitor</span>
+        <span ng-if="selectedUser.type === 'admin'">Admin</span>
+      </p>
+    </div>
+    <div ng-if="selectedUser.id === undefined">
+      <md-radio-group ng-model="selectedUser.type">
+        <md-radio-button value="parents">Ouders</md-radio-button>
+        <md-radio-button value="monitor">Monitor</md-radio-button>
+        <md-radio-button value="admin">Admin</md-radio-button>
+      </md-radio-group>
+    </div>
 
     <md-text-float label="E-mailadres" ng-model="selectedUser.email"> </md-text-float>
     <error-message error="errors.email"> </error-message>
@@ -36,12 +45,12 @@
 
     </div>
 
-  <div ng-show="selectedUser.id">
+  <div ng-if="selectedUser.id">
     <md-button type="submit" class="md-primary" ng-click="submitEdit(selectedUser)" ng-disabled="editTracker.active()">
      Aanpassen
     </md-button>
   </div>
-  <div ng-show="selectedUser.id === undefined">
+  <div ng-if="selectedUser.id === undefined">
     <md-button type="submit" class="md-primary" ng-click="submitNew(selectedUser)" ng-disabled="editTracker.active()">
      Toevoegen
     </md-button>

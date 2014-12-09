@@ -1,4 +1,6 @@
-<md-button class="md-raised" ui-sref="admin.user.list">Gebruikers beheren</md-button>
-<md-button class="md-raised" ui-sref="admin.vacation.list">Vakanties beheren</md-button>
-
-<div ui-view></div>
+<div class="content" ng-class="{ 'md-whiteframe-z1': !isMobile }">
+    <h2 class="content-header">{{ pageTitle }}</h2>
+	<md-button class="md-raised" ui-sref="admin.user.list">Gebruikers beheren</md-button>
+	<md-button class="md-raised" ui-sref="admin.vacation.list">Vakanties beheren</md-button>
+	<ui-view />
+</div>

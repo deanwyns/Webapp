@@ -1,27 +1,35 @@
-<div class="vacation-header-image"></div>
-<p> {{selectedVacation.promoText}} </p>
+<div class="content" ng-class="{ 'md-whiteframe-z1': !isMobile }">
+    <h2 class="content-header">{{ pageTitle }}</h2>
+	<div class="vacation-header-image"></div>
+	<p> {{selectedVacation.promoText}} </p>
 
-<h3>Waar ?</h3>
-<p> {{selectedVacation.location}} </p>
-<h3> Doelgroep</h3>
-<p>Tussen de leeftijden van  {{ selectedVacation.ageFrom }} en {{ selectedVacation.ageTo }}</p>
-<h3> Vervoer</h3>
-<p> {{ selectedVacation.transportation }}</p>
-<h3> Maximum aantal deelnemers </h3>
-<p> {{selectedVacation.maxParticipants}} personen </p>
-<h3> Prijs </h3>
-<p> Basisprijs : {{selectedVacation.baseCost | currency}}</p>
-<p> JOETZ-sterprijs : <ul> <li> 1 ouder lid van Bond Moyson West-Vlaanderen: {{selectedVacation.oneBmMemberCost| currency}} (JOETZ-korting {{selectedVacation.baseCost-selectedVacation.oneBmMemberCost | currency}})</li>
-    <li> 2 ouders lid van Bond Moyson West-Vlaanderen: {{selectedVacation.twoBmMemberCost| currency}}(JOETZ-korting {{selectedVacation.baseCost-selectedVacation.twoBmMemberCost | currency}})</li>
-</ul> 
-</p>   
-<h3> Tijdstip </h3>
-<p>  Vertrek: {{selectedVacation.beginDate | asDate |date: 'fullDate'}}</p>
-<p> Terug : {{selectedVacation.endDate | asDate |date: 'fullDate'}}</p>
+	<h3>Waar ?</h3>
+	<p> {{selectedVacation.location}} </p>
+	<h3> Doelgroep</h3>
+	<p>Tussen de leeftijden van  {{ selectedVacation.ageFrom }} en {{ selectedVacation.ageTo }}</p>
+	<h3> Vervoer</h3>
+	<p> {{ selectedVacation.transportation }}</p>
+	<h3> Maximum aantal deelnemers </h3>
+	<p> {{selectedVacation.maxParticipants}} personen </p>
+	<h3> Prijs </h3>
+	<p> Basisprijs : {{selectedVacation.baseCost | currency}}</p>
+	<p> JOETZ-sterprijs : <ul> <li> 1 ouder lid van Bond Moyson West-Vlaanderen: {{selectedVacation.oneBmMemberCost| currency}} (JOETZ-korting {{selectedVacation.baseCost-selectedVacation.oneBmMemberCost | currency}})</li>
+	    <li> 2 ouders lid van Bond Moyson West-Vlaanderen: {{selectedVacation.twoBmMemberCost| currency}}(JOETZ-korting {{selectedVacation.baseCost-selectedVacation.twoBmMemberCost | currency}})</li>
+	</ul> 
+	</p>   
+	<h3> Tijdstip </h3>
+	<p>  Vertrek: {{selectedVacation.beginDate | asDate |date: 'fullDate'}}</p>
+	<p> Terug : {{selectedVacation.endDate | asDate |date: 'fullDate'}}</p>
 
-<h3>BTW-aftrekbaar</h3>
-<img src="images/checkmark{{selectedVacation.taxDeductable}}.png"/>
+	<h3>BTW-aftrekbaar</h3>
+	<img src="images/checkmark{{selectedVacation.taxDeductable}}.png"/>
 
-<p> {{selectedVacation.description}}</p>
+	<p> {{selectedVacation.description}}</p>
 
- <md-button ng-disabled="true" class="md-raised md-primary">Inschrijven</md-button>
+	<div ng-if="user.isAuth">
+		<md-button class="md-raised" ui-sref="vacations.register.child-selection({vacationId: previousState.params.vacationId })">Inschrijven</md-button>
+	</div>
+	<div ng-if="!user.isAuth">
+		Registreer je om je in te schrijven.
+	</div>
+</div>
