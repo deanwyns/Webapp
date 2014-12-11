@@ -1,6 +1,8 @@
 <div class="content" ng-class="{ 'md-whiteframe-z1': !isMobile }">
     <h2 class="content-header">{{ pageTitle }}</h2>
 	<div class="vacation-header-image"></div>
+	<md-button class="md-raised" ui-sref="vacations.photos({vacationId: selectedVacation.id})">Bekijk de foto's</md-button>
+
 	<p> {{selectedVacation.promoText}} </p>
 
 	<h3>Waar ?</h3>
@@ -27,7 +29,7 @@
 	<p> {{selectedVacation.description}}</p>
 
 	<div ng-if="user.isAuth">
-		<md-button class="md-raised" ui-sref="vacations.register.child-selection({vacationId: previousState.params.vacationId })">Inschrijven</md-button>
+		<md-button class="md-raised" ui-sref="vacations.register.child-selection({vacationId: selectedVacation.id })">Inschrijven</md-button>
 	</div>
 	<div ng-if="!user.isAuth">
 		Registreer je om je in te schrijven.

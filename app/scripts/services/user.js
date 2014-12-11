@@ -268,8 +268,6 @@ angular.module('joetzApp')
 					_user[attribute] = userResponse[attribute];
 				}
 
-				console.log(_user);
-
 				defer.resolve();
 			}).error(function() {
 				defer.reject();
@@ -279,7 +277,51 @@ angular.module('joetzApp')
 		};
 
 		var _getChildren = function() {
+			var defer = $q.defer(),
+				headers = {};
 
+			if(!_isAuthenticated()) {
+				defer.reject('Niet toegestaan');
+				return defer.promise;
+			}
+
+			headers.Authorization = _getToken();
+
+			$http({
+				method: 'GET',
+				url: baseUrl + '/me/children',
+				headers: headers
+			}).success(function(response) {
+				defer.resolve(response.childrens);
+			}).error(function(err) {
+				defer.reject(err);
+			});
+
+			return defer.promise;
+		};
+
+		var _getRegistrationsByChild = function(childId) {
+			var defer = $q.defer(),
+				headers = {};
+
+			if(!_isAuthenticated()) {
+				defer.reject('Niet toegestaan');
+				return defer.promise;
+			}
+
+			headers.Authorization = _getToken();
+
+			$http({
+				method: 'GET',
+				url: baseUrl + '/me/' + childId + '/registrations',
+				headers: headers
+			}).success(function(response) {
+				defer.resolve(response.childrens);
+			}).error(function(err) {
+				defer.reject(err);
+			});
+
+			return defer.promise;
 		};
 
 		var _addChild = function(childModel) {
@@ -357,6 +399,7 @@ angular.module('joetzApp')
 
 		userService.addChild = _addChild;
 		userService.saveRegistration = _saveRegistration;
+		userService.getRegistrationsByChild = _getRegistrationsByChild;
 
 		userService.getUsers = _getUsers;
 		userService.getUser = _getUser;

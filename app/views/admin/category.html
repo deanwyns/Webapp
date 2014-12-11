@@ -1,0 +1,23 @@
+<div class="fabs">
+    <md-button ui-sref="admin.category.new" class="md-fab" aria-label="Toevoegen" style="background-color: #fff;">
+        <img src="images/add.svg" style="width: 100%;" />
+    </md-button>
+</div>
+
+<md-text-float label="Zoeken" ng-model="searchText"> </md-text-float>
+
+<table class="list md-whiteframe-z1">
+	<tr>
+		<th ng-click="predicate = 'name'; reverse = !reverse">Naam</th>
+		<th>Acties</th>
+	</tr>
+	<tr ng-repeat="category in categories | orderBy:predicate:reverse | filter:searchText" class="list-item list-animate">
+		<td ng-bind-html="category.name | highlight:searchText"></td>
+		<td class="actions">
+			<ul>
+				<li><img ui-sref="admin.category.edit({categoryId: {{ category.id }} })" src="images/edit.svg" /></li>
+				<li><img ng-click="deleteCategory(category)" src="images/delete.svg"></li>
+			</ul>
+		</td>
+	</tr>
+</table>

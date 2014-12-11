@@ -17,7 +17,7 @@
 		<td ng-bind-html="vacation.category | highlight:searchText"></td>
 		<td class="actions">
 			<ul>
-				<li><img ui-sref="admin.vacation.edit({vacationId: {{ vacation.id }} })" src="images/edit.svg" /></li>
+				<li><img ui-sref="admin.vacation.edit({vacationId: vacation.id })" src="images/edit.svg" /></li>
 				<li><img ng-click="deleteVacation(vacation)" src="images/delete.svg"></li>
 			</ul>
 		</td>
@@ -30,12 +30,12 @@
 
 				<strong>Locatie:</strong> <span ng-bind-html="vacation.location | highlight:searchText"></span><br />
 				<strong>Transport:</strong> <span ng-bind-html="vacation.transportation | highlight:searchText"></span><br />
-				<strong>Maximaal aantal deelnemers:</strong> <span ng-bind-html="vacation.max_participants | highlight:searchText"></span><br />
-				<strong>Leeftijd:</strong> <span ng-bind-html="vacation.age_from | highlight:searchText"></span> - <span ng-bind-html="vacation.age_to | highlight:searchText"></span><br />
+				<strong>Maximaal aantal deelnemers:</strong> <span ng-bind-html="vacation.maxParticipants | highlight:searchText"></span><br />
+				<strong>Leeftijd:</strong> <span ng-bind-html="vacation.ageFrom | highlight:searchText"></span> - <span ng-bind-html="vacation.ageTo | highlight:searchText"></span><br />
 
 				<strong>Basisprijs:</strong> <span ng-bind-html="vacation.baseCost | highlight:searchText"></span><br />
-				<strong>Prijs één BM-lid:</strong> <span ng-bind-html="vacation.one_bm_member_cost | highlight:searchText"></span><br />
-				<strong>Prijs twee BM-leden:</strong> <span ng-bind-html="vacation.two_bm_member_cost | highlight:searchText"></span><br />
+				<strong>Prijs één BM-lid:</strong> <span ng-bind-html="vacation.oneBmMemberCost | highlight:searchText"></span><br />
+				<strong>Prijs twee BM-leden:</strong> <span ng-bind-html="vacation.twoBmMemberCost | highlight:searchText"></span><br />
 			</p>
 		</td>
 	</tr>

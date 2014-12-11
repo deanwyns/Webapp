@@ -1,13 +1,13 @@
 'use strict';
 
-angular.module('joetzApp').controller('AdminVacationCtrl', ['$state', '$scope', 'vacationService', 'promiseTracker', '$mdDialog', function ($state, $scope, vacationService, promiseTracker, $mdDialog) {
+angular.module('joetzApp').controller('AdminVacationCtrl', ['$state', '$scope', 'vacationService', 'categoryService', 'promiseTracker', '$mdDialog', function ($state, $scope, vacationService,categoryService, promiseTracker, $mdDialog) {
     $scope.editTracker = promiseTracker();
     $scope.errors = {};
 
     var _loadVacations = function(transition) {
         vacationService.getVacations().then(function(vacations) {
             $scope.vacations = vacations;
-            console.log(vacations);
+            $scope.errors = {};
 
             if(transition) {
                 $state.go('admin.vacation.list');
@@ -18,10 +18,26 @@ angular.module('joetzApp').controller('AdminVacationCtrl', ['$state', '$scope', 
     };
     _loadVacations();
 
+    var _setCategories = function() {
+        categoryService.getCategories().then(function(categories) {
+            $scope.categories = categories;
+        });
+    };
+    _setCategories();
+
+    var _setPicasaAlbums = function() {
+        vacationService.getAlbums().then(function(albums) {
+            $scope.albums = albums;
+        });
+    };
+    _setPicasaAlbums();
+
     var _submitEdit = function(vacationModel) {
         if(!vacationModel) {
             return undefined;
         }
+
+        $scope.errors = {};
 
         var editPromise = vacationService.updateVacation(vacationModel, vacationModel.id).then(function(response) {
             $scope.errors = {};
@@ -39,6 +55,8 @@ angular.module('joetzApp').controller('AdminVacationCtrl', ['$state', '$scope', 
         if(!vacationModel) {
             return undefined;
         }
+
+        $scope.errors = {};
 
         var addPromise = vacationService.addVacation(vacationModel).then(function(response) {
             $scope.errors = {};

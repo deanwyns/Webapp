@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="bower_components/angular-material/angular-material.css" />
     <link rel="stylesheet" href="bower_components/ngQuickDate/dist/ng-quick-date.css" />
     <link rel="stylesheet" href="bower_components/ngQuickDate/dist/ng-quick-date-default-theme.css" />
+    <link rel="stylesheet" href="bower_components/ngImgCrop/compile/minified/ng-img-crop.css" />
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
@@ -33,7 +34,7 @@
                     <img src="images/profiel_m.png" />
                     <div>{{ user.email }}</div>
                 </div>
-                <div ui-sref="menu" ng-show="isMobile && back" style="position: absolute; left: 0; top: 10px; height: 40px; line-height: 40px;" >
+                <div ng-click="back()" ng-show="isMobile && back" style="position: absolute; left: 0; top: 10px; height: 40px; line-height: 40px;" >
                     <img src="images/back.svg" style="height: 100%; float: left;" /> {{ back.button }}
                 </div>
                 <div style="position: absolute; right: 0; top: 5px;">
@@ -99,6 +100,9 @@
     <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
     <script src="bower_components/ngQuickDate/dist/ng-quick-date.js"></script>
     <script src="bower_components/angular-permission/dist/angular-permission.js"></script>
+    <script src="bower_components/angular-deckgrid/angular-deckgrid.js"></script>
+    <script src="bower_components/ngImgCrop/compile/minified/ng-img-crop.js"></script>
+    <script src="bower_components/angular-upload/angular-upload.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -111,6 +115,7 @@
     <script src="scripts/directives/multiline.js"></script>
     <script src="scripts/directives/errorMessage.js"></script>
     <script src="scripts/directives/backButton.js"></script>
+    <script src="scripts/directives/fileread.js"></script>
     <script src="scripts/controllers/main.js"></script>
     <script src="scripts/controllers/login.js"></script>
     <script src="scripts/controllers/loginDialog.js"></script>
@@ -118,11 +123,14 @@
     <script src="scripts/controllers/register.js"></script>
     <script src="scripts/controllers/vacation.js"></script>
     <script src="scripts/controllers/registration.js"></script>
+    <script src="scripts/controllers/photo.js"></script>
     <script src="scripts/controllers/admin/admin.js"></script>
     <script src="scripts/controllers/admin/adminUser.js"></script>
     <script src="scripts/controllers/admin/adminVacation.js"></script>
+    <script src="scripts/controllers/admin/adminCategory.js"></script>
     <script src="scripts/services/user.js"></script>
     <script src="scripts/services/vacation.js"></script>
+    <script src="scripts/services/category.js"></script>
     <script src="scripts/services/authInterceptor.js"></script>
     <script src="scripts/services/queryBuilder.js"></script>
     <!-- endbuild -->

@@ -1,0 +1,28 @@
+<md-button ui-sref="admin.category.list">Terug naar de lijst</md-button><br />
+
+<form style="padding-left: 20px; padding-bottom: 20px;">
+  <fieldset ng-disabled="editTracker.active()">
+    <md-text-float label="Naam" ng-model="selectedCategory.name"> </md-text-float>
+    <error-message error="errors.name"> </error-message>
+
+    Huidige foto:<br />
+    <img ng-src="{{ selectedCategory.photo_url }}" />
+
+    <input type="file" label="Thumbnail" fileread="selectedImage" />
+    <div style="position: relative; width: 100%; height: 400px;" ng-show="selectedImage">
+      <img-crop area-type="square" image="selectedImage" result-image="selectedCategory.photo_url"></img-crop>
+    </div>
+  </fieldset>
+
+  <div ng-show="selectedCategory.id">
+    <md-button type="submit" class="md-primary" ng-click="submitEdit(selectedCategory, croppedThumbnail)" ng-disabled="editTracker.active()">
+     Aanpassen
+    </md-button>
+  </div>
+  <div ng-show="selectedCategory.id === undefined">
+    <md-button type="submit" class="md-primary" ng-click="submitNew(selectedCategory, croppedThumbnail)" ng-disabled="editTracker.active()">
+     Toevoegen
+    </md-button>
+  </div>
+  <md-progress-circular ng-show="editTracker.active()" mode="indeterminate" style="background-color: #eee;"></md-progress-circular>
+</form>

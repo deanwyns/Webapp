@@ -108,6 +108,21 @@ md-toolbar {
   max-height: 192px;
 }
 
+.deckgrid[deckgrid]::before {
+    /* Specifies that the grid should have a maximum of 4 columns. Each column will have the classes 'column' and 'column-1-4' */
+    content: '4 .column.column-1-4';
+    font-size: 0; /* See https://github.com/akoenig/angular-deckgrid/issues/14#issuecomment-35728861 */
+    visibility: hidden;
+}
+
+.deckgrid .column {
+    float: left;
+}
+
+.deckgrid .column-1-4 {
+    width: 25%;
+}
+
 .container {
   position: absolute;
   top: 0;
@@ -346,7 +361,7 @@ md-toolbar {
     overflow: hidden;
     display: block;
     width: 30%;
-    background-image: url('http://www.natuurenbos.be/~/media/Images/Photo%20of%20the%20week/121119_Bos-ter-Rijst---foto-Marc-De-Vos.jpg');
+    /*background-image: url('http://www.natuurenbos.be/~/media/Images/Photo%20of%20the%20week/121119_Bos-ter-Rijst---foto-Marc-De-Vos.jpg');*/
     background-size: cover;
   }
 }
@@ -505,5 +520,13 @@ md-progress-circular.md-red-theme .md-inset {
     z-index: auto;
 
     margin-bottom: 0;
+  }
+
+  .deckgrid[deckgrid]::before {
+      content: '1 .column.column-1-1';
+  }
+
+  .deckgrid .column-1-1 {
+      width: 100%;
   }
 }

@@ -22,7 +22,10 @@ angular
     'ui.router',
     'ngQuickDate',
     'ngLocale',
-    'permission'
+    'permission',
+    'akoenig.deckgrid',
+    'ngImgCrop',
+    'lr.upload'
   ])
   .config(function ($httpProvider, $locationProvider, $stateProvider, $urlRouterProvider, ngQuickDateDefaultsProvider) {
     //$locationProvider.html5Mode(true);
@@ -75,8 +78,7 @@ angular
         data: {
           pageTitle: 'Nieuwsoverzicht',
           back: {
-            button: 'Menu',
-            state: 'login'
+            button: 'Menu'
           }
         }
       })
@@ -87,8 +89,18 @@ angular
         data: {
           pageTitle: 'Inloggen',
           back: {
-            button: 'Menu',
-            state: 'menu'
+            button: 'Menu'
+          }
+        }
+      })
+      .state('photos', {
+        url: '/fotos',
+        templateUrl: 'views/photos/index.html',
+        controller: 'PhotoCtrl',
+        data: {
+          pageTitle: 'Jouw foto\'s',
+          back: {
+            button: 'Menu'
           }
         }
       })
@@ -97,14 +109,29 @@ angular
         template: '<ui-view />',
         controller: 'VacationCtrl',
       })
+      .state('vacations.photos', {
+        url: '/:vacationId/fotos',
+        templateUrl: 'views/vacation/photos.html',
+        controller: function($scope, vacationService, $stateParams){
+          var vacationId = $stateParams.vacationId;
+          vacationService.getPhotos(vacationId).then(function(photos){
+            $scope.photos = photos;
+          });
+        },
+        data: {
+          pageTitle: 'Foto\'s',
+          back: {
+            button: 'Vakantie'
+          }
+        }
+      })
       .state('vacations.list', {
         url: '/',
         templateUrl: 'views/vacations.html',
         data: {
           pageTitle: 'Vakantieoverzicht',
           back: {
-            button: 'Menu',
-            state: 'menu'
+            button: 'Menu'
           }
         }
       })
@@ -129,8 +156,7 @@ angular
         data: {
           pageTitle: 'Kinderen',
           back: {
-            button: 'Vakantie',
-            state: 'vacations'
+            button: 'Vakantie'
           }
         }
       })
@@ -140,8 +166,7 @@ angular
         data: {
           pageTitle: 'Inschrijving',
           back: {
-            button: 'Kinderen',
-            state: 'vacations.register.child-selection'
+            button: 'Kinderen'
           }
         }
       })
@@ -151,8 +176,7 @@ angular
         data: {
           pageTitle: 'Bevestiging',
           back: {
-            button: 'Inschrijving',
-            state: 'vacations.register.register-information'
+            button: 'Inschrijving'
           }
         }
       })
@@ -166,8 +190,7 @@ angular
           },
           pageTitle: 'Registreren',
           back: {
-            button: 'Menu',
-            state: 'menu'
+            button: 'Menu'
           }
         }
       })
@@ -183,8 +206,7 @@ angular
         data: {
           pageTitle: 'Profiel',
           back: {
-            button: 'Menu',
-            state: 'menu'
+            button: 'Menu'
           }
         }
       })
@@ -194,8 +216,7 @@ angular
         data: {
           pageTitle: 'Kind toevoegen',
           back: {
-            button: 'Profiel',
-            state: 'profile'
+            button: 'Profiel'
           }
         }
       })
@@ -209,8 +230,7 @@ angular
           },
           pageTitle: 'Admin',
           back: {
-            button: 'Menu',
-            state: 'menu'
+            button: 'Menu'
           }
         }
       })
@@ -226,8 +246,7 @@ angular
         data: {
           pageTitle: 'Gebruikers beheren',
           back: {
-            button: 'Menu',
-            state: 'menu'
+            button: 'Menu'
           }
         }
       })
@@ -237,8 +256,7 @@ angular
         data: {
           pageTitle: 'Gebruiker aanmaken',
           back: {
-            button: 'Lijst',
-            state: 'admin.user.list'
+            button: 'Lijst'
           }
         }
       })
@@ -256,8 +274,49 @@ angular
         data: {
           pageTitle: 'Gebruiker wijzigen',
           back: {
-            button: 'Lijst',
-            state: 'admin.user.list'
+            button: 'Lijst'
+          }
+        }
+      })
+      .state('admin.category', {
+        abstract: true,
+        url: '/categorieen',
+        template: '<ui-view />',
+        controller: 'AdminCategoryCtrl'
+      })
+      .state('admin.category.list', {
+        url: '/',
+        templateUrl: 'views/admin/category.html',
+        data: {
+          pageTitle: 'Categorieën beheren',
+          back: {
+            button: 'Lijst'
+          }
+        }
+      })
+      .state('admin.category.new', {
+        url: '/nieuw',
+        templateUrl: 'views/admin/category-edit.html',
+        data: {
+          pageTitle: 'Categorie aanmaken',
+          back: {
+            button: 'Lijst'
+          }
+        }
+      })
+      .state('admin.category.edit', {
+        url: '/:categoryId/wijzig',
+        templateUrl: 'views/admin/category-edit.html',
+        controller: function($scope, categoryService, $stateParams) {
+          var categoryId = $stateParams.categoryId;
+          categoryService.getCategory(categoryId).then(function(category) {
+            $scope.selectedCategory = category;
+          });
+        },
+        data: {
+          pageTitle: 'Category wijzigen',
+          back: {
+            button: 'Lijst'
           }
         }
       })
@@ -273,8 +332,7 @@ angular
         data: {
           pageTitle: 'Vakanties beheren',
           back: {
-            button: 'Lijst',
-            state: 'admin.vacation.list'
+            button: 'Lijst'
           }
         }
       })
@@ -288,8 +346,7 @@ angular
         data: {
           pageTitle: 'Vakantie aanmaken',
           back: {
-            button: 'Lijst',
-            state: 'admin.vacation.list'
+            button: 'Lijst'
           }
         }
       })
@@ -305,8 +362,7 @@ angular
         data: {
           pageTitle: 'Vakantie wijzigen',
           back: {
-            button: 'Lijst',
-            state: 'admin.vacation.list'
+            button: 'Lijst'
           }
         }
       });

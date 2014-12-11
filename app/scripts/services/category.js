@@ -1,19 +1,18 @@
 'use strict';
 
 angular.module('joetzApp')
-	.factory('vacationService', ['$http', '$q', 'queryBuilder', 'userService', function($http, $q, queryBuilder, userService) {
-		var baseUrl = 'http://lloyd.deanwyns.me/api/vacation',
-			vacationService = {};
+	.factory('categoryService', ['$http', '$q', 'queryBuilder', 'userService', function($http, $q, queryBuilder, userService) {
+		var baseUrl = 'http://lloyd.deanwyns.me/api/category',
+			categoryService = {};
 
-		var _getVacations = function() {
+		var _getCategories = function() {
 			var defer = $q.defer();
 
 			$http({
 				method: 'GET',
 				url: baseUrl
 			}).success(function(response) {
-				console.log(response);
-				defer.resolve(response.data);
+				defer.resolve(response.categories);
 			}).error(function(err) {
 				defer.reject(err);
 			});
@@ -21,14 +20,14 @@ angular.module('joetzApp')
 			return defer.promise;
 		};
 
-		var _getVacation = function(id) {
+		var _getCategory = function(id) {
 			var defer = $q.defer();
 
 			$http({
 				method: 'GET',
 				url: baseUrl + '/' + id
 			}).success(function(response) {
-				defer.resolve(response.data);
+				defer.resolve(response.category);
 			}).error(function(err) {
 				defer.reject(err);
 			});
@@ -36,9 +35,9 @@ angular.module('joetzApp')
 			return defer.promise;
 		};
 
-		var _addVacation = function(vacationModel) {
+		var _addCategory = function(categoryModel) {
 			var defer = $q.defer(),
-				data = queryBuilder.build(vacationModel),
+				data = queryBuilder.build(categoryModel),
 				headers = {};
 
 			if(!userService.isAuthenticated()) {
@@ -55,19 +54,17 @@ angular.module('joetzApp')
 				data: data,
 				headers: headers
 			}).success(function(response) {
-				console.log(response);
 				defer.resolve(response);
 			}).error(function(err) {
-				console.log(err);
 				defer.reject(err);
 			});
 
 			return defer.promise;
 		};
 
-		var _updateVacation = function(vacationModel, id) {
+		var _updateCategory = function(categoryModel, id) {
 			var defer = $q.defer(),
-				data = queryBuilder.build(vacationModel),
+				data = queryBuilder.build(categoryModel),
 				headers = {};
 
 			if(!userService.isAuthenticated()) {
@@ -84,17 +81,15 @@ angular.module('joetzApp')
 				data: data,
 				headers: headers
 			}).success(function(response) {
-				console.log(response);
 				defer.resolve(response);
 			}).error(function(err) {
-				console.log(err);
 				defer.reject(err);
 			});
 
 			return defer.promise;
 		};
 
-		var _deleteVacation = function(id) {
+		var _deleteCategory = function(id) {
 			var defer = $q.defer(),
 				headers = {};
 
@@ -118,43 +113,11 @@ angular.module('joetzApp')
 			return defer.promise;
 		};
 
-		var _getAlbums = function() {
-			var defer = $q.defer();
+		categoryService.getCategories = _getCategories;
+		categoryService.getCategory = _getCategory;
+		categoryService.updateCategory = _updateCategory;
+		categoryService.addCategory = _addCategory;
+		categoryService.deleteCategory = _deleteCategory;
 
-			$http({
-				method: 'GET',
-				url: baseUrl + '/albums'
-			}).success(function(albums) {
-				defer.resolve(albums);
-			}).error(function(err) {
-				defer.reject(err);
-			});
-
-			return defer.promise;
-		};
-
-		var _getPhotos = function(id) {
-			var defer = $q.defer();
-
-			$http({
-				method: 'GET',
-				url: baseUrl + '/' + id + '/photos'
-			}).success(function(photos) {
-				defer.resolve(photos);
-			}).error(function(err) {
-				defer.reject(err);
-			});
-
-			return defer.promise;
-		};
-
-		vacationService.getVacations = _getVacations;
-		vacationService.getVacation = _getVacation;
-		vacationService.updateVacation = _updateVacation;
-		vacationService.addVacation = _addVacation;
-		vacationService.deleteVacation = _deleteVacation;
-		vacationService.getPhotos = _getPhotos;
-		vacationService.getAlbums = _getAlbums;
-
-		return vacationService;
+		return categoryService;
 	}]);

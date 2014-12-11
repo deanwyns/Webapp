@@ -9,7 +9,6 @@ angular.module('joetzApp').controller('UserCtrl', ['$state', '$scope', 'userServ
             $scope.user = userService.getLocalUser();
 
             if(transition) {
-                //$state.go('profile.overview');
                 $state.back();
             }
         }, function(err) {
