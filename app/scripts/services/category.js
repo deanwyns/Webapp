@@ -37,7 +37,7 @@ angular.module('joetzApp')
 
 		var _addCategory = function(categoryModel) {
 			var defer = $q.defer(),
-				data = 'name=' + categoryModel.name + '&photo_url=' + categoryModel.photo_url,
+				data = queryBuilder.build(categoryModel),
 				headers = {};
 
 			if(!userService.isAuthenticated()) {
@@ -64,7 +64,7 @@ angular.module('joetzApp')
 
 		var _updateCategory = function(categoryModel, id) {
 			var defer = $q.defer(),
-				data = 'name=' + categoryModel.name + '&photo_url=' + categoryModel.photo_url,
+				data = queryBuilder.build(categoryModel),
 				headers = {};
 
 			if(!userService.isAuthenticated()) {
