@@ -22,10 +22,13 @@ angular.module('joetzApp').controller('AdminCategoryCtrl', ['$state', '$scope', 
     };
     _loadCategories();
 
-    var _submitEdit = function(categoryModel) {
+    var _submitEdit = function(categoryModel, croppedThumbnail) {
         if(!categoryModel) {
             return undefined;
         }
+
+        categoryModel.photo_url = croppedThumbnail;
+        console.log(categoryModel);
 
         var editPromise = categoryService.updateCategory(categoryModel, categoryModel.id).then(function(response) {
             $scope.errors = {};
@@ -39,10 +42,12 @@ angular.module('joetzApp').controller('AdminCategoryCtrl', ['$state', '$scope', 
         $scope.editTracker.addPromise(editPromise);
     };
 
-    var _submitNew = function(categoryModel) {
+    var _submitNew = function(categoryModel, croppedThumbnail) {
         if(!categoryModel) {
             return undefined;
         }
+
+        categoryModel.photo_url = croppedThumbnail;
 
         var addPromise = categoryService.addCategory(categoryModel).then(function(response) {
             $scope.errors = {};

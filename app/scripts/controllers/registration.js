@@ -54,10 +54,10 @@ angular.module('joetzApp').controller('RegistrationCtrl', ['$scope', '$state', '
     };
 
     var _saveRegistration = function() {
-    	userService.saveRegistration($scope.registration).then(function() {
-
-    	}, function() {
-
+    	userService.saveRegistration($scope.registration).then(function(response) {
+            console.log(response);
+    	}, function(err) {
+            console.log(err);
     	});
     };
 

@@ -29,11 +29,11 @@
 
 		<md-list ng-show="user.children.length > 0">
 			<md-item ng-repeat="child in user.children">
-				<h2>{{ child.firstName }} {{ child.lastName }}</h2>
+				<h2>{{ child.first_name }} {{ child.last_name }}</h2>
 				<p>Rijksregisternummer: {{ child.nrn }}<br :>
 					Adres:<br />
-					{{ child.streetName }} {{ child.houseNumber }}<br />
-					{{ child.postalCode }} {{ child.city }}
+					{{ child.address.street_name }} {{ child.address.house_number }}<br />
+					{{ child.address.postal_code }} {{ child.address.city }}
 			</md-item>
 		</md-list>
 	</div>

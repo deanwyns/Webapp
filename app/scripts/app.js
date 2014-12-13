@@ -20,41 +20,15 @@ angular
     'LocalStorageModule',
     'ajoslin.promise-tracker',
     'ui.router',
-    'ngQuickDate',
     'ngLocale',
     'permission',
     'akoenig.deckgrid',
     'ngImgCrop',
-    'lr.upload'
+    'lr.upload',
+    'datePicker'
   ])
-  .config(function ($httpProvider, $locationProvider, $stateProvider, $urlRouterProvider, ngQuickDateDefaultsProvider) {
+  .config(function ($httpProvider, $locationProvider, $stateProvider, $urlRouterProvider) {
     //$locationProvider.html5Mode(true);
-    
-    ngQuickDateDefaultsProvider.set('parseDateFunction', function(str) {
-      var seconds = Date.parse(str);
-      var date = new Date(seconds);
-
-      var year, month, day, hours, minutes;
-      year = String(date.getFullYear());
-      month = String(date.getMonth() + 1);
-      if (month.length === 1) {
-        month = '0' + month;
-      }
-      day = String(date.getDate());
-      if (day.length === 1) {
-        day = '0' + day;
-      }
-      hours = String(date.getHours());
-      if (hours.length === 1) {
-        hours = '0' + hours;
-      }
-      minutes = String(date.getMinutes());
-      if (minutes.length === 1) {
-        minutes = '0' + minutes;
-      }
-
-      return year + '-' + month + '-' + day + ' ' + hours + ':' + minutes;
-    });
 
     //$httpProvider.interceptors.push('authInterceptorService');
     delete $httpProvider.defaults.headers.common['X-Requested-With'];
@@ -138,9 +112,9 @@ angular
       .state('vacations.detail', {
         url: '/:vacationId/details', 
         templateUrl: 'views/vacation-detail.html', 
-        controller: function($scope, vacationService, $stateParams){
+        controller: function($scope, vacationService, $stateParams) {
           var vacationId = $stateParams.vacationId;
-          vacationService.getVacation(vacationId).then(function(vacation){
+          vacationService.getVacation(vacationId).then(function(vacation) {
             $scope.selectedVacation = vacation;
           });
         }
@@ -278,6 +252,24 @@ angular
           }
         }
       })
+      .state('admin.user.edit.child', {
+        params: { userId: {}, childId: {} },
+        templateUrl: 'views/admin/child-edit.html',
+        controller: function($scope, userService, $stateParams) {
+          var childId = $stateParams.childId;
+          userService.getChild(childId).then(function(child) {
+            $scope.selectedChild = child;
+          }, function(err) {
+            console.log(err);
+          });
+        },
+        data: {
+          pageTitle: 'Gebruiker wijzigen',
+          back: {
+            button: 'Lijst'
+          }
+        }
+      })
       .state('admin.category', {
         abstract: true,
         url: '/categorieen',
@@ -353,10 +345,12 @@ angular
       .state('admin.vacation.edit', {
         url: '/:vacationId/wijzig',
         templateUrl: 'views/admin/vacation-edit.html',
-        controller: function($scope, vacationService, $stateParams) {
+        controller: function($scope, vacationService, $stateParams, dateService) {
           var vacationId = $stateParams.vacationId;
           vacationService.getVacation(vacationId).then(function(vacation) {
             $scope.selectedVacation = vacation;
+            $scope.selectedVacation.begin_date_d = dateService.mySQLStringToDate(vacation.begin_date);
+            $scope.selectedVacation.end_date_d = dateService.mySQLStringToDate(vacation.end_date);
           });
         },
         data: {

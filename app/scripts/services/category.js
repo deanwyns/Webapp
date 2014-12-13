@@ -12,7 +12,7 @@ angular.module('joetzApp')
 				method: 'GET',
 				url: baseUrl
 			}).success(function(response) {
-				defer.resolve(response.categories);
+				defer.resolve(response.data);
 			}).error(function(err) {
 				defer.reject(err);
 			});
@@ -27,7 +27,7 @@ angular.module('joetzApp')
 				method: 'GET',
 				url: baseUrl + '/' + id
 			}).success(function(response) {
-				defer.resolve(response.category);
+				defer.resolve(response.data);
 			}).error(function(err) {
 				defer.reject(err);
 			});
@@ -37,7 +37,7 @@ angular.module('joetzApp')
 
 		var _addCategory = function(categoryModel) {
 			var defer = $q.defer(),
-				data = queryBuilder.build(categoryModel),
+				data = 'name=' + categoryModel.name + '&photo_url=' + categoryModel.photo_url,
 				headers = {};
 
 			if(!userService.isAuthenticated()) {
@@ -64,7 +64,7 @@ angular.module('joetzApp')
 
 		var _updateCategory = function(categoryModel, id) {
 			var defer = $q.defer(),
-				data = queryBuilder.build(categoryModel),
+				data = 'name=' + categoryModel.name + '&photo_url=' + categoryModel.photo_url,
 				headers = {};
 
 			if(!userService.isAuthenticated()) {
