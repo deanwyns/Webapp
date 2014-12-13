@@ -7,7 +7,6 @@ angular.module('joetzApp').controller('AdminCategoryCtrl', ['$state', '$scope', 
         name: '',
         photo_url: ''
     };
-    $scope.croppedThumbnail = '';
 
     var _loadCategories = function(transition) {
         categoryService.getCategories().then(function(categories) {
@@ -22,12 +21,11 @@ angular.module('joetzApp').controller('AdminCategoryCtrl', ['$state', '$scope', 
     };
     _loadCategories();
 
-    var _submitEdit = function(categoryModel, croppedThumbnail) {
+    var _submitEdit = function(categoryModel) {
         if(!categoryModel) {
             return undefined;
         }
 
-        categoryModel.photo_url = croppedThumbnail;
         console.log(categoryModel);
 
         var editPromise = categoryService.updateCategory(categoryModel, categoryModel.id).then(function(response) {
@@ -42,12 +40,12 @@ angular.module('joetzApp').controller('AdminCategoryCtrl', ['$state', '$scope', 
         $scope.editTracker.addPromise(editPromise);
     };
 
-    var _submitNew = function(categoryModel, croppedThumbnail) {
+    var _submitNew = function(categoryModel) {
         if(!categoryModel) {
             return undefined;
         }
 
-        categoryModel.photo_url = croppedThumbnail;
+        console.log(categoryModel);
 
         var addPromise = categoryService.addCategory(categoryModel).then(function(response) {
             $scope.errors = {};
