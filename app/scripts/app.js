@@ -81,22 +81,28 @@ angular
       .state('monitoren', {
         url: '/monitoren',
         template: '<ui-view />', 
-        controller: 'UserCtrl',
+        controller: 'MonitorCtrl',
       })
       .state('monitoren.list', {
         url: '/', 
         templateUrl: 'views/monitors.html',
-        controller: function($scope, userService){
-          userService.getUsers().then(function(response){
-            $scope.monitors= response;
-          });
-        },
+        controller: 'MonitorCtrl',
         data: {
           pageTitle: 'Monitoren',
           back: {
             button: 'Menu'
           }
         }
+      })
+      .state('monitoren.info', {
+        url: '/:monitorId',
+        templateUrl:'views/monitorInfo.html',
+        controller: function($scope, userService, $stateParams){
+          var monitorId = $stateParams.monitorId;
+          userService.getMonitor(monitorId).then(function(monitor){
+            $scope.selectedMonitor = monitor;
+          });
+        } 
       })
       .state('vacations', {
         url: '/vakanties',

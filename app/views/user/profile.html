@@ -38,7 +38,7 @@
 		</md-list>
 	</div>
 
-	<div ng-show="user.type === 'admin'">
-		<md-button ui-sref="monitoren.list" ng-click="getMonitors()">Contacteer monitor</md-button>
+	<div ng-show="user.type !== 'parents'">
+		<md-button ui-sref="monitoren.list">Contacteer monitor</md-button>
 	</div>
 </div>
