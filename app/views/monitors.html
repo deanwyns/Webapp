@@ -1,0 +1,16 @@
+<div class="content" ng-class="{ 'md-whiteframe-z1': !isMobile }" >
+    <h2 class="content-header">{{ pageTitle }}</h2>
+    <md-text-float label="Zoeken" ng-model="searchText"> </md-text-float>
+    <ul>
+        <li ng-click="predicate = 'title'; reverse = !reverse">Naam</li>
+    </ul>
+    <ul>
+    <md-list>
+        <md-item ng-repeat="monitor in monitors | filter:searchText | orderBy:predicate:reverse">
+            <div class="md-whiteframe-z1" layout layout-align="center center" ng-click="showMonitorDetail($event,{ monitorId: monitor.id })">
+                <h3>{{monitor.first_name_mother}} {{monitor.last_name_mother}}</h3>
+                </div>
+        </md-item>
+    </md-list>
+</div>
+

@@ -78,8 +78,16 @@ angular.module('joetzApp').controller('UserCtrl', ['$state', '$scope', 'userServ
         });
     };
 
+    var _getMonitors = function() {
+        userService.getUsers().then(function(response) {
+            var monitors = response;
+            $scope.monitors = monitors;
+        });
+    };
+
     $scope.submitEdit = _submitEdit;
     $scope.submitNew = _submitNew;
     $scope.deleteChild = _deleteChild;
     $scope.changePassword = _changePassword;
+    $scope.getMonitors = _getMonitors;
   }]);

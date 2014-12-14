@@ -384,6 +384,38 @@ angular.module('joetzApp')
 			return _user.token;
 		};
 
+		var _getMonitors = function(){
+			var defer = $q.defer(), 
+			headers = {};
+
+			$http({
+				method: 'GET', 
+				url: baseUrl + '/monitor', 
+				headers: headers
+			}).success(function(response){
+				defer.resolve(response.data);
+			}).error(function(err){
+				defer.reject(err);
+			});
+
+			return defer.promise;
+		};
+
+		var _getMonitor = function(id){
+			var defer = $q.defer();
+
+			$http({
+				method: 'GET',
+				url: baseUrl + '/monitor/' + id
+			}).success(function(response) {
+				defer.resolve(response.data);
+			}).error(function(err) {
+				defer.reject(err);
+			});
+
+			return defer.promise;
+		};
+
 		userService.init = _init;
 		userService.login = _login;
 		userService.deleteUser = _deleteUser;
@@ -406,6 +438,9 @@ angular.module('joetzApp')
 
 		userService.getProfile = _getProfile;
 		userService.getChildren = _getChildren;
+
+		userService.getMonitors = _getMonitors;
+		userService.getmonitor = _getMonitor;
 
 		return userService;
 	}]);

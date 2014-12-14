@@ -104,6 +104,26 @@ angular
           }
         }
       })
+      .state('monitoren', {
+        url: '/monitoren',
+        template: '<ui-view />', 
+        controller: 'UserCtrl',
+      })
+      .state('monitoren.list', {
+        url: '/', 
+        templateUrl: 'views/monitors.html',
+        controller: function($scope, userService){
+          userService.getUsers().then(function(response){
+            $scope.monitors= response;
+          });
+        },
+        data: {
+          pageTitle: 'Monitoren',
+          back: {
+            button: 'Menu'
+          }
+        }
+      })
       .state('vacations', {
         url: '/vakanties',
         template: '<ui-view />',
