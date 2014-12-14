@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('joetzApp').controller('AdminVacationCtrl', ['$state', '$scope', 'vacationService', 'categoryService', 'promiseTracker', '$mdDialog', function ($state, $scope, vacationService,categoryService, promiseTracker, $mdDialog) {
+angular.module('joetzApp').controller('AdminVacationCtrl', ['dateService', '$state', '$scope', 'vacationService', 'categoryService', 'promiseTracker', '$mdDialog', function (dateService, $state, $scope, vacationService,categoryService, promiseTracker, $mdDialog) {
     $scope.editTracker = promiseTracker();
     $scope.errors = {};
 
@@ -17,6 +17,14 @@ angular.module('joetzApp').controller('AdminVacationCtrl', ['$state', '$scope', 
         });
     };
     _loadVacations();
+
+    var _getDate = function(str) {
+        return dateService.mySQLStringToDate(str);
+    };
+
+    var _getMySQLDate = function(date) {
+        return dateService.dateToMySQLString(date);
+    };
 
     var _setCategories = function() {
         categoryService.getCategories().then(function(categories) {
@@ -38,6 +46,8 @@ angular.module('joetzApp').controller('AdminVacationCtrl', ['$state', '$scope', 
         }
 
         $scope.errors = {};
+        vacationModel.begin_date = _getMySQLDate(vacationModel.begin_date_d);
+        vacationModel.end_date = _getMySQLDate(vacationModel.begin_date_d);
 
         var editPromise = vacationService.updateVacation(vacationModel, vacationModel.id).then(function(response) {
             $scope.errors = {};
@@ -57,6 +67,8 @@ angular.module('joetzApp').controller('AdminVacationCtrl', ['$state', '$scope', 
         }
 
         $scope.errors = {};
+        vacationModel.begin_date = _getMySQLDate(vacationModel.date_begin_d);
+        vacationModel.end_date = _getMySQLDate(vacationModel.date_end_d);
 
         var addPromise = vacationService.addVacation(vacationModel).then(function(response) {
             $scope.errors = {};
@@ -88,4 +100,6 @@ angular.module('joetzApp').controller('AdminVacationCtrl', ['$state', '$scope', 
     $scope.submitEdit = _submitEdit;
     $scope.submitNew = _submitNew;
     $scope.deleteVacation = _deleteVacation;
+    $scope.getDate = _getDate;
+    $scope.getMySQLDate = _getMySQLDate;
   }]);

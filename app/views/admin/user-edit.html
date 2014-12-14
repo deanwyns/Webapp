@@ -43,6 +43,18 @@
       <md-text-float label="Rijksregisternummer" ng-model="selectedUser.nrn_father"> </md-text-float>
       <error-message error="errors.nrn_father"> </error-message>
 
+      <h3>Kinderen</h3>
+      <md-list ng-show="selectedUser.children.length > 0">
+        <md-item ng-repeat="child in selectedUser.children" ui-sref="admin.user.edit.child-edit({ childId: child.id })">
+          <h2>{{ child.first_name }} {{ child.last_name }}</h2>
+          <p>Rijksregisternummer: {{ child.nrn }}<br :>
+            Adres:<br />
+            {{ child.address.street_name }} {{ child.address.house_number }}<br />
+            {{ child.address.postal_code }} {{ child.address.city }}
+        </md-item>
+      </md-list>
+      <ui-view />
+
     </div>
 
   <div ng-if="selectedUser.id">

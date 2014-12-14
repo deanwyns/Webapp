@@ -12,7 +12,7 @@ angular.module('joetzApp')
 				method: 'GET',
 				url: baseUrl
 			}).success(function(response) {
-				defer.resolve(response.categories);
+				defer.resolve(response.data);
 			}).error(function(err) {
 				defer.reject(err);
 			});
@@ -27,7 +27,7 @@ angular.module('joetzApp')
 				method: 'GET',
 				url: baseUrl + '/' + id
 			}).success(function(response) {
-				defer.resolve(response.category);
+				defer.resolve(response.data);
 			}).error(function(err) {
 				defer.reject(err);
 			});

@@ -324,6 +324,25 @@ angular.module('joetzApp')
 			return defer.promise;
 		};
 
+		var _getChild = function(id) {
+			var defer = $q.defer(),
+				headers = {};
+
+			headers.Authorization = _user.token;
+
+			$http({
+				method: 'GET',
+				url: baseUrl + '/user/me/' + id,
+				headers: headers
+			}).success(function(response) {
+				defer.resolve(response);
+			}).error(function(err) {
+				defer.reject(err);
+			});
+
+			return defer.promise;
+		};
+
 		var _addChild = function(childModel) {
 			var defer = $q.defer(),
 				headers = {},
@@ -358,6 +377,129 @@ angular.module('joetzApp')
 				method: 'POST',
 				url: baseUrl + '/user/me/' + registrationModel.selectedChild.id + '/register',
 				data: data,
+				headers: headers
+			}).success(function(response) {
+				defer.resolve(response);
+			}).error(function(err) {
+				defer.reject(err);
+			});
+
+			return defer.promise;
+		};
+
+		var _getChildAddress = function(id) {
+			var defer = $q.defer(),
+				headers = {};
+
+			headers.Authorization = _user.token;
+
+			$http({
+				method: 'GET',
+				url: baseUrl + '/user/me/' + id + '/address',
+				headers: headers
+			}).success(function(response) {
+				defer.resolve(response);
+			}).error(function(err) {
+				defer.reject(err);
+			});
+
+			return defer.promise;
+		};
+
+		var _getAddresses = function() {
+			var defer = $q.defer(),
+				headers = {};
+
+			headers.Authorization = _user.token;
+
+			$http({
+				method: 'GET',
+				url: baseUrl + '/user/me/address',
+				headers: headers
+			}).success(function(response) {
+				defer.resolve(response);
+			}).error(function(err) {
+				defer.reject(err);
+			});
+
+			return defer.promise;
+		};
+
+		var _saveAddress = function(addressModel) {
+			var defer = $q.defer(),
+				headers = {},
+				data = queryBuilder.build(addressModel);
+
+			headers['Content-Type'] = 'application/x-www-form-urlencoded';
+			headers.Authorization = _user.token;
+
+			$http({
+				method: 'POST',
+				url: baseUrl + '/address/make',
+				data: data,
+				headers: headers
+			}).success(function(response) {
+				defer.resolve(response);
+			}).error(function(err) {
+				defer.reject(err);
+			});
+
+			return defer.promise;
+		};
+
+		var _addSocialNetwork = function(socialNetworkModel) {
+			var defer = $q.defer(),
+				headers = {},
+				data = queryBuilder.build(socialNetworkModel);
+
+			headers['Content-Type'] = 'application/x-www-form-urlencoded';
+			headers.Authorization = _user.token;
+
+			$http({
+				method: 'POST',
+				url: baseUrl + '/user/me/addsocialnetwork',
+				data: data,
+				headers: headers
+			}).success(function(response) {
+				defer.resolve(response);
+			}).error(function(err) {
+				defer.reject(err);
+			});
+
+			return defer.promise;
+		};
+
+		var _updateSocialNetwork = function(socialNetworkModel, id) {
+			var defer = $q.defer(),
+				headers = {},
+				data = queryBuilder.build(socialNetworkModel);
+
+			headers['Content-Type'] = 'application/x-www-form-urlencoded';
+			headers.Authorization = _user.token;
+
+			$http({
+				method: 'PUT',
+				url: baseUrl + '/user/me/' + id + '/socialnetwork',
+				data: data,
+				headers: headers
+			}).success(function(response) {
+				defer.resolve(response);
+			}).error(function(err) {
+				defer.reject(err);
+			});
+
+			return defer.promise;
+		};
+
+		var _deleteSocialNetwork = function(id) {
+			var defer = $q.defer(),
+				headers = {};
+
+			headers.Authorization = _user.token;
+
+			$http({
+				method: 'DELETE',
+				url: baseUrl + '/user/me/' + id + '/socialnetwork',
 				headers: headers
 			}).success(function(response) {
 				defer.resolve(response);
@@ -429,6 +571,7 @@ angular.module('joetzApp')
 		userService.isAuthenticated = _isAuthenticated;
 		userService.getToken = _getToken;
 
+		userService.getChild = _getChild;
 		userService.addChild = _addChild;
 		userService.saveRegistration = _saveRegistration;
 		userService.getRegistrationsByChild = _getRegistrationsByChild;
@@ -441,6 +584,14 @@ angular.module('joetzApp')
 
 		userService.getMonitors = _getMonitors;
 		userService.getmonitor = _getMonitor;
+
+		userService.getChildAddress = _getChildAddress;
+		userService.getAddresses = _getAddresses;
+		userService.saveAddress = _saveAddress;
+
+		userService.addSocialNetwork = _addSocialNetwork;
+		userService.updateSocialNetwork = _updateSocialNetwork;
+		userService.deleteSocialNetwork = _deleteSocialNetwork;
 
 		return userService;
 	}]);

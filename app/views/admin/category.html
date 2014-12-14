@@ -15,7 +15,7 @@
 		<td ng-bind-html="category.name | highlight:searchText"></td>
 		<td class="actions">
 			<ul>
-				<li><img ui-sref="admin.category.edit({categoryId: {{ category.id }} })" src="images/edit.svg" /></li>
+				<li><img ui-sref="admin.category.edit({categoryId: category.id })" src="images/edit.svg" /></li>
 				<li><img ng-click="deleteCategory(category)" src="images/delete.svg"></li>
 			</ul>
 		</td>

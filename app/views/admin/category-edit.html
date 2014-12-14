@@ -5,12 +5,14 @@
     <md-text-float label="Naam" ng-model="selectedCategory.name"> </md-text-float>
     <error-message error="errors.name"> </error-message>
 
-    Huidige foto:<br />
-    <img ng-src="{{ selectedCategory.photo_url }}" />
+    <div ng-show="selectedCategory.photo">
+      Huidige foto:<br />
+      <img ng-src="{{ selectedCategory.photo }}" />
+    </div>
 
     <input type="file" label="Thumbnail" fileread="selectedImage" />
     <div style="position: relative; width: 100%; height: 400px;" ng-show="selectedImage">
-      <img-crop area-type="square" image="selectedImage" result-image="selectedCategory.photo_url"></img-crop>
+      <img-crop area-type="square" image="selectedImage" result-image="croppedThumbnail"></img-crop>
     </div>
   </fieldset>
 

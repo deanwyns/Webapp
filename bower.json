@@ -15,12 +15,12 @@
     "angular-local-storage": "~0.1.4",
     "promise-tracker": "https://github.com/Igosuki/angular-promise-tracker.git#ec2bdf76471436a9028eb804a998299b9952dab3",
     "angular-ui-router": "~0.2.13",
-    "ngQuickDate": "~1.3.3",
     "angular-i18n": "~1.3.3",
     "angular-permission": "~0.1.4",
     "angular-deckgrid": "~0.5.0",
     "ngImgCrop": "~0.3.2",
-    "angular-upload": "~1.0.11"
+    "angular-upload": "~1.0.11",
+    "angular-datepicker": "master"
   },
   "devDependencies": {
     "angular-mocks": "~1.3.0",

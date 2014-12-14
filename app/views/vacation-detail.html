@@ -3,28 +3,28 @@
 	<div class="vacation-header-image"></div>
 	<md-button class="md-raised" ui-sref="vacations.photos({vacationId: selectedVacation.id})">Bekijk de foto's</md-button>
 
-	<p> {{selectedVacation.promoText}} </p>
+	<p> {{selectedVacation.promo_text}} </p>
 
 	<h3>Waar ?</h3>
 	<p> {{selectedVacation.location}} </p>
 	<h3> Doelgroep</h3>
-	<p>Tussen de leeftijden van  {{ selectedVacation.ageFrom }} en {{ selectedVacation.ageTo }}</p>
+	<p>Tussen de leeftijden van  {{ selectedVacation.age_from }} en {{ selectedVacation.age_to }}</p>
 	<h3> Vervoer</h3>
 	<p> {{ selectedVacation.transportation }}</p>
 	<h3> Maximum aantal deelnemers </h3>
-	<p> {{selectedVacation.maxParticipants}} personen </p>
+	<p> {{selectedVacation.max_participants}} personen </p>
 	<h3> Prijs </h3>
 	<p> Basisprijs : {{selectedVacation.baseCost | currency}}</p>
-	<p> JOETZ-sterprijs : <ul> <li> 1 ouder lid van Bond Moyson West-Vlaanderen: {{selectedVacation.oneBmMemberCost| currency}} (JOETZ-korting {{selectedVacation.baseCost-selectedVacation.oneBmMemberCost | currency}})</li>
-	    <li> 2 ouders lid van Bond Moyson West-Vlaanderen: {{selectedVacation.twoBmMemberCost| currency}}(JOETZ-korting {{selectedVacation.baseCost-selectedVacation.twoBmMemberCost | currency}})</li>
+	<p> JOETZ-sterprijs : <ul> <li> 1 ouder lid van Bond Moyson West-Vlaanderen: {{selectedVacation.one_bm_member_cost| currency}} (JOETZ-korting {{selectedVacation.base_cost-selectedVacation.one_bm_member_cost | currency}})</li>
+	    <li> 2 ouders lid van Bond Moyson West-Vlaanderen: {{selectedVacation.two_bm_member_cost| currency}}(JOETZ-korting {{selectedVacation.base_cost-selectedVacation.two_bm_member_cost | currency}})</li>
 	</ul> 
 	</p>   
 	<h3> Tijdstip </h3>
-	<p>  Vertrek: {{selectedVacation.beginDate | asDate |date: 'fullDate'}}</p>
-	<p> Terug : {{selectedVacation.endDate | asDate |date: 'fullDate'}}</p>
+	<p>  Vertrek: {{selectedVacation.begin_date | asDate |date: 'fullDate'}}</p>
+	<p> Terug : {{selectedVacation.end_date | asDate |date: 'fullDate'}}</p>
 
 	<h3>BTW-aftrekbaar</h3>
-	<img src="images/checkmark{{selectedVacation.taxDeductable}}.png"/>
+	<img src="images/checkmark{{selectedVacation.tax_deductable}}.png"/>
 
 	<p> {{selectedVacation.description}}</p>
 
