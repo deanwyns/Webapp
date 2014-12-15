@@ -5,6 +5,7 @@ angular.module('joetzApp')
 		var baseUrl = 'http://lloyd.deanwyns.me/api/category',
 			categoryService = {};
 
+		/** GET-request om alle categorieën te laden */
 		var _getCategories = function() {
 			var defer = $q.defer();
 
@@ -20,6 +21,7 @@ angular.module('joetzApp')
 			return defer.promise;
 		};
 
+		/** GET-request om een specifieke categorie te laden adhv zijn id */
 		var _getCategory = function(id) {
 			var defer = $q.defer();
 
@@ -35,6 +37,11 @@ angular.module('joetzApp')
 			return defer.promise;
 		};
 
+		/**
+		 * POST-request om een categorie toe te voegen
+		 * @param {object} categoryModel Een object met alle nodige attributen
+		 * @return {object} 			 De promise voor deze request
+		 */
 		var _addCategory = function(categoryModel) {
 			var defer = $q.defer(),
 				data = queryBuilder.build(categoryModel),
@@ -62,6 +69,12 @@ angular.module('joetzApp')
 			return defer.promise;
 		};
 
+		/**
+		 * PUT-request om een bepaalde categorie up te daten
+		 * @param  {object} categoryModel Een object met de nodige attributen
+		 * @param  {int} id            De id van de categorie die je wenst up te daten
+		 * @return {object}               De promise voor deze request
+		 */
 		var _updateCategory = function(categoryModel, id) {
 			var defer = $q.defer(),
 				data = queryBuilder.build(categoryModel),
@@ -89,6 +102,11 @@ angular.module('joetzApp')
 			return defer.promise;
 		};
 
+		/**
+		 * DELETE-request om een bepaalde categorie te verwijderen
+		 * @param  {int} id De id van de categorie die je wenst te verwijderen
+		 * @return {object}    De promise van deze requeest
+		 */
 		var _deleteCategory = function(id) {
 			var defer = $q.defer(),
 				headers = {};
@@ -113,11 +131,13 @@ angular.module('joetzApp')
 			return defer.promise;
 		};
 
+		// Voeg de methoden toe aan het object
 		categoryService.getCategories = _getCategories;
 		categoryService.getCategory = _getCategory;
 		categoryService.updateCategory = _updateCategory;
 		categoryService.addCategory = _addCategory;
 		categoryService.deleteCategory = _deleteCategory;
 
+		// Return het object
 		return categoryService;
 	}]);

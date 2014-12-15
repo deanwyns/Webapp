@@ -4,6 +4,11 @@ angular.module('joetzApp').controller('UserCtrl', ['$state', '$scope', 'userServ
     $scope.editTracker = promiseTracker();
     $scope.errors = {};
 
+    /**
+     * Laadt het profiel van de gebruiker
+     * @param  {boolean} transition Achterna terug naar het profiel navigeren?
+     * @return {void}           
+     */
     var _loadProfile = function(transition) {
         userService.getProfile().then(function() {
             $scope.user = userService.getLocalUser();
@@ -17,6 +22,11 @@ angular.module('joetzApp').controller('UserCtrl', ['$state', '$scope', 'userServ
     };
     _loadProfile();
 
+    /**
+     * Past een inschrijving aan
+     * @param  {object} registrationModel    Een object met alle nodige attributen
+     * @return {void}                  
+     */
     var _submitEdit = function(childModel) {
         if(!childModel) {
             return undefined;
@@ -35,6 +45,11 @@ angular.module('joetzApp').controller('UserCtrl', ['$state', '$scope', 'userServ
         $scope.editTracker.addPromise(editPromise);
     };
 
+    /**
+     * Voegt een nieuw kind toe
+     * @param  {object} childModel    Een object met alle nodige attributen
+     * @return {void}                  
+     */
     var _submitNew = function(childModel) {
         console.log(childModel);
         if(!childModel) {
@@ -53,6 +68,11 @@ angular.module('joetzApp').controller('UserCtrl', ['$state', '$scope', 'userServ
         $scope.editTracker.addPromise(addPromise);
     };
 
+    /**
+     * Verwijdert een gebruiker na bevestiging via dialoog
+     * @param  {object} userModel Een object met alle nodige attributen
+     * @return {void}               
+     */
     var _deleteChild = function(childModel) {
         var confirm = $mdDialog.confirm()
                     .title(childModel.email + ' verwijderen?')
@@ -68,16 +88,24 @@ angular.module('joetzApp').controller('UserCtrl', ['$state', '$scope', 'userServ
         });
     };
 
+    /**
+     * Verandert het wachtwoord van de ingelogde gebruiker
+     * @param  {string} newPassword          Het nieuwe wachtwoord
+     * @param  {string} newPasswordConfirmed Het nieuwe wachtwoord bevestigd
+     * @return {void}                      
+     */
     var _changePassword = function(newPassword, newPasswordConfirmed) {
         userService.updateMe({ password: newPassword, password_confirmed: newPasswordConfirmed }).then(function() {
             $scope.message = 'Uw wachtwoord is gewijzigd.';
         }, function(err) {
+            // Voeg eventuele foutmeldingen toe aan de scope
             for(var key in err.errors) {
                 $scope.errors[key] = err.errors[key][0];
             }
         });
     };
 
+    // Voeg de methoden toe aan de scope
     $scope.submitEdit = _submitEdit;
     $scope.submitNew = _submitNew;
     $scope.deleteChild = _deleteChild;

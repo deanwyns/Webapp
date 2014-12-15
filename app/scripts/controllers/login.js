@@ -10,10 +10,15 @@ angular.module('joetzApp')
 	$scope.errors = {};
 	$scope.loginTracker = promiseTracker();
 
+	/**
+	 * Wordt opgeroepen bij het inloggen
+	 * @return {void} 
+	 */
 	$scope.submit = function() {
 		$scope.errors = {};
 
 		var userPromise = userService.login($scope.loginModel).then(function(user) {
+			// Stuur een notificatie dat de gebuiker is ingelogd
 			$scope.$emit('user:loggedIn', user);
 		}, function(err) {
 			$scope.errors.login = err.error_description;

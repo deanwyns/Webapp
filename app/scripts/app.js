@@ -29,7 +29,6 @@ angular
   .config(function ($httpProvider, $locationProvider, $stateProvider, $urlRouterProvider) {
     //$locationProvider.html5Mode(true);
 
-    //$httpProvider.interceptors.push('authInterceptorService');
     delete $httpProvider.defaults.headers.common['X-Requested-With'];
     $httpProvider.defaults.headers.post.Accept = 'application/vnd.joetz.v1+json';
     $httpProvider.defaults.headers.post['Content-Type'] = 'application/json; charset=utf-8';
@@ -40,7 +39,6 @@ angular
       .state('menu', {
         url: '/',
         templateUrl: 'views/menu.html',
-        //controller: 'MenuCtrl',
         data: {
           pageTitle: 'Joetz',
           backButton: 'Menu'
@@ -216,7 +214,6 @@ angular
       .state('admin', {
         url: '/admin',
         templateUrl: 'views/admin/main.html',
-        controller: 'AdminCtrl',
         data: {
           permissions: {
             only: ['admin']

@@ -4,6 +4,11 @@ angular.module('joetzApp').controller('AdminVacationCtrl', ['dateService', '$sta
     $scope.editTracker = promiseTracker();
     $scope.errors = {};
 
+    /**
+     * Laadt alle vakanties en voegt ze toe aan de scope
+     * @param  {boolean} transition Achterna terug naar lijst navigeren?
+     * @return {void}            
+     */
     var _loadVacations = function(transition) {
         vacationService.getVacations().then(function(vacations) {
             $scope.vacations = vacations;
@@ -18,14 +23,27 @@ angular.module('joetzApp').controller('AdminVacationCtrl', ['dateService', '$sta
     };
     _loadVacations();
 
+    /** 
+     * Vormt een MySQL-datumstring om in een JS-datum
+     * @param  {string} str De datum in MySQL-formaat
+     * @return {date}     De datum die moet omgevormd worden
+     */
     var _getDate = function(str) {
         return dateService.mySQLStringToDate(str);
     };
 
+    /** 
+     * Vormt een JS-datum om in een MySQL-datumstring
+     * @param  {date} date De datum die moet omgevormd worden
+     * @return {string}      De datum in MySQL-formaat
+     */
     var _getMySQLDate = function(date) {
         return dateService.dateToMySQLString(date);
     };
 
+    /**
+     * Laadt alle categorieën en voegt ze toe aan de scope
+     */
     var _setCategories = function() {
         categoryService.getCategories().then(function(categories) {
             $scope.categories = categories;
@@ -33,6 +51,9 @@ angular.module('joetzApp').controller('AdminVacationCtrl', ['dateService', '$sta
     };
     _setCategories();
 
+    /**
+     * Laadt alle Picasa-albums en voeg ze toe aan de scope
+     */
     var _setPicasaAlbums = function() {
         vacationService.getAlbums().then(function(albums) {
             $scope.albums = albums;
@@ -40,12 +61,18 @@ angular.module('joetzApp').controller('AdminVacationCtrl', ['dateService', '$sta
     };
     _setPicasaAlbums();
 
+    /**
+     * Past een vakantie aan
+     * @param  {object} vacationModel    Een object met alle nodige attributen
+     * @return {void}                  
+     */
     var _submitEdit = function(vacationModel) {
         if(!vacationModel) {
             return undefined;
         }
 
         $scope.errors = {};
+        // Voegt een datum in MySQL-formaat toe aan het model
         vacationModel.begin_date = _getMySQLDate(vacationModel.begin_date_d);
         vacationModel.end_date = _getMySQLDate(vacationModel.begin_date_d);
 
@@ -61,12 +88,18 @@ angular.module('joetzApp').controller('AdminVacationCtrl', ['dateService', '$sta
         $scope.editTracker.addPromise(editPromise);
     };
 
+    /**
+     * Voegt een nieuwe vakantie toe
+     * @param  {object} vacationModel    Een object met alle nodige attributen
+     * @return {void}                  
+     */
     var _submitNew = function(vacationModel) {
         if(!vacationModel) {
             return undefined;
         }
 
         $scope.errors = {};
+        // Voegt een datum in MySQL-formaat toe aan het model
         vacationModel.begin_date = _getMySQLDate(vacationModel.date_begin_d);
         vacationModel.end_date = _getMySQLDate(vacationModel.date_end_d);
 
@@ -80,14 +113,21 @@ angular.module('joetzApp').controller('AdminVacationCtrl', ['dateService', '$sta
         });
 
         $scope.editTracker.addPromise(addPromise);
-    }
+    };
 
+    /**
+     * Verwijdert een vakantie na bevestiging via dialoog
+     * @param  {object} userModel Een object met alle nodige attributen
+     * @return {void}               
+     */
     var _deleteVacation = function(vacationModel) {
+        // Maak een dialoogvenster via de builder
         var confirm = $mdDialog.confirm()
                     .title(vacationModel.title + ' verwijderen?')
                     .content('Weet je zeker dat je ' + vacationModel.title + ' wilt verwijderen?')
                     .ok('Ja, ik weet het zeker.')
                     .cancel('Nee, annuleer.');
+        // Toon het dialoogvenster en bij bevestiging wordt de categorie verwijderd
         $mdDialog.show(confirm).then(function() {
             vacationService.deleteVacation(vacationModel.id).then(function() {
                 _loadVacations();
@@ -97,6 +137,7 @@ angular.module('joetzApp').controller('AdminVacationCtrl', ['dateService', '$sta
         });
     };
 
+    // Voeg de methoden toe aan de scope
     $scope.submitEdit = _submitEdit;
     $scope.submitNew = _submitNew;
     $scope.deleteVacation = _deleteVacation;

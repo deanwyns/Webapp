@@ -1,5 +1,9 @@
 'use strict';
 
+/**
+ * Directive die het geselecteerde bestand (uit een file-input)
+ * leest in een variabele via FileReader
+ */
 angular.module('joetzApp')
     .directive('fileread', [function () {
     return {

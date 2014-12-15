@@ -1,5 +1,11 @@
 'use strict';
 
+/**
+ * Directive voor het toevoegen van "multiline" aan Angular Material
+ * tekstvelden. Aangezien er geen textarea-elementen beschikbaar zijn
+ * in Angular Material, wordt deze directive gebruikt icm md-text-float.
+ * Verandert de text-input met een textarea.
+ */
 angular.module('joetzApp')
     .directive('multiline', ['$timeout', function($timeout) {
     return {

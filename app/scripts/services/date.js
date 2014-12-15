@@ -4,6 +4,11 @@ angular.module('joetzApp')
   .factory('dateService', [function () {
         var dateService = {};
 
+        /**
+         * Vormt een JS-datum om in een string in MySQL-formaat
+         * @param  {date} date Date-object
+         * @return {string}      Datum in MySQL-formaat
+         */
         var _dateToMySQLString = function(date) {
           //var seconds = Date.parse(str);
           //var date = new Date(seconds);
@@ -30,13 +35,20 @@ angular.module('joetzApp')
           return year + '-' + month + '-' + day + ' ' + hours + ':' + minutes;
         };
 
+        /**
+         * Vormt een string om in een Date-object
+         * @param  {string} str Datum-string
+         * @return {date}     Date-object
+         */
         var _mySQLStringToDate = function(str) {
           var seconds = Date.parse(str);
           return isNaN(seconds) ? null : new Date(seconds);
         };
 
+        // Voeg de methoden toe aan het object
         dateService.dateToMySQLString = _dateToMySQLString;
         dateService.mySQLStringToDate = _mySQLStringToDate;
 
+        // Return het object
         return dateService;
 }]);

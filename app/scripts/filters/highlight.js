@@ -1,5 +1,8 @@
 'use strict';
 
+/**
+ * Filter die een string "highlight" door de achtergrond geel te maken van die bepaalde string
+ */
 angular.module('joetzApp')
 .filter('highlight', function($sce) {
   return function(text, phrase) {
