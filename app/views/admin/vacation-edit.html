@@ -28,11 +28,12 @@
     <md-text-float label="Locatie" ng-model="selectedVacation.location"> </md-text-float>
     <error-message error="errors.location"> </error-message>
 
-    <input type="datetime" date-time ng-model="selectedVacation.begin_date_d" view="date">
-    <!-- <div date-picker="selectedVacation.begin_date_d" view="date"></div> -->
+    {{ getMySQLDate(selectedVacation.begin_date_d) }}
+    <div date-picker="selectedVacation.begin_date_d" view="date"></div>
     <error-message error="errors.begin_date"> </error-message>
-    <input type="datetime" date-time ng-model="selectedVacation.end_date_d" view="date">
-    <!-- <div date-picker="selectedVacation.end_date_d" view="date"></div> -->
+
+    {{ getMySQLDate(selectedVacation.end_date_d) }}
+    <div date-picker="selectedVacation.end_date_d" view="date"></div>
     <error-message error="errors.end_date"> </error-message>
 
   	<md-text-float label="Leeftijd van" ng-model="selectedVacation.age_from"> </md-text-float>
@@ -52,7 +53,7 @@
     <error-message error="errors.one_bm_member_cost"> </error-message>
   	<md-text-float label="Kostprijs twee BM-leden" ng-model="selectedVacation.two_bm_member_cost"> </md-text-float>
     <error-message error="errors.two_bm_member_cost"> </error-message>
-  	<md-switch ng-model="selectedVacation.tax_deductable" md-aria-label="BTW-aftrekbaar" ng-init="selectedVacation.tax_deductable = 0" ng-true-value="1" ng-false-value="0">
+  	<md-switch ng-model="selectedVacation.tax_deductable" md-aria-label="BTW-aftrekbaar" ng-true-value="1" ng-false-value="0">
       BTW-aftrekbaar
     </md-switch>
     <error-message error="errors.tax_deductable"> </error-message>

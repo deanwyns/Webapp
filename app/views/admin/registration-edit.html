@@ -2,9 +2,23 @@
 
 <form style="padding-left: 20px; padding-bottom: 20px;">
   <fieldset ng-disabled="editTracker.active()">
-    {{ selectedRegistration }}
-    <md-text-float label="Naam" ng-model="selectedRegistration.name"> </md-text-float>
-    <error-message error="errors.name"> </error-message>
+    <md-switch ng-model="selectedRegistration.is_paid" aria-label="Betaald">
+      Betaald?
+    </md-switch>
+
+    <md-text-float label="Voornaam betalende persoon" ng-model="selectedRegistration.facturation_last_name"> </md-text-float>
+    <error-message error="errors.facturation_last_name"> </error-message>
+    <md-text-float label="Naam betalende persoon" ng-model="selectedRegistration.facturation_first_name"> </md-text-float>
+    <error-message error="errors.facturation_first_name"> </error-message>
+
+    <md-text-float label="Straat" ng-model="selectedRegistration.facturation_address.street_name"> </md-text-float>
+    <error-message error="errors.facturation_address.street_name"> </error-message>
+    <md-text-float label="Huisnummer" ng-model="selectedRegistration.facturation_address.house_number"> </md-text-float>
+    <error-message error="errors.facturation_address.house_number"> </error-message>
+    <md-text-float label="Postcode" ng-model="selectedRegistration.facturation_address.postal_code"> </md-text-float>
+    <error-message error="errors.facturation_address.postal_code"> </error-message>
+    <md-text-float label="Gemeente" ng-model="selectedRegistration.facturation_address.city"> </md-text-float>
+    <error-message error="errors.facturation_address.city"> </error-message>
   </fieldset>
 
   <div ng-show="selectedRegistration.id">

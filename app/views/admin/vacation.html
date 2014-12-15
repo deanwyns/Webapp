@@ -5,6 +5,8 @@
 </div>
 
 <md-text-float label="Zoeken" ng-model="searchText"> </md-text-float>
+<md-text-float label="Leeftijd vanaf" ng-model="searchText.age_from"> </md-text-float>
+<md-text-float label="Leeftijd tot" ng-model="searchText.age_to"> </md-text-float>
 
 <table class="list md-whiteframe-z1">
 	<tr>
@@ -30,12 +32,12 @@
 
 				<strong>Locatie:</strong> <span ng-bind-html="vacation.location | highlight:searchText"></span><br />
 				<strong>Transport:</strong> <span ng-bind-html="vacation.transportation | highlight:searchText"></span><br />
-				<strong>Maximaal aantal deelnemers:</strong> <span ng-bind-html="vacation.maxParticipants | highlight:searchText"></span><br />
-				<strong>Leeftijd:</strong> <span ng-bind-html="vacation.ageFrom | highlight:searchText"></span> - <span ng-bind-html="vacation.ageTo | highlight:searchText"></span><br />
+				<strong>Maximaal aantal deelnemers:</strong> <span ng-bind-html="vacation.max_participants | highlight:searchText"></span><br />
+				<strong>Leeftijd:</strong> {{ vacation.age_from }} - {{ vacation.age_to }}<br />
 
-				<strong>Basisprijs:</strong> <span ng-bind-html="vacation.baseCost | highlight:searchText"></span><br />
-				<strong>Prijs één BM-lid:</strong> <span ng-bind-html="vacation.oneBmMemberCost | highlight:searchText"></span><br />
-				<strong>Prijs twee BM-leden:</strong> <span ng-bind-html="vacation.twoBmMemberCost | highlight:searchText"></span><br />
+				<strong>Basisprijs:</strong> <span ng-bind-html="vacation.base_cost | highlight:searchText"></span><br />
+				<strong>Prijs één BM-lid:</strong> <span ng-bind-html="vacation.one_bm_member_cost | highlight:searchText"></span><br />
+				<strong>Prijs twee BM-leden:</strong> <span ng-bind-html="vacation.two_bm_member_cost | highlight:searchText"></span><br />
 			</p>
 		</td>
 	</tr>

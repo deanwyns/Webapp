@@ -33,8 +33,11 @@
                     <img src="images/profiel_m.png" />
                     <div>{{ user.email }}</div>
                 </div>
-                <div back-button default-state="menu" ng-show="isMobile && back" class="toolbar-left" >
-                    <img src="images/back.svg" style="height: 100%; float: left;" /> {{ back.button }}
+                <div back-button default-state="menu" ng-show="isMobile && backButton" class="toolbar-left" >
+                    <img src="images/back.svg" style="height: 100%; float: left;" /> {{ backButton }}
+                </div>
+                <div class="toolbar-center">
+                    <img src="images/joetz_text_only.png" />
                 </div>
                 <div class="toolbar-right">
                     <md-button ng-hide="user.isAuth" ui-sref="register" aria-label="Registreren">

@@ -4,20 +4,30 @@
     </md-button>
 </div>
 
-<md-text-float label="Zoeken" ng-model="searchText"> </md-text-float>
+<md-text-float label="Zoeken" ng-model="search"> </md-text-float>
 
 <table class="list md-whiteframe-z1">
 	<tr>
-		<th ng-click="predicate = 'name'; reverse = !reverse">Naam</th>
+		<th ng-click="predicate = 'child_first_name'; reverse = !reverse">Kind voornaam</th>
+		<th ng-click="predicate = 'child_last_name'; reverse = !reverse">Kind naam</th>
+		<th ng-click="predicate = 'is_paid'; reverse = !reverse">Betaald?</th>
+		<th ng-click="predicate = 'vacation_title; reverse = !reverse">Vakantie</th>
 		<th>Acties</th>
 	</tr>
-	<tr ng-repeat="registration in registrations | orderBy:predicate:reverse | filter:searchText" class="list-item list-animate">
-		<td>{{ registration }}</td>
+	<tr ng-repeat-start="registration in registrations | orderBy:predicate:reverse | filter:search" class="list-item list-animate">
+		<td ng-bind-html="registration.child_first_name | highlight: search"></td>
+		<td ng-bind-html="registration.child_last_name | highlight: search"></td>
+		<td><span ng-if="registration.is_paid">Ja</span><span ng-if="!registration.is_paid">Nee</span></td>
+		<td ng-bind-html="registration.vacation_title | highlight: search" ui-sref="admin.vacation.edit({ vacationId: registration.vacation_id })"></td>
 		<td class="actions">
 			<ul>
-				<li><img ui-sref="admin.registration.edit({categoryId: category.id })" src="images/edit.svg" /></li>
+				<li><img ui-sref="admin.registration.edit({registrationId: registration.id })" src="images/edit.svg" /></li>
 				<li><img ng-click="deleteRegistration(registration)" src="images/delete.svg"></li>
 			</ul>
 		</td>
+	</tr>
+	<tr ng-repeat-end>
+		<span ng-bind-html="registration.street_name | highlight: search"></span> <span ng-bind-html="registration.house_number | highlight: search"></span><br />
+		<span ng-bind-html="registration.postal_code | highlight: search"></span> <span ng-bind-html="registration.city | highlight: search"></span>
 	</tr>
 </table>

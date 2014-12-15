@@ -218,6 +218,28 @@ angular.module('joetzApp')
 			return defer.promise;
 		};
 
+		var _updateMe = function(updateModel) {
+			var defer = $q.defer(),
+				headers = {},
+				data = queryBuilder.build(updateModel);
+
+			headers['Content-Type'] = 'application/x-www-form-urlencoded';
+			headers.Authorization = _getToken();
+
+			$http({
+				method: 'PUT',
+				url: baseUrl + '/user/me',
+				data: data,
+				headers: headers
+			}).success(function(response) {
+				defer.resolve(response);
+			}).error(function(err) {
+				defer.reject(err);
+			});
+
+			return defer.promise;
+		};
+
 		var _logout = function() {
 			localStorageService.remove('authData');
 
@@ -354,6 +376,28 @@ angular.module('joetzApp')
 			$http({
 				method: 'POST',
 				url: baseUrl + '/user/me/children',
+				data: data,
+				headers: headers
+			}).success(function(response) {
+				defer.resolve(response);
+			}).error(function(err) {
+				defer.reject(err);
+			});
+
+			return defer.promise;
+		};
+
+		var _updateChild = function(childModel, childId) {
+			var defer = $q.defer(),
+				headers = {},
+				data = queryBuilder.build(childModel);
+
+			headers['Content-Type'] = 'application/x-www-form-urlencoded';
+			headers.Authorization = _user.token;
+
+			$http({
+				method: 'POST',
+				url: baseUrl + '/user/me/' + childId,
 				data: data,
 				headers: headers
 			}).success(function(response) {
@@ -510,6 +554,36 @@ angular.module('joetzApp')
 			return defer.promise;
 		};
 
+		var _getMonitors = function() {
+			var defer = $q.defer();
+
+			$http({
+				method: 'GET',
+				url: baseUrl + '/monitor'
+			}).success(function(response) {
+				defer.resolve(response);
+			}).error(function(err) {
+				defer.reject(err);
+			});
+
+			return defer.promise;
+		};
+
+		var _getMonitor = function(id) {
+			var defer = $q.defer();
+
+			$http({
+				method: 'GET',
+				url: baseUrl + '/monitor/' + id
+			}).success(function(response) {
+				defer.resolve(response);
+			}).error(function(err) {
+				defer.reject(err);
+			});
+
+			return defer.promise;
+		};
+
 		var _getLocalUser = function() {
 			return _user;
 		};
@@ -526,38 +600,6 @@ angular.module('joetzApp')
 			return _user.token;
 		};
 
-		var _getMonitors = function(){
-			var defer = $q.defer(), 
-			headers = {};
-
-			$http({
-				method: 'GET', 
-				url: baseUrl + '/monitor', 
-				headers: headers
-			}).success(function(response){
-				defer.resolve(response.data);
-			}).error(function(err){
-				defer.reject(err);
-			});
-
-			return defer.promise;
-		};
-
-		var _getMonitor = function(id){
-			var defer = $q.defer();
-
-			$http({
-				method: 'GET',
-				url: baseUrl + '/monitor/' + id
-			}).success(function(response) {
-				defer.resolve(response.data);
-			}).error(function(err) {
-				defer.reject(err);
-			});
-
-			return defer.promise;
-		};
-
 		userService.init = _init;
 		userService.login = _login;
 		userService.deleteUser = _deleteUser;
@@ -565,6 +607,7 @@ angular.module('joetzApp')
 		userService.registerMonitor = _registerMonitor;
 		userService.registerAdmin = _registerAdmin;
 		userService.update = _update;
+		userService.updateMe = _updateMe;
 		userService.logout = _logout;
 		userService.getLocalUser = _getLocalUser;
 		userService.getType = _getType;
@@ -573,6 +616,7 @@ angular.module('joetzApp')
 
 		userService.getChild = _getChild;
 		userService.addChild = _addChild;
+		userService.updateChild = _updateChild;
 		userService.saveRegistration = _saveRegistration;
 		userService.getRegistrationsByChild = _getRegistrationsByChild;
 

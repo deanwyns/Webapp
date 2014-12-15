@@ -3,11 +3,14 @@
 	<p>E-mail: {{ user.email }}</p>
 
 	<h3>Wachtwoord wijzigen</h3>
-	<md-text-float label="Nieuw wachtwoord" ng-model="password"> </md-text-float>
-	<error-message error="errors.password"> </error-message>
-	<md-text-float label="Wachtwoord bevestigen" ng-model="password_confirmed"> </md-text-float>
-	<error-message error="errors.password_confirmed"> </error-message>
-	<md-button ng-click="changePassword(password, password_confirmed)">Wijzig</md-button>
+	{{ message }}
+	<div ng-hide="message">
+		<md-text-float type="password" label="Nieuw wachtwoord" ng-model="password"> </md-text-float>
+		<error-message error="errors.password"> </error-message>
+		<md-text-float type="password"label="Wachtwoord bevestigen" ng-model="password_confirmed"> </md-text-float>
+		<error-message error="errors.password_confirmed"> </error-message>
+		<md-button ng-click="changePassword(password, password_confirmed)">Wijzig</md-button>
+	</div>
 
 	<div ng-show="user.type === 'parents'">
 		<div ng-show="user.first_name_mother">

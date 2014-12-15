@@ -24,7 +24,8 @@
 	<p> Terug : {{selectedVacation.end_date | asDate |date: 'fullDate'}}</p>
 
 	<h3>BTW-aftrekbaar</h3>
-	<img src="images/checkmark{{selectedVacation.tax_deductable}}.png"/>
+	<img ng-hide="selectedVacation.tax_deductable" src="images/checkmark0.png" />
+	<img ng-show="selectedVacation.tax_deductable" src="images/checkmark1.png" />
 
 	<p> {{selectedVacation.description}}</p>
 

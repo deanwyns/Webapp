@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('joetzApp').controller('AdminUserCtrl', ['$state', '$scope', 'userService', 'promiseTracker', '$mdDialog', function ($state, $scope, userService, promiseTracker, $mdDialog) {
+angular.module('joetzApp').controller('AdminUserCtrl', ['$state', '$scope', 'userService', 'dateService', 'promiseTracker', '$mdDialog', function ($state, $scope, userService, dateService, promiseTracker, $mdDialog) {
     $scope.editTracker = promiseTracker();
     $scope.errors = {};
 
@@ -16,6 +16,50 @@ angular.module('joetzApp').controller('AdminUserCtrl', ['$state', '$scope', 'use
         });
     };
     _loadUsers();
+
+    var _submitEditChild = function(childModel) {
+        if(!childModel) {
+            return undefined;
+        }
+
+        childModel.street_name = childModel.address.street_name;
+        childModel.postal_code = childModel.address.postal_code;
+        childModel.city = childModel.address.city;
+        childModel.house_number = childModel.address.house_number;
+        childModel.date_of_birth = dateService.dateToMySQLString(childModel.date_of_birth_d);
+
+        var editPromise = userService.updateChild(childModel, childModel.id).then(function(response) {
+            $scope.errors = {};
+        }, function(err) {
+            for(var key in err.errors.messages) {
+                $scope.errors[key] = err.errors.messages[key][0];
+            }
+        });
+
+        $scope.editTracker.addPromise(editPromise);
+    };
+
+    var _submitNewChild = function(childModel) {
+        if(!childModel) {
+            return undefined;
+        }
+
+        childModel.street_name = childModel.address.street_name;
+        childModel.postal_code = childModel.address.postal_code;
+        childModel.city = childModel.address.city;
+        childModel.house_number = childModel.address.house_number;
+        childModel.date_of_birth = dateService.dateToMySQLString(childModel.date_of_birth_d);
+
+        var addPromise = userService.addChild(childModel).then(function(response) {
+            $scope.errors = {};
+        }, function(err) {
+            for(var key in err.errors.messages) {
+                $scope.errors[key] = err.errors.messages[key][0];
+            }
+        });
+
+        $scope.editTracker.addPromise(addPromise);
+    }
 
     var _submitEdit = function(userModel) {
         if(!userModel) {
@@ -98,4 +142,7 @@ angular.module('joetzApp').controller('AdminUserCtrl', ['$state', '$scope', 'use
     $scope.submitEdit = _submitEdit;
     $scope.submitNew = _submitNew;
     $scope.deleteUser = _deleteUser;
+
+    $scope.submitEditChild = _submitEditChild;
+    $scope.submitNewChild = _submitNewChild;
   }]);

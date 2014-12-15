@@ -14,14 +14,25 @@ function($rootScope, $state, $parse) {
             el.on('click', function() {
                 var stateName, stateParams;
 
-                if ($rootScope.previousState.name) {
+                if($state.current.data.backState) {
+                    stateName = $state.current.data.backState;
+                    stateParams = $rootScope.previousState.params;
+                } else if ($rootScope.previousState.name) {
+                    stateName = $rootScope.previousState.name;
+                    stateParams = $rootScope.previousState.params;
+                } else {
+                    stateName = defaultState;
+                    stateParams = defaultStateParams;
+                }
+
+                /*if ($rootScope.previousState.name) {
                     stateName = $rootScope.previousState.name;
                     stateParams = $rootScope.previousState.params;
                 }
                 else {
                     stateName = defaultState;
                     stateParams = defaultStateParams;
-                }
+                }*/
 
                 if (stateName) {
                     $state.go(stateName, stateParams);

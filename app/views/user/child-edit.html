@@ -9,6 +9,9 @@
       <md-text-float label="Rijksregisternummer" ng-model="selectedChild.nrn"> </md-text-float>
       <error-message error="errors.nrn"> </error-message>
 
+      <div date-picker="selectedChild.date_of_birth_d" view="date"></div>
+      <error-message error="errors.date_of_birth"> </error-message>
+
       <md-text-float label="Straat" ng-model="selectedChild.address.street_name"> </md-text-float>
       <error-message error="errors.street_name"> </error-message>
 
