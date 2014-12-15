@@ -1,9 +1,12 @@
-<div class="registration-status-buttons">
-    <a ui-sref-active="active"><span>1</span> Kinderen</a>
-    <a ui-sref-active="active"><span>2</span> Inschrijving</a>
-    <a ui-sref-active="active"><span>3</span> Bevestiging</a>
-</div>
+<div class="content" ng-class="{ 'md-whiteframe-z1': !isMobile }">
+    <h2 class="content-header">{{ pageTitle }}</h2>
+	<div class="registration-status-buttons">
+	    <a ui-sref-active="active"><span>1</span> Kinderen</a>
+	    <a ui-sref-active="active"><span>2</span> Inschrijving</a>
+	    <a ui-sref-active="active"><span>3</span> Bevestiging</a>
+	</div>
 
-<form name="vacation_registration_form" style="padding-left: 20px; padding-bottom: 20px;" ng-submit="saveRegistration()">
-  <ui-view id="vacation-registration-forms" />
-</form>
+	<form name="vacation_registration_form" style="padding-left: 20px; padding-bottom: 20px;">
+	  <ui-view id="vacation-registration-forms" />
+	</form>
+</div>

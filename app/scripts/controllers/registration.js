@@ -1,10 +1,15 @@
 'use strict';
 
-angular.module('joetzApp').controller('RegistrationCtrl', ['$scope', '$state', '$stateParams', 'userService', function ($scope, $state, $stateParams, userService) {
-	var vacationId = $stateParams.vacationId;
+angular.module('joetzApp').controller('RegistrationCtrl', ['$scope', '$state', '$stateParams', 'userService', 'vacationService', function ($scope, $state, $stateParams, userService, vacationService) {
+	console.log('invoke RegkfkfController with $state', $state);
+    var vacationId = $stateParams.vacationId;
     $scope.registration = {
     	vacation_id: vacationId
     };
+
+    vacationService.getVacation(vacationId).then(function(vacation) {
+        $scope.selectedVacation = vacation;
+    });
 
     $scope.errors = {};
 
@@ -15,19 +20,35 @@ angular.module('joetzApp').controller('RegistrationCtrl', ['$scope', '$state', '
     	}
     };
 
-    $scope.$watch('vacation_registration_form.streetName.$error.required', function(validity) {
+    $scope.$watch('vacation_registration_form.facturation_first_name.$error.required', function(validity) {
+        if(!validity) {
+            delete $scope.errors.facturation_first_name;
+        } else {
+            $scope.errors.facturation_first_name = 'Het veld \'Voornaam\' is verplicht';
+        }
+    });
+
+    $scope.$watch('vacation_registration_form.facturation_last_name.$error.required', function(validity) {
+        if(!validity) {
+            delete $scope.errors.facturation_last_name;
+        } else {
+            $scope.errors.facturation_last_name = 'Het veld \'Naam\' is verplicht';
+        }
+    });
+
+    $scope.$watch('vacation_registration_form.street_name.$error.required', function(validity) {
     	if(!validity) {
-    		delete $scope.errors.streetName;
+    		delete $scope.errors.street_name;
     	} else {
-    		$scope.errors.streetName = 'Het veld \'Straat\' is verplicht';
+    		$scope.errors.street_name = 'Het veld \'Straat\' is verplicht';
     	}
     });
 
-    $scope.$watch('vacation_registration_form.houseNumber.$error.required', function(validity) {
+    $scope.$watch('vacation_registration_form.house_number.$error.required', function(validity) {
     	if(!validity) {
-    		delete $scope.errors.houseNumber;
+    		delete $scope.errors.house_number;
     	} else {
-    		$scope.errors.houseNumber = 'Het veld \'Huisnummer\' is verplicht';
+    		$scope.errors.house_number = 'Het veld \'Huisnummer\' is verplicht';
     	}
     });
 
@@ -39,11 +60,11 @@ angular.module('joetzApp').controller('RegistrationCtrl', ['$scope', '$state', '
     	}
     });
 
-    $scope.$watch('vacation_registration_form.postalCode.$error.pattern', function(validity) {
+    $scope.$watch('vacation_registration_form.postal_code.$error.pattern', function(validity) {
     	if(!validity) {
-    		delete $scope.errors.postalCode;
+    		delete $scope.errors.postal_code;
     	} else {
-    		$scope.errors.postalCode = 'Het veld \'Postcode\' is geen geldige postcode.';
+    		$scope.errors.postal_code = 'Het veld \'Postcode\' is geen geldige postcode.';
     	}
     });
 
@@ -54,7 +75,8 @@ angular.module('joetzApp').controller('RegistrationCtrl', ['$scope', '$state', '
     };
 
     var _saveRegistration = function() {
-    	userService.saveRegistration($scope.registration).then(function(response) {
+        console.log($scope.registration);
+    	userService.saveRegistration($scope.registration, $scope.registration.selectedChild.id).then(function(response) {
             console.log(response);
     	}, function(err) {
             console.log(err);

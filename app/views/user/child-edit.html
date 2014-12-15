@@ -2,23 +2,23 @@
     <h2 class="content-header">{{ pageTitle }}</h2>
   <form style="padding-left: 20px; padding-bottom: 20px;">
     <fieldset ng-disabled="editTracker.active()">
-      <md-text-float label="Voornaam" ng-model="selectedChild.firstName"> </md-text-float>
-      <error-message error="errors.firstName"> </error-message>
-      <md-text-float label="Naam" ng-model="selectedChild.lastName"> </md-text-float>
-      <error-message error="errors.lastName"> </error-message>
+      <md-text-float label="Voornaam" ng-model="selectedChild.first_name"> </md-text-float>
+      <error-message error="errors.first_name"> </error-message>
+      <md-text-float label="Naam" ng-model="selectedChild.last_name"> </md-text-float>
+      <error-message error="errors.last_name"> </error-message>
       <md-text-float label="Rijksregisternummer" ng-model="selectedChild.nrn"> </md-text-float>
       <error-message error="errors.nrn"> </error-message>
 
-      <md-text-float label="Straat" ng-model="selectedChild.streetName"> </md-text-float>
-      <error-message error="errors.streetName"> </error-message>
+      <md-text-float label="Straat" ng-model="selectedChild.address.street_name"> </md-text-float>
+      <error-message error="errors.street_name"> </error-message>
 
-      <md-text-float label="Huisnummer" ng-model="selectedChild.houseNumber"> </md-text-float>
-      <error-message error="errors.houseNumber"> </error-message>
+      <md-text-float label="Huisnummer" ng-model="selectedChild.address.house_number"> </md-text-float>
+      <error-message error="errors.house_number"> </error-message>
 
-      <md-text-float label="Postcode" ng-model="selectedChild.postalCode"> </md-text-float>
-      <error-message error="errors.postalCode"> </error-message>
+      <md-text-float label="Postcode" ng-model="selectedChild.address.postal_code"> </md-text-float>
+      <error-message error="errors.postal_code"> </error-message>
 
-      <md-text-float label="Gemeente" ng-model="selectedChild.city"> </md-text-float>
+      <md-text-float label="Gemeente" ng-model="selectedChild.address.city"> </md-text-float>
       <error-message error="errors.city"> </error-message>
     </fieldset>
 

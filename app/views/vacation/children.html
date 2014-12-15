@@ -2,7 +2,7 @@
 
 <div ng-if="user.children && user.children.length > 0">
 	<md-radio-group ng-model="registration.selectedChildIndex">
-		<md-radio-button ng-repeat="child in user.children" value="{{ $index }}" aria-label="{{ child.firstName }} {{ child.lastName }}">{{ child.firstName }} {{ child.lastName }}</md-radio-button>
+		<md-radio-button ng-repeat="child in user.children" value="{{ $index }}" aria-label="{{ child.firstName }} {{ child.lastName }}">{{ child.first_name }} {{ child.last_name }}</md-radio-button>
 	</md-radio-group>
 
 	<md-button ng-show="registration.selectedChildIndex" ng-click="selectChild()">

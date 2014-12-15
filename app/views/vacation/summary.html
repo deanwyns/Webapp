@@ -1,5 +1,10 @@
-<p>Inschrijving voor {{ registration.selectedChild.firstName }} {{ registration.selectedChild.lastName }}:<br />
-	Adres: {{ registration.streetName }} {{ registration.houseNumber }}<br />
-	{{ registration.postalCode }} {{ registration.city }}
+<p>Inschrijving voor {{ registration.selectedChild.first_name }} {{ registration.selectedChild.last_name }}:<br />
+	Betalende persoon: {{ registration.facturation_first_name }} {{ registration.facturation_last_name }}<br />
+	Adres: {{ registration.street_name }} {{ registration.house_number }}<br />
+	{{ registration.postal_code }} {{ registration.city }}
 </p>
-<md-button type="submit">Bevestigen</md-button>
+<p>
+	{{ $selectedVacation }}
+</p>
+
+<md-button ng-click="saveRegistration()">Bevestigen</md-button>

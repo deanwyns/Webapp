@@ -24,7 +24,6 @@ angular
     'permission',
     'akoenig.deckgrid',
     'ngImgCrop',
-    'lr.upload',
     'datePicker'
   ])
   .config(function ($httpProvider, $locationProvider, $stateProvider, $urlRouterProvider) {
@@ -78,12 +77,12 @@ angular
           }
         }
       })
-      .state('monitoren', {
+      .state('monitors', {
         url: '/monitoren',
         template: '<ui-view />', 
         controller: 'MonitorCtrl',
       })
-      .state('monitoren.list', {
+      .state('monitors.list', {
         url: '/', 
         templateUrl: 'views/monitors.html',
         controller: 'MonitorCtrl',
@@ -94,7 +93,7 @@ angular
           }
         }
       })
-      .state('monitoren.info', {
+      .state('monitors.info', {
         url: '/:monitorId',
         templateUrl:'views/monitorInfo.html',
         controller: function($scope, userService, $stateParams){
@@ -338,6 +337,48 @@ angular
           }
         }
       })
+      .state('admin.registration', {
+        abstract: true,
+        url: '/inschrijvingen',
+        template: '<ui-view />',
+        controller: 'AdminRegistrationCtrl'
+      })
+      .state('admin.registration.list', {
+        url: '/',
+        templateUrl: 'views/admin/registration.html',
+        data: {
+          pageTitle: 'Inschrijvingen beheren',
+          back: {
+            button: 'Lijst'
+          }
+        }
+      })
+      .state('admin.registration.new', {
+        url: '/nieuw',
+        templateUrl: 'views/admin/registration-edit.html',
+        data: {
+          pageTitle: 'Inschrijving aanmaken',
+          back: {
+            button: 'Lijst'
+          }
+        }
+      })
+      .state('admin.registration.edit', {
+        url: '/:registrationId/wijzig',
+        templateUrl: 'views/admin/registration-edit.html',
+        controller: function($scope, registrationService, $stateParams) {
+          var registrationId = $stateParams.registrationId;
+          registrationService.getRegistration(registrationId).then(function(registration) {
+            $scope.selectedRegistration = registration;
+          });
+        },
+        data: {
+          pageTitle: 'Inschrijving wijzigen',
+          back: {
+            button: 'Lijst'
+          }
+        }
+      })
       .state('admin.vacation', {
         abstract: true,
         url: '/vakanties',
@@ -409,7 +450,7 @@ angular
 
       if(!_isMobile() && toState.name === 'menu') {
         event.preventDefault();
-        $state.go('news');
+        $state.go('vacations.list');
       }
     });
 

@@ -1,25 +1,12 @@
 <div class="content" ng-class="{ 'md-whiteframe-z1': !isMobile }">
-    <div class="row panel panel-primary">
-      
-      <!--     monitor list      -->
-      <div class="col-xs-5 panel-body">
-        <md-list class="list-group">
-            <h2 class="content-header">{{pageTitle}}</h2>
-            <md-text-float label="Zoeken" ng-model="searchText"> </md-text-float>
-            <md-item class="list-group-item" ng-repeat="monitor in monitors | filter: searchText " ui-sref"monitoren.info({ monitorId: monitor.id })">
-            <div class="md-whiteframe-z1" layout layout-align="center center">
-                <h3>{{monitor.first_name_mother}}</h3>
-            </div>
-            </md-item>
-        </md-list> 
+  <h2 class="content-header">{{ pageTitle }}</h2>
+  <md-list>
+      <md-text-float label="Zoeken" ng-model="searchText"> </md-text-float>
+      <md-item class="list-group-item" ng-repeat="monitor in monitors | filter: searchText " ui-sref="monitoren.info({ monitorId: monitor.id })">
+      <div class="md-whiteframe-z1" layout layout-align="center center">
+          <h3>{{monitor.first_name_mother}}</h3>
       </div>
-      
-      <!--   ng-view below       -->
-      <div class="col-xs-7">
-        <div class="list-group panel-body">
-          <div ng-view></div>
-        </div>
-      </div>
-        
-    </div>
+      </md-item>
+  </md-list>
+  <ui-view />
 </div>

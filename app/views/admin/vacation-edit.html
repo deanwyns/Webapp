@@ -5,7 +5,7 @@
     <md-text-float label="Titel" ng-model="selectedVacation.title"> </md-text-float>
     <error-message error="errors.title"> </error-message>
 
-    <div style="position: relative; width: 100%; height: 200px; overflow: scroll-y">
+    <div style="position: relative; width: 100%; height: 200px; overflow: auto">
       <md-radio-group ng-model="selectedVacation.category_id">
         <md-radio-button ng-repeat="category in categories" ng-value="category.id" aria-label="{{ category.name }}">
                {{ category.name }}
@@ -13,7 +13,7 @@
       </md-radio-group>
     </div>
 
-    <div style="position: relative; width: 100%; height: 200px; overflow: scroll-y">
+    <div style="position: relative; width: 100%; height: 200px; overflow: auto">
       <md-radio-group ng-model="selectedVacation.picasa_album_id">
         <md-radio-button ng-repeat="album in albums" ng-value="album.id" aria-label="{{ album.name }}">
                {{ album.name }}

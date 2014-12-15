@@ -1,0 +1,7 @@
+@mixin transform($method) {
+    -webkit-transform: $method;
+    -moz-transform: $method;
+    -ms-transform: $method;
+    -o-transform: $method;
+    transform: $method;
+}

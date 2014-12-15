@@ -27,29 +27,25 @@
     <loading-screen loading-text="Aan het laden ..." loading-image="images/joetz.png" ng-cloak></loading-screen>
     <div class="container noselect" md-theme="red">
         <md-toolbar>
-            <div class="md-toolbar-tools md-toolbar-tools-top">
+            <div class="md-toolbar-tools">
                 <div class="page-title-mobile">{{ pageTitle }}</div>
                 <div ng-show="user.isAuth && !isMobile" class="profile" ui-sref="profile.overview">
                     <img src="images/profiel_m.png" />
                     <div>{{ user.email }}</div>
                 </div>
-                <div ng-click="back()" ng-show="isMobile && back" style="position: absolute; left: 0; top: 10px; height: 40px; line-height: 40px;" >
+                <div back-button default-state="menu" ng-show="isMobile && back" class="toolbar-left" >
                     <img src="images/back.svg" style="height: 100%; float: left;" /> {{ back.button }}
                 </div>
-                <div style="position: absolute; right: 0; top: 5px;">
-                    <div ng-hide="user.isAuth">
-                        <md-button ui-sref="register" aria-label="Registreren" style="width: 40px; height: 40px;">
-                            <img src="images/register.svg" style="width: 100%;" />
-                        </md-button>
-                        <md-button ng-click="openDialog($event)" aria-label="Inloggen" style="width: 40px; height: 40px;">
-                            <img src="images/key.svg" style="width: 100%;" />
-                        </md-button>
-                    </div>
-                    <div ng-show="user.isAuth">
-                        <md-button ng-click="logout()" aria-label="Uitloggen" style="width: 40px; height: 40px;">
-                            <img src="images/logout.svg" style="width: 100%;" />
-                        </md-button>
-                    </div>
+                <div class="toolbar-right">
+                    <md-button ng-hide="user.isAuth" ui-sref="register" aria-label="Registreren">
+                        <img src="images/register.svg" />
+                    </md-button>
+                    <md-button ng-hide="user.isAuth" ng-click="openDialog($event)" aria-label="Inloggen">
+                        <img src="images/login.svg" />
+                    </md-button>
+                    <md-button ng-show="user.isAuth" ng-click="logout()" aria-label="Uitloggen">
+                        <img src="images/logout.svg" />
+                    </md-button>
                 </div>
             </div>
         </md-toolbar>
@@ -128,11 +124,12 @@
     <script src="scripts/controllers/admin/adminUser.js"></script>
     <script src="scripts/controllers/admin/adminVacation.js"></script>
     <script src="scripts/controllers/admin/adminCategory.js"></script>
+    <script src="scripts/controllers/admin/adminRegistration.js"></script>
     <script src="scripts/services/user.js"></script>
     <script src="scripts/services/date.js"></script>
     <script src="scripts/services/vacation.js"></script>
     <script src="scripts/services/category.js"></script>
-    <script src="scripts/services/authInterceptor.js"></script>
+    <script src="scripts/services/registration.js"></script>
     <script src="scripts/services/queryBuilder.js"></script>
     <!-- endbuild -->
 </body>

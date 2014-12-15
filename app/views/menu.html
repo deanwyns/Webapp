@@ -1,23 +1,37 @@
 <nav>
     <ul>
-        <li class="menu-item">
+        <!--<li class="menu-item">
             <md-button ui-sref="news" ng-class="{ 'md-raised': !isMobile }" aria-label="Nieuwsoverzicht" style="background-color: #62b9cd;">
                 <img src="images/nieuws.svg" style="height: 90%;" />
                 <span>Nieuwsoverzicht</span>
             </md-button>
-        </li>
+        </li>-->
 
         <li class="menu-item">
-            <md-button ui-sref="vacations.list" ng-class="{ 'md-raised': !isMobile }" aria-label="Vakanties" style="background-color: #dacc8f;">
+            <md-button ui-sref="vacations.list" ng-class="{ 'md-raised': !isMobile }" aria-label="Vakanties" style="background-color: #38c4df;">
                <img src="images/vakanties.svg" style="height: 90%;" />
                <span>Vakanties</span>
             </md-button>
         </li>
 
         <li class="menu-item">
-            <md-button ng-class="{ 'md-raised': !isMobile }" aria-label="Foto's" style="background-color: #96daa6;">
+            <md-button ng-class="{ 'md-raised': !isMobile }" aria-label="Foto's" style="background-color: #ed606f;">
                 <img src="images/fotos.svg" style="height: 90%;" />
                 <span>Foto's</span>
+            </md-button>
+        </li>
+
+        <li class="menu-item" ng-if="user.type === 'parents'">
+            <md-button ui-sref="monitors.list" ng-class="{ 'md-raised': !isMobile }" aria-label="Monitors" style="background-color: #38c4df;">
+                <img src="images/monitors.svg" style="height: 90%;" />
+                <span>Monitors</span>
+            </md-button>
+        </li>
+
+        <li class="menu-item" ng-if="user.type === 'admin'">
+            <md-button ui-sref="admin" ng-class="{ 'md-raised': !isMobile }" aria-label="Admin" style="background-color: #fdc655;">
+                <img src="images/admin.svg" style="height: 90%;" />
+                <span>Admin</span>
             </md-button>
         </li>
     </ul>

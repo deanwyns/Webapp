@@ -3,6 +3,7 @@
 
 @import 'mixins/transition';
 @import 'mixins/animation';
+@import 'mixins/transform';
 
 html, body {
   -webkit-box-sizing: border-box;
@@ -452,6 +453,33 @@ md-progress-circular.md-red-theme .md-inset {
   background-color: #f6f6f6 !important;
 }
 
+.toolbar-left {
+  display: block;
+  position: absolute;
+  left: 0;
+  height: 60px;
+  line-height: 60px;
+  top: 10px;
+}
+
+.toolbar-right {
+  display: block;
+  position: absolute;
+  right: 0;
+  top: 10px;
+  height: 60px;
+  line-height: 60px;
+
+  .md-button {
+    float: left;
+    height: 100%;
+
+    img {
+      height: 100%;
+    }
+  }
+}
+
 @media all and (max-width: 800px) {
   .content-header {
     display: none;
@@ -467,23 +495,23 @@ md-progress-circular.md-red-theme .md-inset {
     display: none;
   }
 
-  /*nav {
-    position: static;
-    top: auto;
-    left: auto;
-    right: auto;
-    bottom: auto;
+  .toolbar-left {
+    display: block;
+    position: absolute;
+    left: 0;
+    height: 40px;
+    line-height: 40px;
+    top: 50%;
+    @include transform(translate(0, -50%));
+  }
 
-    width: 100%;
-
-    ul {
-      margin: 0;
-    }
-
-    li {
-      float: left;
-    }
-  }*/
+  .toolbar-right {
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    @include transform(translate(0, -50%));
+  }
 
   .menu-item {
     padding: 4px;
@@ -505,12 +533,6 @@ md-progress-circular.md-red-theme .md-inset {
   }
 
   .content-block {
-    /*position: absolute;
-
-    top: 64px;
-    left: 0;
-    right: 0;
-    width: 100%;*/
     top: 0;
     left: 0;
     width: 100%;

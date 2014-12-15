@@ -365,7 +365,7 @@ angular.module('joetzApp')
 			return defer.promise;
 		};
 
-		var _saveRegistration = function(registrationModel) {
+		var _saveRegistration = function(registrationModel, childId) {
 			var defer = $q.defer(),
 				headers = {},
 				data = queryBuilder.build(registrationModel);
@@ -375,7 +375,7 @@ angular.module('joetzApp')
 
 			$http({
 				method: 'POST',
-				url: baseUrl + '/user/me/' + registrationModel.selectedChild.id + '/register',
+				url: baseUrl + '/user/me/' + childId + '/register',
 				data: data,
 				headers: headers
 			}).success(function(response) {

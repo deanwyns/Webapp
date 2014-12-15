@@ -1,0 +1,21 @@
+<md-button ui-sref="admin.registration.list">Terug naar de lijst</md-button><br />
+
+<form style="padding-left: 20px; padding-bottom: 20px;">
+  <fieldset ng-disabled="editTracker.active()">
+    {{ selectedRegistration }}
+    <md-text-float label="Naam" ng-model="selectedRegistration.name"> </md-text-float>
+    <error-message error="errors.name"> </error-message>
+  </fieldset>
+
+  <div ng-show="selectedRegistration.id">
+    <md-button type="submit" class="md-primary" ng-click="submitEdit(selectedRegistration, croppedThumbnail)" ng-disabled="editTracker.active()">
+     Aanpassen
+    </md-button>
+  </div>
+  <div ng-show="selectedRegistration.id === undefined">
+    <md-button type="submit" class="md-primary" ng-click="submitNew(selectedRegistration, croppedThumbnail)" ng-disabled="editTracker.active()">
+     Toevoegen
+    </md-button>
+  </div>
+  <md-progress-circular ng-show="editTracker.active()" mode="indeterminate" style="background-color: #eee;"></md-progress-circular>
+</form>

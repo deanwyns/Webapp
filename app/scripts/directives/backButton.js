@@ -11,7 +11,7 @@ function($rootScope, $state, $parse) {
         link: function(scope, el, attrs) {
             var defaultState, defaultStateParams;
 
-            el.click(function() {
+            el.on('click', function() {
                 var stateName, stateParams;
 
                 if ($rootScope.previousState.name) {

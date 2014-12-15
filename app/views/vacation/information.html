@@ -1,11 +1,15 @@
-<md-text-float label="Straat" name="streetName" ng-model="registration.streetName" required> </md-text-float>
-<error-message error="errors.streetName"> </error-message>
-<md-text-float label="Huisnummer" name="houseNumber" ng-model="registration.houseNumber" required> </md-text-float>
-<error-message error="errors.houseNumber"> </error-message>
+<md-text-float label="Voornaam" name="facturation_first_name" ng-model="registration.facturation_first_name" required> </md-text-float>
+<error-message error="errors.facturation_first_name"> </error-message>
+<md-text-float label="Naam" name="facturation_last_name" ng-model="registration.facturation_last_name" required> </md-text-float>
+<error-message error="errors.facturation_last_name"> </error-message>
+<md-text-float label="Straat" name="street_name" ng-model="registration.street_name" required> </md-text-float>
+<error-message error="errors.street_name"> </error-message>
+<md-text-float label="Huisnummer" name="house_number" ng-model="registration.house_number" required> </md-text-float>
+<error-message error="errors.house_number"> </error-message>
 <md-text-float label="Gemeente" name="city" ng-model="registration.city" required> </md-text-float>
 <error-message error="errors.city"> </error-message>
-<md-text-float name="postalCode" label="Postcode" ng-model="registration.postalCode" required pattern="^[1-9]{1}[0-9]{3}$"> </md-text-float>
-<error-message error="errors.postalCode"> </error-message>
+<md-text-float name="postal_code" label="Postcode" ng-model="registration.postal_code" required pattern="^[1-9]{1}[0-9]{3}$"> </md-text-float>
+<error-message error="errors.postal_code"> </error-message>
 
 <md-button ng-click="registerInformation()">
 	Inschrijven
