@@ -544,11 +544,13 @@ angular.module('joetzApp')
 		};
 
 		var _getMonitor = function(id){
-			var defer = $q.defer();
+			var defer = $q.defer(),
+			headers = {};
 
 			$http({
 				method: 'GET',
-				url: baseUrl + '/monitor/' + id
+				url: baseUrl + '/monitor/' + id, 
+				headers: headers
 			}).success(function(response) {
 				defer.resolve(response.data);
 			}).error(function(err) {
@@ -583,7 +585,7 @@ angular.module('joetzApp')
 		userService.getChildren = _getChildren;
 
 		userService.getMonitors = _getMonitors;
-		userService.getmonitor = _getMonitor;
+		userService.getMonitor = _getMonitor;
 
 		userService.getChildAddress = _getChildAddress;
 		userService.getAddresses = _getAddresses;

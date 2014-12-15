@@ -1,3 +1,5 @@
-<h3>{{ selectedMonitor.first_name_mother }}</h3>
+<div class="content" ng-class="{ 'md-whiteframe-z1': !isMobile }">
+  <h2 class="content-header">{{ selectedMonitor.first_name }} {{selectedMonitor.last_name}}</h2>
 <p>E-mailadres: <a ng-href="{{ currentContact.email }}">{{ selectedMonitor.email }}</a></p>
-<p>Telefoonnummer: {{ selectedMonitor.telefoonnr }}</p>
+<p ng-show="selectedMonitor.telephone !== ''">Telefoonnummer: {{ selectedMonitor.telephone }}</p>
+</div>

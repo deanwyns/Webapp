@@ -2,9 +2,9 @@
   <h2 class="content-header">{{ pageTitle }}</h2>
   <md-list>
       <md-text-float label="Zoeken" ng-model="searchText"> </md-text-float>
-      <md-item class="list-group-item" ng-repeat="monitor in monitors | filter: searchText " ui-sref="monitoren.info({ monitorId: monitor.id })">
+      <md-item class="list-group-item" ng-repeat="monitor in monitors | filter: searchText " ui-sref="monitors.info({ monitorId: monitor.id })">
       <div class="md-whiteframe-z1" layout layout-align="center center">
-          <h3>{{monitor.first_name_mother}}</h3>
+          <h3>{{monitor.first_name}} {{monitor.last_name}}</h3>
       </div>
       </md-item>
   </md-list>
