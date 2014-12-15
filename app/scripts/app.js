@@ -91,6 +91,12 @@ angular
       .state('monitors.info', {
         url: '/:monitorId',
         templateUrl:'views/monitorInfo.html',
+        data: {
+          pageTitle: 'Monitoren',
+          back: {
+            button: 'Menu'
+          }
+        },
         controller: function($scope, userService, $stateParams){
           var monitorId = $stateParams.monitorId;
           userService.getMonitor(monitorId).then(function(monitor){

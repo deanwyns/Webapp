@@ -725,7 +725,7 @@ angular.module('joetzApp')
 
 			$http({
 				method: 'GET',
-				url: baseUrl + '/monitor/' + id
+				url: baseUrl + '/monitor/' + id, 
 			}).success(function(response) {
 				defer.resolve(response);
 			}).error(function(err) {
@@ -783,7 +783,7 @@ angular.module('joetzApp')
 		userService.getChildren = _getChildren;
 
 		userService.getMonitors = _getMonitors;
-		userService.getmonitor = _getMonitor;
+		userService.getMonitor = _getMonitor;
 
 		userService.getChildAddress = _getChildAddress;
 		userService.getAddresses = _getAddresses;
