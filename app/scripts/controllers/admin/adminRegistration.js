@@ -6,11 +6,11 @@ angular.module('joetzApp').controller('AdminRegistrationCtrl', ['$state', '$scop
     $scope.selectedRegistration = {};
 
     var _loadRegistrations = function(transition) {
-        registrationService.getRegistrations().then(function(categories) {
-            $scope.categories = categories;
+        registrationService.getRegistrations().then(function(registrations) {
+            $scope.registrations = registrations;
 
             if(transition) {
-                $state.go('admin.category.list');
+                $state.go('admin.registration.list');
             }
         }, function(err) {
             console.log(err);
@@ -22,6 +22,11 @@ angular.module('joetzApp').controller('AdminRegistrationCtrl', ['$state', '$scop
         if(!registrationModel) {
             return undefined;
         }
+
+        registrationModel.street_name = registrationModel.facturation_address.street_name;
+        registrationModel.postal_code = registrationModel.facturation_address.postal_code;
+        registrationModel.city = registrationModel.facturation_address.city;
+        registrationModel.house_number = registrationModel.facturation_address.house_number;
 
         var editPromise = registrationService.updateRegistration(registrationModel, registrationModel.id).then(function(response) {
             $scope.errors = {};
@@ -39,6 +44,11 @@ angular.module('joetzApp').controller('AdminRegistrationCtrl', ['$state', '$scop
         if(!registrationModel) {
             return undefined;
         }
+
+        registrationModel.street_name = registrationModel.facturation_address.street_name;
+        registrationModel.postal_code = registrationModel.facturation_address.postal_code;
+        registrationModel.city = registrationModel.facturation_address.city;
+        registrationModel.house_number = registrationModel.facturation_address.house_number;
 
         var addPromise = registrationService.addRegistration(registrationModel).then(function(response) {
             $scope.errors = {};

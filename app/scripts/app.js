@@ -42,7 +42,8 @@ angular
         templateUrl: 'views/menu.html',
         //controller: 'MenuCtrl',
         data: {
-          pageTitle: 'Joetz'
+          pageTitle: 'Joetz',
+          backButton: 'Menu'
         }
       })
       .state('news', {
@@ -50,9 +51,8 @@ angular
         templateUrl: 'views/main.html',
         data: {
           pageTitle: 'Nieuwsoverzicht',
-          back: {
-            button: 'Menu'
-          }
+          backButton: 'Nieuws',
+          backState: 'menu'
         }
       })
       .state('login', {
@@ -61,9 +61,8 @@ angular
         controller: 'LoginCtrl',
         data: {
           pageTitle: 'Inloggen',
-          back: {
-            button: 'Menu'
-          }
+          backButton: 'Login',
+          backState: 'menu'
         }
       })
       .state('photos', {
@@ -72,9 +71,8 @@ angular
         controller: 'PhotoCtrl',
         data: {
           pageTitle: 'Jouw foto\'s',
-          back: {
-            button: 'Menu'
-          }
+          backButton: 'Foto\'s',
+          backState: 'menu'
         }
       })
       .state('monitors', {
@@ -88,9 +86,8 @@ angular
         controller: 'MonitorCtrl',
         data: {
           pageTitle: 'Monitoren',
-          back: {
-            button: 'Menu'
-          }
+          backButton: 'Monitor',
+          backState: 'menu'
         }
       })
       .state('monitors.info', {
@@ -125,9 +122,8 @@ angular
         },
         data: {
           pageTitle: 'Foto\'s',
-          back: {
-            button: 'Vakantie'
-          }
+          backButton: 'Foto\'s',
+          backState: 'vacations.detail'
         }
       })
       .state('vacations.list', {
@@ -135,9 +131,8 @@ angular
         templateUrl: 'views/vacations.html',
         data: {
           pageTitle: 'Vakantieoverzicht',
-          back: {
-            button: 'Menu'
-          }
+          backButton: 'Vakanties',
+          backState: 'menu'
         }
       })
       .state('vacations.detail', {
@@ -148,6 +143,11 @@ angular
           vacationService.getVacation(vacationId).then(function(vacation) {
             $scope.selectedVacation = vacation;
           });
+        },
+        data: {
+          pageTitle: 'Vakantie',
+          backButton: 'Vakantie',
+          backState: 'vacations.list'
         }
       })
       .state('vacations.register', {
@@ -160,9 +160,8 @@ angular
         templateUrl: 'views/vacation/children.html',
         data: {
           pageTitle: 'Kinderen',
-          back: {
-            button: 'Vakantie'
-          }
+          backButton: 'Kinderen',
+          backState: 'vacations.detail'
         }
       })
       .state('vacations.register.register-information', {
@@ -170,9 +169,8 @@ angular
         templateUrl: 'views/vacation/information.html',
         data: {
           pageTitle: 'Inschrijving',
-          back: {
-            button: 'Kinderen'
-          }
+          backButton: 'Inschrijving',
+          backState: 'vacations.register.child-selection'
         }
       })
       .state('vacations.register.summary', {
@@ -180,9 +178,8 @@ angular
         templateUrl: 'views/vacation/summary.html',
         data: {
           pageTitle: 'Bevestiging',
-          back: {
-            button: 'Inschrijving'
-          }
+          backButton: 'Bevestig',
+          backState: 'vacations.register.register-information'
         }
       })
       .state('register', {
@@ -194,9 +191,8 @@ angular
             only: ['anonymous']
           },
           pageTitle: 'Registreren',
-          back: {
-            button: 'Menu'
-          }
+          backButton: 'Registreer',
+          backState: 'menu'
         }
       })
       .state('profile', {
@@ -210,9 +206,8 @@ angular
         templateUrl: 'views/user/profile.html',
         data: {
           pageTitle: 'Profiel',
-          back: {
-            button: 'Menu'
-          }
+          backButton: 'Profiel',
+          backState: 'menu'
         }
       })
       .state('profile.add-child', {
@@ -220,9 +215,8 @@ angular
         templateUrl: 'views/user/child-edit.html',
         data: {
           pageTitle: 'Kind toevoegen',
-          back: {
-            button: 'Profiel'
-          }
+          backButton: 'Kind',
+          backState: 'profile.overview'
         }
       })
       .state('admin', {
@@ -234,9 +228,8 @@ angular
             only: ['admin']
           },
           pageTitle: 'Admin',
-          back: {
-            button: 'Menu'
-          }
+          backButton: 'Admin',
+          backState: 'menu'
         }
       })
       .state('admin.user', {
@@ -250,9 +243,8 @@ angular
         templateUrl: 'views/admin/user.html',
         data: {
           pageTitle: 'Gebruikers beheren',
-          back: {
-            button: 'Menu'
-          }
+          backButton: 'Gebruikers',
+          backState: 'admin'
         }
       })
       .state('admin.user.new', {
@@ -260,9 +252,8 @@ angular
         templateUrl: 'views/admin/user-edit.html',
         data: {
           pageTitle: 'Gebruiker aanmaken',
-          back: {
-            button: 'Lijst'
-          }
+          backButton: 'Gebruiker',
+          backState: 'admin.user.list'
         }
       })
       .state('admin.user.edit', {
@@ -278,27 +269,26 @@ angular
         },
         data: {
           pageTitle: 'Gebruiker wijzigen',
-          back: {
-            button: 'Lijst'
-          }
+          backButton: 'Gebruiker',
+          backState: 'admin.user.list'
         }
       })
       .state('admin.user.edit.child', {
-        params: { userId: {}, childId: {} },
+        url: '/:childId',
         templateUrl: 'views/admin/child-edit.html',
-        controller: function($scope, userService, $stateParams) {
+        controller: function($scope, userService, $stateParams, dateService) {
           var childId = $stateParams.childId;
           userService.getChild(childId).then(function(child) {
             $scope.selectedChild = child;
+            $scope.selectedChild.date_of_birth_d = dateService.mySQLStringToDate(child.date_of_birth);
           }, function(err) {
             console.log(err);
           });
         },
         data: {
-          pageTitle: 'Gebruiker wijzigen',
-          back: {
-            button: 'Lijst'
-          }
+          pageTitle: 'Kind wijzigen',
+          backButton: 'Kind',
+          backState: 'admin.user.edit'
         }
       })
       .state('admin.category', {
@@ -312,9 +302,8 @@ angular
         templateUrl: 'views/admin/category.html',
         data: {
           pageTitle: 'Categorieën beheren',
-          back: {
-            button: 'Lijst'
-          }
+          backButton: 'Categorie',
+          backState: 'admin'
         }
       })
       .state('admin.category.new', {
@@ -322,9 +311,8 @@ angular
         templateUrl: 'views/admin/category-edit.html',
         data: {
           pageTitle: 'Categorie aanmaken',
-          back: {
-            button: 'Lijst'
-          }
+          backButton: 'Categorie',
+          backState: 'admin.category.list'
         }
       })
       .state('admin.category.edit', {
@@ -338,9 +326,8 @@ angular
         },
         data: {
           pageTitle: 'Category wijzigen',
-          back: {
-            button: 'Lijst'
-          }
+          backButton: 'Categorie',
+          backState: 'admin.category.list'
         }
       })
       .state('admin.registration', {
@@ -354,9 +341,8 @@ angular
         templateUrl: 'views/admin/registration.html',
         data: {
           pageTitle: 'Inschrijvingen beheren',
-          back: {
-            button: 'Lijst'
-          }
+          backButton: 'Inschrijving',
+          backState: 'admin'
         }
       })
       .state('admin.registration.new', {
@@ -364,9 +350,8 @@ angular
         templateUrl: 'views/admin/registration-edit.html',
         data: {
           pageTitle: 'Inschrijving aanmaken',
-          back: {
-            button: 'Lijst'
-          }
+          backButton: 'Inschrijving',
+          backState: 'admin.registration.list'
         }
       })
       .state('admin.registration.edit', {
@@ -380,9 +365,8 @@ angular
         },
         data: {
           pageTitle: 'Inschrijving wijzigen',
-          back: {
-            button: 'Lijst'
-          }
+          backButton: 'Inschrijving',
+          backState: 'admin.registration.list'
         }
       })
       .state('admin.vacation', {
@@ -396,23 +380,17 @@ angular
         templateUrl: 'views/admin/vacation.html',
         data: {
           pageTitle: 'Vakanties beheren',
-          back: {
-            button: 'Lijst'
-          }
+          backButton: 'Vakanties',
+          backState: 'admin'
         }
-      })
-      .state('admin.vacation.detail', {
-        url: '/:vacationId',
-        templateUrl: 'views/admin/vacation-detail.html'
       })
       .state('admin.vacation.new', {
         url: '/nieuw',
         templateUrl: 'views/admin/vacation-edit.html',
         data: {
           pageTitle: 'Vakantie aanmaken',
-          back: {
-            button: 'Lijst'
-          }
+          backButton: 'Vakantie',
+          backState: 'admin.vacation.list'
         }
       })
       .state('admin.vacation.edit', {
@@ -428,24 +406,40 @@ angular
         },
         data: {
           pageTitle: 'Vakantie wijzigen',
-          back: {
-            button: 'Lijst'
-          }
+          backButton: 'Vakantie',
+          backState: 'admin.vacation.list'
         }
       });
   })
   .run(function (Permission, userService, $rootScope, $location, $timeout, $window, $state) {
-    
-
-    //$rootScope.$state = $state;
-    //$rootScope.$stateParams = $stateParams;
     $rootScope.previousState = {};
+    $rootScope.scrollPosition = {};
+
+    angular.element($window).bind('scroll', function() {
+      if($rootScope.saveScrollPosition) {
+        $rootScope.scrollPosition[$location.path()] = document.body.scrollTop;
+      }
+    });
+
     $rootScope.$on('$stateChangeSuccess',  function(event, toState, toParams, fromState, fromParams) {
         $rootScope.previousState.name = fromState.name;
         $rootScope.previousState.params = fromParams;
+        var backState = $state.get($state.current.data.backState);
+        if(backState) {
+          $rootScope.backButton = backState.data.backButton;
+        } else {
+          delete $rootScope.backButton;
+        }
+        
+        $timeout(function() {
+            document.body.scrollTop = $rootScope.scrollPosition[$location.path()] ? $rootScope.scrollPosition[$location.path()] : 0;
+            $rootScope.saveScrollPosition = true;
+        }, 0);
     });
 
     $rootScope.$on('$stateChangeStart', function(event, toState/*, toParams, fromState, fromParams*/) {
+      $rootScope.saveScrollPosition = false;
+
       var _isMobile = function() {
           if (document.querySelector('md-toolbar').offsetHeight === 64) {
               return true;

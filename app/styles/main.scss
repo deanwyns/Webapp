@@ -449,9 +449,9 @@ md-dialog {
   }
 }
 
-md-progress-circular.md-red-theme .md-inset {
+/*md-progress-circular.md-red-theme .md-inset {
   background-color: #f6f6f6 !important;
-}
+}*/
 
 .toolbar-left {
   display: block;
@@ -477,6 +477,19 @@ md-progress-circular.md-red-theme .md-inset {
     img {
       height: 100%;
     }
+  }
+}
+
+.toolbar-center {
+  display: block;
+  position: absolute;
+  left: 50%;
+  top: 10px;
+  height: 80px;
+  @include transform(translate(-50%, 0));
+
+  img {
+    height: 100%;
   }
 }
 
@@ -513,13 +526,8 @@ md-progress-circular.md-red-theme .md-inset {
     @include transform(translate(0, -50%));
   }
 
-  .menu-item {
-    padding: 4px;
-    width: 50%;
-
-    &:last-child {
-      padding-left: 0;
-    }
+  .toolbar-center {
+    display: none;
   }
 
   md-toolbar {
@@ -542,6 +550,55 @@ md-progress-circular.md-red-theme .md-inset {
     z-index: auto;
 
     margin-bottom: 0;
+  }
+
+  nav {
+    width: 100%;
+
+    ul {
+      list-style: none;
+      padding-left: 0;
+
+      li {
+        /*display: inline-block;
+        *display: inline; /*IE7*/
+        /**zoom: 1; /*IE7*/
+        float: left;
+      }
+    }
+  }
+
+  .menu-item {
+    height: 100px;
+    width: calc(50% - 8px);
+
+    margin-left: 5px;
+    margin-bottom: 5px;
+
+    &:nth-child(2n+2) {
+      margin-right: 5px;
+    }
+
+    .md-button {
+      width: 100%;
+      height: 100%;
+      padding-bottom: 20px;
+      padding-left: 0;
+      padding-right: 0;
+
+      span {
+        padding-top: 3px;
+        padding-bottom: 3px;
+        color: #fff;
+        float: left;
+        display: inline-block;
+        width: 100%;
+        height: 26px;
+        line-height: 20px;
+        text-transform: none;
+        background-color: rgba(0, 0, 0, 0.2);
+      }
+    }
   }
 
   .deckgrid[deckgrid]::before {

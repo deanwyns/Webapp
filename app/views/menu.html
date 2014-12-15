@@ -14,8 +14,8 @@
             </md-button>
         </li>
 
-        <li class="menu-item">
-            <md-button ng-class="{ 'md-raised': !isMobile }" aria-label="Foto's" style="background-color: #ed606f;">
+        <li class="menu-item" ng-if="user.type === 'parents'">
+            <md-button ui-sref="photos" ng-class="{ 'md-raised': !isMobile }" aria-label="Foto's" style="background-color: #ed606f;">
                 <img src="images/fotos.svg" style="height: 90%;" />
                 <span>Foto's</span>
             </md-button>

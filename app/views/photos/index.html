@@ -1,4 +1,9 @@
 <div class="content" ng-class="{ 'md-whiteframe-z1': !isMobile }">
     <h2 class="content-header">{{ pageTitle }}</h2>
-	{{ photos }}
+	<div ng-repeat="child in user.children">
+
+		<div ng-repeat="registration in child.registrations">
+			{{ photos[registration.vacation_id] }}
+		</div>
+	</div>
 </div>

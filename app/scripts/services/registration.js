@@ -6,11 +6,20 @@ angular.module('joetzApp')
 			registrationService = {};
 
 		var _getRegistrations = function() {
-			var defer = $q.defer();
+			var defer = $q.defer(),
+				headers = {};
+
+			if(!userService.isAuthenticated()) {
+				defer.reject('Niet toegestaan');
+				return defer.promise;
+			}
+
+			headers.Authorization = userService.getToken();
 
 			$http({
 				method: 'GET',
-				url: baseUrl
+				url: baseUrl,
+				headers: headers
 			}).success(function(response) {
 				defer.resolve(response.data);
 			}).error(function(err) {
@@ -21,11 +30,15 @@ angular.module('joetzApp')
 		};
 
 		var _getRegistration = function(id) {
-			var defer = $q.defer();
+			var defer = $q.defer(),
+				headers = {};
+
+			headers.Authorization = userService.getToken();
 
 			$http({
 				method: 'GET',
-				url: baseUrl + '/' + id
+				url: baseUrl + '/' + id,
+				headers: headers
 			}).success(function(response) {
 				defer.resolve(response.data);
 			}).error(function(err) {
