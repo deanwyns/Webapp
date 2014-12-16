@@ -357,7 +357,7 @@ angular.module('joetzApp')
 					_user[attribute] = userResponse[attribute];
 				}
 
-				defer.resolve();
+				defer.resolve(_user);
 			}).error(function() {
 				defer.reject();
 			});
@@ -385,10 +385,10 @@ angular.module('joetzApp')
 
 			$http({
 				method: 'GET',
-				url: baseUrl + '/me/children',
+				url: baseUrl + '/user/me/children',
 				headers: headers
 			}).success(function(response) {
-				defer.resolve(response.childrens);
+				defer.resolve(response.data);
 			}).error(function(err) {
 				defer.reject(err);
 			});
@@ -468,7 +468,7 @@ angular.module('joetzApp')
 
 			$http({
 				method: 'POST',
-				url: baseUrl + '/user/me/children',
+				url: baseUrl + '/user/me/addchild',
 				data: data,
 				headers: headers
 			}).success(function(response) {
@@ -725,9 +725,9 @@ angular.module('joetzApp')
 
 			$http({
 				method: 'GET',
-				url: baseUrl + '/monitor/' + id, 
+				url: baseUrl + '/monitor/' + id,
 			}).success(function(response) {
-				defer.resolve(response);
+				defer.resolve(response.data);
 			}).error(function(err) {
 				defer.reject(err);
 			});

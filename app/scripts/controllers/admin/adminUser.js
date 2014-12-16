@@ -11,11 +11,11 @@ angular.module('joetzApp').controller('AdminUserCtrl', ['$state', '$scope', 'use
      */
     var _loadUsers = function(transition) {
         userService.getUsers().then(function(users) {
-            $scope.users = users;
-
             if(transition) {
                 $state.go('admin.user.list');
             }
+
+            $scope.users = users;
         }, function(err) {
             console.log(err);
         });
@@ -80,7 +80,7 @@ angular.module('joetzApp').controller('AdminUserCtrl', ['$state', '$scope', 'use
         });
 
         $scope.editTracker.addPromise(addPromise);
-    }
+    };
 
     /**
      * Past een gebruiker aan

@@ -1,9 +1,17 @@
 <div class="content" ng-class="{ 'md-whiteframe-z1': !isMobile }">
     <h2 class="content-header">{{ pageTitle }}</h2>
-	<div ng-repeat="child in user.children">
 
-		<div ng-repeat="registration in child.registrations">
-			{{ photos[registration.vacation_id] }}
+	<div ng-repeat="child in user.children">
+		<div ng-repeat="registration in child.registrations" ng-click="photos = getPhotosByVacation(registration.vacation_id)">
+			{{ registration }}
 		</div>
 	</div>
+
+	<div deckgrid class="deckgrid" source="photos">
+        <div class="a-card">
+            <h1>{{card.title}}</h1>
+
+            <a href="{{card.fullsize}}" target="_blank"><img src="" data-ng-src="{{card.thumbnail}}"></a>
+        </div>
+    </div>
 </div>

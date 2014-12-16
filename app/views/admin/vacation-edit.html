@@ -28,11 +28,9 @@
     <md-text-float label="Locatie" ng-model="selectedVacation.location"> </md-text-float>
     <error-message error="errors.location"> </error-message>
 
-    {{ getMySQLDate(selectedVacation.begin_date_d) }}
     <div date-picker="selectedVacation.begin_date_d" view="date"></div>
     <error-message error="errors.begin_date"> </error-message>
 
-    {{ getMySQLDate(selectedVacation.end_date_d) }}
     <div date-picker="selectedVacation.end_date_d" view="date"></div>
     <error-message error="errors.end_date"> </error-message>
 

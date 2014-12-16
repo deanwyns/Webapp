@@ -55,7 +55,7 @@
       <error-message error="errors.last_name_father"> </error-message>
       <md-text-float label="Rijksregisternummer" ng-model="selectedUser.nrn_father"> </md-text-float>
       <error-message error="errors.nrn_father"> </error-message>
-
+<!--
       <h3>Kinderen</h3>
       <md-list ng-show="selectedUser.children.length > 0">
         <md-item ng-repeat="child in selectedUser.children" ui-sref="admin.user.edit.child({ childId: child.id })">
@@ -67,7 +67,7 @@
         </md-item>
       </md-list>
       <ui-view />
-
+-->
     </div>
 
   <div ng-if="selectedUser.id">

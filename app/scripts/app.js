@@ -99,7 +99,7 @@ angular
         },
         controller: function($scope, userService, $stateParams){
           var monitorId = $stateParams.monitorId;
-          userService.getMonitor(monitorId).then(function(monitor){
+          userService.getMonitor(monitorId).then(function(monitor) {
             $scope.selectedMonitor = monitor;
           });
         } 
@@ -140,6 +140,7 @@ angular
           var vacationId = $stateParams.vacationId;
           vacationService.getVacation(vacationId).then(function(vacation) {
             $scope.selectedVacation = vacation;
+            $scope.pageTitle = vacation.title;
           });
         },
         data: {

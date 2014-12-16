@@ -1,6 +1,6 @@
 <div class="content" ng-class="{ 'md-whiteframe-z1': !isMobile }">
     <h2 class="content-header">{{ pageTitle }}</h2>
-	<div class="vacation-header-image"></div>
+	<div class="vacation-header-image" style="background-image: url('{{ selectedVacation.category_photo }}')"></div>
 	<md-button class="md-raised" ui-sref="vacations.photos({vacationId: selectedVacation.id})">Bekijk de foto's</md-button>
 
 	<p> {{selectedVacation.promo_text}} </p>
@@ -14,7 +14,7 @@
 	<h3> Maximum aantal deelnemers </h3>
 	<p> {{selectedVacation.max_participants}} personen </p>
 	<h3> Prijs </h3>
-	<p> Basisprijs : {{selectedVacation.baseCost | currency}}</p>
+	<p> Basisprijs : {{selectedVacation.base_cost | currency}}</p>
 	<p> JOETZ-sterprijs : <ul> <li> 1 ouder lid van Bond Moyson West-Vlaanderen: {{selectedVacation.one_bm_member_cost| currency}} (JOETZ-korting {{selectedVacation.base_cost-selectedVacation.one_bm_member_cost | currency}})</li>
 	    <li> 2 ouders lid van Bond Moyson West-Vlaanderen: {{selectedVacation.two_bm_member_cost| currency}}(JOETZ-korting {{selectedVacation.base_cost-selectedVacation.two_bm_member_cost | currency}})</li>
 	</ul> 

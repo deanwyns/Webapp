@@ -12,6 +12,9 @@ angular.module('joetzApp')
         var _dateToMySQLString = function(date) {
           //var seconds = Date.parse(str);
           //var date = new Date(seconds);
+          if(date === undefined) {
+            return undefined;
+          }
 
           var year, month, day, hours, minutes;
           year = String(date.getFullYear());

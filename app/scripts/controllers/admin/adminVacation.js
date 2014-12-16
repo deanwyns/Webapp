@@ -100,8 +100,8 @@ angular.module('joetzApp').controller('AdminVacationCtrl', ['dateService', '$sta
 
         $scope.errors = {};
         // Voegt een datum in MySQL-formaat toe aan het model
-        vacationModel.begin_date = _getMySQLDate(vacationModel.date_begin_d);
-        vacationModel.end_date = _getMySQLDate(vacationModel.date_end_d);
+        vacationModel.begin_date = _getMySQLDate(vacationModel.begin_date_d);
+        vacationModel.end_date = _getMySQLDate(vacationModel.begin_date_d);
 
         var addPromise = vacationService.addVacation(vacationModel).then(function(response) {
             $scope.errors = {};

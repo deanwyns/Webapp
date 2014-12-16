@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('joetzApp').controller('UserCtrl', ['$state', '$scope', 'userService', 'promiseTracker', '$mdDialog', function ($state, $scope, userService, promiseTracker, $mdDialog) {
+angular.module('joetzApp').controller('UserCtrl', ['$state', '$scope', 'userService', 'dateService', 'promiseTracker', '$mdDialog', '$mdToast', function ($state, $scope, userService, dateService, promiseTracker, $mdDialog, $mdToast) {
     $scope.editTracker = promiseTracker();
     $scope.errors = {};
 
@@ -10,11 +10,12 @@ angular.module('joetzApp').controller('UserCtrl', ['$state', '$scope', 'userServ
      * @return {void}           
      */
     var _loadProfile = function(transition) {
-        userService.getProfile().then(function() {
-            $scope.user = userService.getLocalUser();
+        userService.getChildren().then(function(children) {
+            $scope.user.children = children;
+            console.log($scope.user.children);
 
             if(transition) {
-                $state.back();
+                $state.go('profile.overview');
             }
         }, function(err) {
             console.log(err);
@@ -32,10 +33,20 @@ angular.module('joetzApp').controller('UserCtrl', ['$state', '$scope', 'userServ
             return undefined;
         }
 
+        // Voegt adres-attributen toe aan het model, zodat de data correct wordt verstuurd
+        childModel.street_name = childModel.address.street_name;
+        childModel.postal_code = childModel.address.postal_code;
+        childModel.city = childModel.address.city;
+        childModel.house_number = childModel.address.house_number;
+
+        // Voegt een datum in MySQL-formaat toe aan het model
+        childModel.date_of_birth = dateService.dateToMySQLString(childModel.date_of_birth_d);
+
         var editPromise = userService.updateChild(childModel, childModel.id).then(function() {
             $scope.errors = {};
 
             _loadProfile(true);
+            $mdToast.show($mdToast.simple().content('Kind aangepast'));
         }, function(err) {
             for(var key in err.errors.messages) {
                 $scope.errors[key] = err.errors.messages[key][0];
@@ -56,9 +67,19 @@ angular.module('joetzApp').controller('UserCtrl', ['$state', '$scope', 'userServ
             return undefined;
         }
 
+        // Voegt adres-attributen toe aan het model, zodat de data correct wordt verstuurd
+        childModel.street_name = childModel.address.street_name;
+        childModel.postal_code = childModel.address.postal_code;
+        childModel.city = childModel.address.city;
+        childModel.house_number = childModel.address.house_number;
+
+        // Voegt een datum in MySQL-formaat toe aan het model
+        childModel.date_of_birth = dateService.dateToMySQLString(childModel.date_of_birth_d);
+
         var addPromise = userService.addChild(childModel).then(function() {
             $scope.errors = {};
             _loadProfile(true);
+            $mdToast.show($mdToast.simple().content('Kind toegevoegd'));
         }, function(err) {
             for(var key in err.errors) {
                 $scope.errors[key] = err.errors[key][0];

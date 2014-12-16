@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('joetzApp').controller('RegistrationCtrl', ['$scope', '$state', '$stateParams', 'userService', 'vacationService', function ($scope, $state, $stateParams, userService, vacationService) {
+angular.module('joetzApp').controller('RegistrationCtrl', ['$scope', '$state', '$stateParams', 'userService', 'vacationService', '$mdToast', function ($scope, $state, $stateParams, userService, vacationService, $mdToast) {
     // Haalt de vakantie-id uit de URL en voegt die toe aan het inschrijvingsmodel in de scope
     var vacationId = $stateParams.vacationId;
     $scope.registration = {
@@ -99,8 +99,10 @@ angular.module('joetzApp').controller('RegistrationCtrl', ['$scope', '$state', '
      * @return {void}
      */
     var _saveRegistration = function() {
-    	userService.saveRegistration($scope.registration, $scope.registration.selectedChild.id).then(function(response) {
+    	userService.saveRegistration($scope.registration, $scope.registration.selectedChild.id).then(function() {
             // Notificeer de gebruiker
+            $state.go('vacations.detail', { vacationId: $scope.registration.vacation_id });
+            $mdToast.show($mdToast.simple().content('Je hebt je succesvol ingeschreven. Gelieve de betaling te voltooien.'));
     	}, function(err) {
             console.log(err);
     	});

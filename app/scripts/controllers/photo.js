@@ -1,16 +1,24 @@
 'use strict';
 
-angular.module('joetzApp').controller('PhotoCtrl', ['$scope', 'vacationService', function ($scope, vacationService) {
+angular.module('joetzApp').controller('PhotoCtrl', ['$scope', 'vacationService', '$mdDialog', function ($scope, vacationService, $mdDialog) {
+	$scope.photos = [];
+
 	var _getPhotosByVacation = function(vacationId) {
 		console.log(vacationId);
-		vacationService.getPhotos(vacationId).then(function(photos) {
-	        $scope.photos[vacationId] = photos;
+		if(!(vacationId in $scope.photos)) {
+			vacationService.getPhotos(vacationId).then(function(photos) {
+		        $scope.photos[vacationId] = photos;
+		    });
+		}
+	};
+
+	var _showPhoto = function(ev, fullsize) {
+	    $mdDialog.show({
+	      template: '<img src="' + fullsize + '"> />',
+	      targetEvent: ev
 	    });
 	};
 
-	for(var child in $scope.user.children) {
-		for(var registration in child.registrations) {
-			_getPhotosByVacation(registration.vacationId);
-		}
-	}
+	$scope.getPhotosByVacation = _getPhotosByVacation;
+	$scope.showPhoto = _showPhoto;
   }]);
