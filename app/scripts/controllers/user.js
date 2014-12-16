@@ -3,6 +3,7 @@
 angular.module('joetzApp').controller('UserCtrl', ['$state', '$scope', 'userService', 'dateService', 'promiseTracker', '$mdDialog', '$mdToast', function ($state, $scope, userService, dateService, promiseTracker, $mdDialog, $mdToast) {
     $scope.editTracker = promiseTracker();
     $scope.errors = {};
+    $scope.selectedChild = {};
 
     /**
      * Laadt het profiel van de gebruiker
@@ -48,6 +49,7 @@ angular.module('joetzApp').controller('UserCtrl', ['$state', '$scope', 'userServ
             _loadProfile(true);
             $mdToast.show($mdToast.simple().content('Kind aangepast'));
         }, function(err) {
+            $scope.errors = {};
             for(var key in err.errors.messages) {
                 $scope.errors[key] = err.errors.messages[key][0];
             }
@@ -68,19 +70,24 @@ angular.module('joetzApp').controller('UserCtrl', ['$state', '$scope', 'userServ
         }
 
         // Voegt adres-attributen toe aan het model, zodat de data correct wordt verstuurd
-        childModel.street_name = childModel.address.street_name;
-        childModel.postal_code = childModel.address.postal_code;
-        childModel.city = childModel.address.city;
-        childModel.house_number = childModel.address.house_number;
+        if(childModel.address) {
+            childModel.street_name = childModel.address.street_name;
+            childModel.postal_code = childModel.address.postal_code;
+            childModel.city = childModel.address.city;
+            childModel.house_number = childModel.address.house_number;
+        }
 
         // Voegt een datum in MySQL-formaat toe aan het model
-        childModel.date_of_birth = dateService.dateToMySQLString(childModel.date_of_birth_d);
+        if(childModel.date_of_birth_d) {
+            childModel.date_of_birth = dateService.dateToMySQLString(childModel.date_of_birth_d);
+        }
 
         var addPromise = userService.addChild(childModel).then(function() {
             $scope.errors = {};
             _loadProfile(true);
             $mdToast.show($mdToast.simple().content('Kind toegevoegd'));
         }, function(err) {
+            $scope.errors = {};
             for(var key in err.errors) {
                 $scope.errors[key] = err.errors[key][0];
             }
